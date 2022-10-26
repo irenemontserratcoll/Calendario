@@ -8,9 +8,17 @@ public class Evento {
 	protected float duracionReal;
 	protected Categoria categoria;
 	protected boolean urgente;
+	//HashCode?
 	
 	
-	//CONSTRUCTOR
+	/** Construye un evento a partir de todos los datos
+	 * @param nombre
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @param duracionReal
+	 * @param categoria
+	 * @param urgente
+	 */
 	public Evento(String nombre, Date fechaInicio, Date fechaFin, float duracionReal, Categoria categoria, boolean urgente) {
 		super();
 		this.nombre = nombre;
@@ -21,6 +29,9 @@ public class Evento {
 		this.urgente = urgente;
 	}
 	
+	/** Construye un evento a partir del nombre
+	 * @param nombre
+	 */
 	public Evento(String nombre) {
 		super();
 		this.nombre = nombre;
