@@ -25,6 +25,31 @@ public class EventoTest {
 		e.setNombre("Trabajo Estadística");
 		assertEquals("Trabajo Estadística", e.getNombre());;
 	}
+	//TODO Los de las fechas
+	
+	@Test
+	public void testGetCategoria() {
+		assertEquals(null, e.getCategoria());;
+	}
+	
+	@Test
+	public void testSetCategoria() {
+		Categoria c = new Categoria("Universidad");
+		e.setCategoria(c);
+		assertEquals(c,e.getCategoria());
+	}
+	
+	@Test
+	public void testIsUrgente() {
+		assertEquals(true, e.isUrgente());
+	}
+	
+	@Test
+	public void testSetUrgente() {
+		e.setUrgente(false);
+		assertEquals(false, e.isUrgente());
+	}
+	
 
 
 }

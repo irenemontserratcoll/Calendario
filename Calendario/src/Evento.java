@@ -3,7 +3,9 @@ import java.util.Date;
 public class Evento {
 	//ATRIBUTOS
 	protected String nombre;
-	protected Date fechaInicio; //Ver clase Calendar en vez de Date
+	
+	//TODO Ver clase Calendar, Gregorian Calendar y Time (SQL)
+	protected Date fechaInicio; 
 	protected Date fechaFin;
 	protected float duracionReal;
 	protected Categoria categoria;
