@@ -15,7 +15,7 @@ public class GestorEventos {
 	 */
 	public GestorEventos(String usuario, ArrayList<Evento> listaEventos) {
 		this.usuario = usuario;
-		this.listaEventos = new ArrayList<> ();
+		this.listaEventos = listaEventos;
 	}
 
 	
@@ -43,6 +43,10 @@ public class GestorEventos {
 	public void removeEvento (Evento evento) {
 		listaEventos.remove(evento);
 	}
+
+
+
+	
 	
 
 	
