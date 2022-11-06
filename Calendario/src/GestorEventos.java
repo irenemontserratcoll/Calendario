@@ -21,6 +21,7 @@ public class GestorEventos {
 	
 	//METODOS
 	public ArrayList<Evento> getListaUrgentes() {
+		ArrayList<Evento> listaUrgente = new ArrayList<Evento>();
 		for (Evento evento : getListaEventos()) {
 				if (evento.isUrgente()){
 					listaUrgente.add(evento);
@@ -37,7 +38,9 @@ public class GestorEventos {
 	}
 	
 	public void addEvento (Evento evento) {
+		
 		listaEventos.add(evento);
+		
 	}
 	
 	public void removeEvento (Evento evento) {
