@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 
+
 public class GestorEventos {
 	// ATRIBUTOS
 	private final String usuario; // En la ventana usuario. If usuario y contraseña bien. Abrir gestor eventos [usuario]
 	private ArrayList<Evento> listaEventos;
-	
+	private ArrayList<Evento> listaUrgente;
 	//CONSTRUCTOR
 	/** Construye el Gestor de Eventos o Calendario particular del usuario.
 	 * Es necesario que tenga un nombre de usuario único para poder diferenciarlo de los otros.
@@ -19,7 +20,14 @@ public class GestorEventos {
 
 	
 	//METODOS
-	
+	public ArrayList<Evento> getListaUrgentes() {
+		for (Evento evento : getListaEventos()) {
+				if (evento.isUrgente()){
+					listaUrgente.add(evento);
+				}
+			}
+		return listaUrgente;
+	}
 	public String getUsuario() {
 		return usuario;
 	}
