@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.time.*;
+import java.time.format.*;
 import java.util.Date;
 
 import org.junit.Before;
@@ -13,8 +15,9 @@ public class EventoTest {
 	}
 	 */
 	
-
-	Evento e = new Evento("Estudiar", new Date(7,7,2004,15,30), new Date(8,7,2004,15,45),7.5f, null, true);
+	ZonedDateTime inicio = ZonedDateTime.of(LocalDateTime.of(2022,11,4,18,58), ZoneId.of("Europe/Madrid"));
+	ZonedDateTime fin = ZonedDateTime.of(LocalDateTime.of(2022,11,4,19,58), ZoneId.of("Europe/Madrid"));
+	Evento e = new Evento("Estudiar", inicio, fin ,7.5f, null, true);
 	
 	@Test
 	public void testGetNombre() {
@@ -25,6 +28,31 @@ public class EventoTest {
 		e.setNombre("Trabajo Estadística");
 		assertEquals("Trabajo Estadística", e.getNombre());;
 	}
+	//TODO Los de las fechas
+	
+	@Test
+	public void testGetCategoria() {
+		assertEquals(null, e.getCategoria());;
+	}
+	
+	@Test
+	public void testSetCategoria() {
+		Categoria c = new Categoria("Universidad");
+		e.setCategoria(c);
+		assertEquals(c,e.getCategoria());
+	}
+	
+	@Test
+	public void testIsUrgente() {
+		assertEquals(true, e.isUrgente());
+	}
+	
+	@Test
+	public void testSetUrgente() {
+		e.setUrgente(false);
+		assertEquals(false, e.isUrgente());
+	}
+	
 
 
 }

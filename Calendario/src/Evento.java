@@ -1,10 +1,13 @@
-import java.util.Date;
+import java.time.*;
+import java.time.format.*;
 
 public class Evento {
 	//ATRIBUTOS
 	protected String nombre;
-	protected Date fechaInicio; //Ver clase Calendar en vez de Date
-	protected Date fechaFin;
+	
+	//TODO Ver clase Calendar, Gregorian Calendar y Time (SQL)
+	protected ZonedDateTime fechaInicio; 
+	protected ZonedDateTime fechaFin;
 	protected float duracionReal;
 	protected Categoria categoria;
 	protected boolean urgente;
@@ -19,7 +22,7 @@ public class Evento {
 	 * @param categoria
 	 * @param urgente
 	 */
-	public Evento(String nombre, Date fechaInicio, Date fechaFin, float duracionReal, Categoria categoria, boolean urgente) {
+	public Evento(String nombre, ZonedDateTime fechaInicio, ZonedDateTime fechaFin, float duracionReal, Categoria categoria, boolean urgente) {
 		super();
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
@@ -34,12 +37,23 @@ public class Evento {
 	 */
 	public Evento(String nombre) {
 		super();
-		this.nombre = nombre;
 		this.fechaInicio = null;
 		this.fechaFin = null;
 		this.duracionReal = 0.F;
 		this.categoria = null;
 		this.urgente = false;
+	}
+	
+	public Evento(String nombre, int anyo, int mes, int dia, int hora, int minuto) {
+		super();
+		LocalDateTime dt = LocalDateTime.of(anyo, mes, dia, hora, minuto);
+		ZonedDateTime fechaInicio = ZonedDateTime.of(dt,ZoneId.of("Europe/Madrid"));
+		this.fechaInicio= fechaInicio;
+	}
+	
+	public Evento(String nombre, int anyo, int mes, int dia, int hora, int minuto,int duracionMinutos) {
+		super();
+		this.fechaFin = fechaInicio.plusMinutes(duracionMinutos);
 	}
 
 	//METODOS
@@ -54,20 +68,30 @@ public class Evento {
 		this.nombre = nombre;
 	}
 
-	public Date getFechaInicio() {
+	public ZonedDateTime getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(ZonedDateTime fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
+	
+	public void setFechaInicio(int anyo, int mes, int dia, int hora, int minuto) {
+		LocalDateTime dt = LocalDateTime.of(anyo, mes, dia, hora, minuto);
+		ZonedDateTime fechaInicio = ZonedDateTime.of(dt,ZoneId.of("Europe/Madrid"));
+		this.fechaInicio= fechaInicio;
+	}
 
-	public Date getFechaFin() {
+	public ZonedDateTime getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setFechaFin(Date fechaFin) {
+	public void setFechaFin(ZonedDateTime fechaFin) {
 		this.fechaFin = fechaFin;
+	}
+	
+	public void setFechaFin(int duracionMinutos) {
+		this.fechaFin = fechaInicio.plusMinutes(duracionMinutos);
 	}
 
 	public float getDuracionReal() {
