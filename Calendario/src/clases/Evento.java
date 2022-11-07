@@ -1,11 +1,10 @@
+package clases;
 import java.time.*;
 import java.time.format.*;
 
 public class Evento {
 	// ATRIBUTOS
 	protected String nombre;
-
-	// TODO Ver clase Calendar, Gregorian Calendar y Time (SQL)
 	protected ZonedDateTime fechaInicio;
 	protected ZonedDateTime fechaFin;
 	protected float duracionReal;

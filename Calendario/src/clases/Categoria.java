@@ -1,3 +1,4 @@
+package clases;
 import java.awt.Color;
 
 public class Categoria {
