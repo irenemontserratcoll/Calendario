@@ -13,16 +13,17 @@ public class GestorEventos {
 	 * Contiene una lista (ArrayList) con todos los eventos del usuario.
 	 * @param usuario
 	 * @param listaEventos
+	 * @param listaUrgente
 	 */
-	public GestorEventos(String usuario, ArrayList<Evento> listaEventos) {
+	public GestorEventos(String usuario, ArrayList<Evento> listaEventos, ArrayList<Evento> listaUrgente ) {
 		this.usuario = usuario;
 		this.listaEventos = listaEventos;
+		this.listaUrgente = listaUrgente;
 	}
 
 	
 	//METODOS
-	public ArrayList<Evento> getListaUrgentes() {
-		ArrayList<Evento> listaUrgente = new ArrayList<Evento>();
+	public ArrayList<Evento> getListaUrgente() {
 		for (Evento evento : getListaEventos()) {
 				if (evento.isUrgente()){
 					listaUrgente.add(evento);
@@ -47,6 +48,16 @@ public class GestorEventos {
 	public void removeEvento (Evento evento) {
 		listaEventos.remove(evento);
 	}
+
+
+	public void setListaUrgente(ArrayList<Evento> listaUrgente) {
+		
+		this.listaUrgente = listaUrgente;
+		
+	}
+
+
+	
 
 
 
