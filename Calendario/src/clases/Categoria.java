@@ -19,7 +19,7 @@ public class Categoria {
 	public Categoria(String categoria) {
 		this.categoria = categoria;
 		this.autorizados = null;
-		this.color = color.LIGHT_GRAY;
+		this.color = Color.LIGHT_GRAY;
 	}
 		
 	//Get y set
