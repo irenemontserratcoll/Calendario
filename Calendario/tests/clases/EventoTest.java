@@ -3,7 +3,6 @@ import static org.junit.Assert.*;
 
 import java.time.*;
 import java.time.format.*;
-import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,13 +21,7 @@ public class EventoTest {
 		e = new Evento("Estudiar", inicio, fin ,7.5f, categoria, true);
 	}
 	
-	@Test
-	public void constructores() {
-		Evento e2 = new Evento("Jugar Play");
-		Evento e3 = new Evento("Llamar abuela", 2014, 3, 4, 18, 21);
-		Evento e4 = new Evento("Partido SanMames", 2022, 1, 8, 14, 3, 120);
-	}
-	
+
 	@Test
 	public void testGetNombre() {
 		assertEquals("Estudiar", e.getNombre());;
