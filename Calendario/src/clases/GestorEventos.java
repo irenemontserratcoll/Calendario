@@ -15,10 +15,10 @@ public class GestorEventos {
 	 * @param listaEventos
 	 * @param listaUrgente
 	 */
-	public GestorEventos(String usuario, ArrayList<Evento> listaEventos, ArrayList<Evento> listaUrgente ) {
+	public GestorEventos(String usuario, ArrayList<Evento> listaEventos) {
 		this.usuario = usuario;
 		this.listaEventos = listaEventos;
-		this.listaUrgente = listaUrgente;
+
 	}
 
 	
