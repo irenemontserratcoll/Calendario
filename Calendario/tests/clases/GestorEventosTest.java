@@ -2,7 +2,7 @@ package clases;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -38,13 +38,13 @@ public class GestorEventosTest {
 
 		ArrayList<Evento> listaEsperada = new ArrayList<Evento>();
 		listaEsperada.add(new Evento("Comida"));
-		assertSame(listaEsperada.get(0).getNombre(), calendario12.getListaUrgentes().get(0).getNombre());
+		assertSame(listaEsperada.get(0).getNombre(), calendario12.getListaUrgente().get(0).getNombre());
 	}
 
 	@Test
 	public void testGetListaEventosUrgentes1() {
 		ArrayList<Evento> listaEsperada = new ArrayList<Evento>();
-		assertEquals(listaEsperada, calendario12.getListaUrgentes());
+		assertEquals(listaEsperada, calendario12.getListaUrgente());
 	}
 
 	/*

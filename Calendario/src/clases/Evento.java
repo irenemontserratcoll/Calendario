@@ -1,6 +1,5 @@
 package clases;
 import java.time.*;
-import java.time.format.*;
 
 public class Evento {
 	// ATRIBUTOS
