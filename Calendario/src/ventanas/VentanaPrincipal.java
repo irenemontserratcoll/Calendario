@@ -6,9 +6,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.time.Month;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.swing.*;
+
+import clases.Categoria;
 
 public class VentanaPrincipal extends JFrame {
 	ZonedDateTime fecha = ZonedDateTime.now();
@@ -22,7 +24,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		JSplitPane barra = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		barra.setBorder(null); //No se ve el borde
-		barra.setResizeWeight(0.75); // Una parte ocupa este procentaje de panel
+		barra.setResizeWeight(0.70); // Una parte ocupa este procentaje de panel
 		barra.setEnabled(false); // El usuario no puede moverla
 		barra.setDividerSize(0); //No se ve
 		
@@ -30,9 +32,10 @@ public class VentanaPrincipal extends JFrame {
 		principal.setLayout(new BorderLayout());
 		
 		JPanel panelTitulo = new JPanel();
-		panelTitulo.setBackground(Color.YELLOW);
-		JLabel titulo = new JLabel("Deusto Calendar");
+		
+		JLabel titulo = new JLabel("      Deusto Calendar     ");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 50));
+
 		
 		JComboBox mes = new JComboBox();
 		mes.setModel(new DefaultComboBoxModel(Month.values()));
@@ -53,8 +56,6 @@ public class VentanaPrincipal extends JFrame {
 		anterior.setFont(new Font("Tahoma", 0, 20));
 		
 		
-
-		
 		panelTitulo.add(mes);
 		panelTitulo.add(anyo);
 		panelTitulo.add(titulo);
@@ -63,7 +64,9 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 		JPanel panelCalendario = new JPanel();
-		panelCalendario.setBackground(Color.RED);
+		JTable tablaCalendario = new JTable(15,8);
+		
+		panelCalendario.add(tablaCalendario);
 		
 		principal.add(panelTitulo, BorderLayout.NORTH);
 		principal.add(panelCalendario, BorderLayout.CENTER);
@@ -72,12 +75,31 @@ public class VentanaPrincipal extends JFrame {
 		JPanel barraDerecha = new JPanel(new GridLayout(2,1));
 		
 		JPanel categorias = new JPanel();
-		categorias.setBackground(Color.BLUE);
+		
+		JLabel tituloCategorias = new JLabel("    Categorias ");
+		tituloCategorias.setFont(new Font("Tahoma", Font.BOLD, 20));
+		
+		
+//		List<clases.Categoria> listaCategorias = List.of(
+//				new Categoria("Estudiar", null, Color.BLUE),
+//				new Categoria("Deporte", null, Color.RED),
+//				new Categoria("Proyecto Programacion", null, Color.YELLOW));
+//		
+//		DefaultListModel<Categoria> modeloCategorias = new DefaultListModel<>();
+//		modeloCategorias.addAll(listaCategorias);
+//		JList<Categoria> jListCategorias = new JList<>();
+//		jListCategorias.setCellRenderer(new RendererCategoria());
+//		jListCategorias.setModel(modeloCategorias);
+//		
+		categorias.add(tituloCategorias);
+//		categorias.add(jListCategorias);
+				
 		
 		
 		JPanel pendientes = new JPanel();
-		pendientes.setBackground(Color.LIGHT_GRAY);
-		
+		JLabel tituloPendientes = new JLabel(" Tareas pendientes ");
+		tituloPendientes.setFont(new Font("Tahoma", Font.BOLD, 20));
+		pendientes.add(tituloPendientes);
 		
 		barraDerecha.add(categorias);
 		barraDerecha.add(pendientes);
