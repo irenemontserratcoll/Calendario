@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class Usuarios {
 	private static Logger logger = Logger.getLogger(Logger.class.getName());
 	private Connection conn;
-	private Statement statement;
+	//private Statement statement;
 	private ArrayList<Usuario> listaUsuarios;
 	
 	public boolean iniciar(){

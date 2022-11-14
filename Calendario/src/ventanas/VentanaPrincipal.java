@@ -1,16 +1,13 @@
 package ventanas;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.time.Month;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 import javax.swing.*;
 
-import clases.Categoria;
 
 public class VentanaPrincipal extends JFrame {
 	ZonedDateTime fecha = ZonedDateTime.now();
@@ -37,8 +34,8 @@ public class VentanaPrincipal extends JFrame {
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 50));
 
 		
-		JComboBox mes = new JComboBox();
-		mes.setModel(new DefaultComboBoxModel(Month.values()));
+		JComboBox<Object> mes = new JComboBox<Object>();
+		mes.setModel(new DefaultComboBoxModel<Object>(Month.values()));
 		mes.setSelectedItem(fecha.getMonth()); //Mes actual
 		
 		String[] anyos = new String[12];
@@ -46,7 +43,7 @@ public class VentanaPrincipal extends JFrame {
 			int opcionAnyo = fecha.getYear()-5+i;
 			anyos[i]= ""+ opcionAnyo;
 		}
-		JComboBox anyo = new JComboBox(anyos);
+		JComboBox<Object> anyo = new JComboBox<Object>(anyos);
 		anyo.setSelectedItem(""+fecha.getYear()); //Mes actual
 		
 		JButton siguiente = new JButton(">");

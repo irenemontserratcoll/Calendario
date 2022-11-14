@@ -10,10 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 public class VentanaUsuario extends JFrame{
-	
+
+	private static final long serialVersionUID = 1L;
+
 	public VentanaUsuario(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Ventana Usuario");
