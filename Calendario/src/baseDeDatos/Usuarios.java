@@ -10,6 +10,8 @@ import clases.Usuario;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
+
 
 public class Usuarios {
 	private static Logger logger = Logger.getLogger(Logger.class.getName());
@@ -46,10 +48,15 @@ public class Usuarios {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			mensajeError("No se ha podido establecer conexión con el sistema");
 			return false;
 		}
 	}
+	public static void mensajeError(String s) {
+		JOptionPane.showMessageDialog(null, s,"Error",JOptionPane.ERROR_MESSAGE);
+    }
 	public static void main(String[] args) {
 		//iniciar();
+		
 	}
 }
