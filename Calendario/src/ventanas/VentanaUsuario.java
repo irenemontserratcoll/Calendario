@@ -1,12 +1,19 @@
 package ventanas;
 
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,7 +50,10 @@ public class VentanaUsuario extends JFrame{
 		JPanel contraseña = new JPanel();
 		JPanel login = new JPanel();
 		JPanel nuevoUsuario = new JPanel();
-
+		JLabel imagen = new JLabel();
+		
+		imagen.setIcon(new ImageIcon("/res/favicon.ico"));
+		
 		textoUsuario = new JLabel("Usuario");
 		usuario.add(textoUsuario);
 		nombreUsuario = new JTextField(20);
@@ -105,6 +115,7 @@ public class VentanaUsuario extends JFrame{
 		login.add(bLogin);
 		nuevoUsuario.add(bNuevoUsuario);
 		
+		principal.add(imagen);
 		principal.add(usuario);
 		principal.add(contraseña); 
 		principal.add(login);
