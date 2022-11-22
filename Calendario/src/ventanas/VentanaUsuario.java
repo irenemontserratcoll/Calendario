@@ -1,6 +1,7 @@
 package ventanas;
 
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -34,16 +35,26 @@ public class VentanaUsuario extends JFrame{
 		baseDatosUsuarios.iniciar();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Ventana Usuario");
-		setSize(700,700);
+		setSize(700,400);
 		
-		principal = new JPanel();
+		principal = new JPanel(new GridLayout(5,1));
+		
+		JPanel usuario = new JPanel();
+		JPanel contraseña = new JPanel();
+		JPanel login = new JPanel();
+		JPanel nuevoUsuario = new JPanel();
+
 		textoUsuario = new JLabel("Usuario");
-		principal.add(textoUsuario);
+		usuario.add(textoUsuario);
 		nombreUsuario = new JTextField(20);
-		principal.add(nombreUsuario);
+		usuario.add(nombreUsuario);
 		
 		textoContraseña = new JLabel("Contraseña");
+		contraseña.add(textoContraseña);
 		valorContraseña = new JTextField(20);
+		contraseña.add(valorContraseña);
+		
+		
 		
 		bLogin = new JButton("Login");
 		bLogin.addActionListener(new ActionListener() {
@@ -91,15 +102,15 @@ public class VentanaUsuario extends JFrame{
 			}
 		});
 		
-		principal.add(textoContraseña);
-		principal.add(valorContraseña);
+		login.add(bLogin);
+		nuevoUsuario.add(bNuevoUsuario);
 		
-		principal.add(bLogin);
-		principal.add(bNuevoUsuario);
-		
-		
+		principal.add(usuario);
+		principal.add(contraseña); 
+		principal.add(login);
+		principal.add(nuevoUsuario);
+				
 
-		
 		add(principal);
 		setVisible(true);
 	}
