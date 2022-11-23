@@ -1,11 +1,14 @@
 package ventanas;
 
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -35,6 +38,10 @@ public class VentanaUsuario extends JFrame{
 	JButton bLogin;
 	JButton bNuevoUsuario;
 	Usuarios baseDatosUsuarios;
+	ImageIcon imagen2 = new ImageIcon("/res/gato.jpg");
+	JPanel panel1 = new JPanel();
+	private JLabelAjustado lImagen = new JLabelAjustado( null );
+	
 	
 
 	public VentanaUsuario(){
@@ -44,15 +51,19 @@ public class VentanaUsuario extends JFrame{
 		setTitle("Ventana Usuario");
 		setSize(700,400);
 		
-		principal = new JPanel(new GridLayout(5,1));
+		principal = new JPanel(new GridLayout(2,1));
 		
 		JPanel usuario = new JPanel();
 		JPanel contraseña = new JPanel();
 		JPanel login = new JPanel();
 		JPanel nuevoUsuario = new JPanel();
-		JLabel imagen = new JLabel();
+		//JLabel imagen = new JLabel();
 		
-		imagen.setIcon(new ImageIcon("/res/favicon.ico"));
+		//imagen.setIcon(new ImageIcon("/res/favicon.ico"));
+		lImagen.setImagen(imagen2);
+		lImagen.setPreferredSize( new Dimension( 200, 200 ) );
+		lImagen.paintComponent(lImagen.getGraphics());
+		
 		
 		textoUsuario = new JLabel("Usuario");
 		usuario.add(textoUsuario);
@@ -114,12 +125,14 @@ public class VentanaUsuario extends JFrame{
 		
 		login.add(bLogin);
 		nuevoUsuario.add(bNuevoUsuario);
-		
-		principal.add(imagen);
-		principal.add(usuario);
-		principal.add(contraseña); 
-		principal.add(login);
-		principal.add(nuevoUsuario);
+		panel1.setLayout(new GridLayout(4,1));
+		panel1.add(usuario);
+		panel1.add(contraseña); 
+		panel1.add(login);
+		panel1.add(nuevoUsuario);
+		principal.add(lImagen);
+		principal.add(panel1);
+
 				
 
 		add(principal);
@@ -129,6 +142,57 @@ public class VentanaUsuario extends JFrame{
 	public static void mensajeError(String s) {
 		JOptionPane.showMessageDialog(null, s,"Error",JOptionPane.ERROR_MESSAGE);
     }
+	
+	private static class JLabelAjustado extends JLabel {
+
+		private static final long serialVersionUID = 1L;
+		private ImageIcon imagen; 
+		private int tamX;
+		private int tamY;
+		/** Crea un jlabel que ajusta una imagen cualquiera con fondo blanco a su tamaño (a la que ajuste más de las dos escalas, horizontal o vertical)
+		 * @param imagen	Imagen a visualizar en el label
+		 */
+		public JLabelAjustado( ImageIcon imagen ) {
+			setImagen( imagen );
+		}
+		/** Modifica la imagen
+		 * @param imagen	Nueva imagen a visualizar en el label
+		 */
+		public void setImagen( ImageIcon imagen ) {
+			this.imagen = imagen;
+			if (imagen==null) {
+				tamX = 0;
+				tamY = 0;
+				System.out.println("Imagen nula");
+			} else {
+				this.tamX = imagen.getIconWidth();
+				this.tamY = imagen.getIconHeight();
+			}
+		}
+		protected void paintComponent(Graphics g) {
+			Graphics2D g2 = (Graphics2D) g;  // El Graphics realmente es Graphics2D
+			g2.setColor( Color.WHITE );
+			g2.fillRect( 0, 0, getWidth(), getHeight() );
+			if (imagen!=null && tamX>0 && tamY>0) {
+				g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+				g2.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);	
+				double escalaX = 1.0 * getWidth() / tamX;
+				double escalaY = 1.0 * getHeight() / tamY;
+				double escala = escalaX;
+				int x = 0;
+				int y = 0;
+				if (escalaY < escala) {
+					escala = escalaY;
+					x = (int) ((getWidth() - (tamX * escala)) / 2);
+				} else {
+					y = (int) ((getHeight() - (tamY * escala)) / 2);
+				}
+		        g2.drawImage( imagen.getImage(), x, y, (int) (tamX*escala), (int) (tamY*escala), null );
+			}
+		}
+		
+	}
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -137,4 +201,5 @@ public class VentanaUsuario extends JFrame{
 			}
 		});
 	}
+	
 }
