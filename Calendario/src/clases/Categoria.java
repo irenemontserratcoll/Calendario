@@ -7,7 +7,6 @@ public class Categoria {
 	protected String categoria;
 	protected Usuario autorizados;
 	protected Color color;
-	protected boolean activa;
 	
 	//Constructores
 	public Categoria(String categoria, Usuario autorizados, Color color) {
@@ -15,25 +14,15 @@ public class Categoria {
 		this.categoria = categoria;
 		this.autorizados = autorizados;
 		this.color = color;
-		this.activa = true;
 	}
 	
 	public Categoria(String categoria) {
 		this.categoria = categoria;
 		this.autorizados = null;
 		this.color = Color.LIGHT_GRAY;
-		this.activa=true;
 	}
 		
 	//Get y set
-
-	public boolean isActiva() {
-		return activa;
-	}
-
-	public void setActiva(boolean activa) {
-		this.activa = activa;
-	}
 	public String getCategoria() {
 		return categoria;
 	}
@@ -60,7 +49,7 @@ public class Categoria {
 
 	@Override
 	public String toString() {
-		return categoria + "Autorizados: " + autorizados + "Color: " + color;
+		return "En esta categoria (" + categoria + ") estan autorizados " + autorizados + "y se señaliza con el color" + color;
 	}
 	
 	
