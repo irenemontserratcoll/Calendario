@@ -2,13 +2,16 @@ package ventanas;
 
 
 import java.awt.Component;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 import clases.Categoria;
 
-public class RendererCategoria extends JCheckBox implements ListCellRenderer<Categoria> {
+public class RendererCategoria extends JCheckBox implements ListCellRenderer<Categoria>, MouseListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,13 +21,44 @@ public class RendererCategoria extends JCheckBox implements ListCellRenderer<Cat
 		
 		setText(value.getCategoria());
 		setForeground(value.getColor());
-		setSelected(true);
-		//TODO no se puede cambiar la seleccion en la ventana
-		setEnabled(true);
+		setSelected(value.isActiva());
+		
 		return this;
 	}
+	
 
-	public RendererCategoria() {
-		setOpaque(true);
+	@Override
+	public void mousePressed(MouseEvent e) {
+		//Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		//  Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		//Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		@SuppressWarnings("unchecked")
+		JList<Categoria> list = (JList<Categoria>) e.getSource();
+		int index = list.locationToIndex(e.getPoint());
+		Categoria c = list.getModel().getElementAt(index);
+		c.setActiva(!c.isActiva());
+		list.repaint();
 	}
 }
