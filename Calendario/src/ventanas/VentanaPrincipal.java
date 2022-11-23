@@ -89,10 +89,8 @@ public class VentanaPrincipal extends JFrame {
 		DefaultListModel<Categoria> modeloCategorias = new DefaultListModel<>();
 		modeloCategorias.addAll(listaCategorias);
 		JList<Categoria> jListCategorias = new JList<>();
+		jListCategorias.setCellRenderer(new RendererCategoria());
 		jListCategorias.setModel(modeloCategorias);
-		RendererCategoria renderer = new RendererCategoria();
-		jListCategorias.addMouseListener(renderer);
-		jListCategorias.setCellRenderer(renderer);
 		
 		categorias.setLayout(new BorderLayout());
 		categorias.add(tituloCategorias, BorderLayout.NORTH);
