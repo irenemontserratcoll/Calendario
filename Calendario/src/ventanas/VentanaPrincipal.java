@@ -1,12 +1,16 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.time.Month;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import javax.swing.*;
+
+import clases.Categoria;
 
 
 public class VentanaPrincipal extends JFrame {
@@ -77,19 +81,20 @@ public class VentanaPrincipal extends JFrame {
 		tituloCategorias.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
 		
-//		List<clases.Categoria> listaCategorias = List.of(
-//				new Categoria("Estudiar", null, Color.BLUE),
-//				new Categoria("Deporte", null, Color.RED),
-//				new Categoria("Proyecto Programacion", null, Color.YELLOW));
-//		
-//		DefaultListModel<Categoria> modeloCategorias = new DefaultListModel<>();
-//		modeloCategorias.addAll(listaCategorias);
-//		JList<Categoria> jListCategorias = new JList<>();
-//		jListCategorias.setCellRenderer(new RendererCategoria());
-//		jListCategorias.setModel(modeloCategorias);
-//		
-		categorias.add(tituloCategorias);
-//		categorias.add(jListCategorias);
+		List<clases.Categoria> listaCategorias = List.of(
+				new Categoria("Estudiar", null, Color.BLUE),
+				new Categoria("Deporte", null, Color.RED),
+				new Categoria("Proyecto Programacion", null, Color.GREEN));
+		
+		DefaultListModel<Categoria> modeloCategorias = new DefaultListModel<>();
+		modeloCategorias.addAll(listaCategorias);
+		JList<Categoria> jListCategorias = new JList<>();
+		jListCategorias.setCellRenderer(new RendererCategoria());
+		jListCategorias.setModel(modeloCategorias);
+		
+		categorias.setLayout(new BorderLayout());
+		categorias.add(tituloCategorias, BorderLayout.NORTH);
+		categorias.add(jListCategorias, BorderLayout.CENTER);
 				
 		
 		
