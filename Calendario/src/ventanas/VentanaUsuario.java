@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,12 +25,13 @@ public class VentanaUsuario extends JFrame{
 	private static final long serialVersionUID = 1L;
 	JPanel principal;
 	JLabel textoUsuario;
-	JTextField nombreUsuario;
+	static JTextField nombreUsuario;
 	JLabel textoContraseña;
-	JTextField valorContraseña;
+	static JTextField valorContraseña;
 	JButton bLogin;
 	JButton bNuevoUsuario;
-	Usuarios baseDatosUsuarios;
+	static Usuarios baseDatosUsuarios;
+	JDialog crearUsuario;
 	
 
 	public VentanaUsuario(){
@@ -58,35 +60,19 @@ public class VentanaUsuario extends JFrame{
 		contraseña.add(textoContraseña);
 		valorContraseña = new JTextField(20);
 		contraseña.add(valorContraseña);
-		
-		
-		
+        
+
 		bLogin = new JButton("Login");
 		bLogin.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Boton login click!");
-                String usuario = nombreUsuario.getText().toString();
-                System.out.println("Usuario: "+usuario);
-                String contrasenya = valorContraseña.getText().toString();
-                System.out.println("Contraseña: "+contrasenya);
-                
-                System.out.println("Error: "+ baseDatosUsuarios.loginCorrecto(usuario, contrasenya));
-                switch (baseDatosUsuarios.loginCorrecto(usuario, contrasenya)) {
-                case 0:
-                	System.out.println("Login correcto");
-                	break;
-                case 1:
-                	mensajeError("Contraseña incorrecta");
-                	break;
-                case 2:
-                	mensajeError("Usuario no registrado");
-                	break;
-                case 3:
-                	mensajeError("Problema con la base de datos");
-                	break;
-                }    
+                if (comprobarBaseDatos()=="Login correcto") {
+                	JOptionPane.showMessageDialog(null, "LOGIN CORRECTO","login correcto",JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    mensajeError(comprobarBaseDatos());
+                }
             }
         });
 		
@@ -96,6 +82,11 @@ public class VentanaUsuario extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Boton A click!");
+                if (comprobarBaseDatos()!="Login correcto") {
+                    JOptionPane.showConfirmDialog(null, "¿Desea crear un nuevo usuario?", "Confirmación", JOptionPane.YES_NO_OPTION);   
+                }else {
+            		JOptionPane.showMessageDialog(null, "Este usuario ya existe","Error",JOptionPane.ERROR_MESSAGE);
+                }
                 
             }
         });
@@ -124,6 +115,30 @@ public class VentanaUsuario extends JFrame{
 	public static void mensajeError(String s) {
 		JOptionPane.showMessageDialog(null, s,"Error",JOptionPane.ERROR_MESSAGE);
     }
+	
+	public static String comprobarBaseDatos() {
+        String usuario = nombreUsuario.getText().toString();
+        System.out.println("Usuario: "+usuario);
+        String contrasenya = valorContraseña.getText().toString();
+        System.out.println("Contraseña: "+contrasenya);
+        
+        System.out.println("Error: "+ baseDatosUsuarios.loginCorrecto(usuario, contrasenya));
+        switch (baseDatosUsuarios.loginCorrecto(usuario, contrasenya)) {
+        case 0:
+        	//System.out.println("Login correcto");
+        	return "Login correcto";
+        case 1:
+        	//mensajeError("Contraseña incorrecta");
+        	return "Contraseña incorrecta";
+        case 2:
+        	//mensajeError("Usuario no registrado");
+        	return "Usuario no registrado";
+        case 3:
+        	//mensajeError("Problema con la base de datos");
+        	return"Problema con la base de datos"; 
+        }
+		return null; 
+	}
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
