@@ -1,17 +1,12 @@
 package ventanas;
 
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
+
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
