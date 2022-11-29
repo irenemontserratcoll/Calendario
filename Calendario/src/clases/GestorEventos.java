@@ -65,6 +65,12 @@ public class GestorEventos {
 		this.listaUrgente = listaUrgente;
 
 	}
+	
+	
+	public void crearListaTareas(ArrayList<Evento> listaEventos) {
+		
+	}
+	
 
 	public void cargarEnFicheroCSV() {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("evento.csv"))){

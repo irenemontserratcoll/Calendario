@@ -1,6 +1,7 @@
 package clases;
 import java.time.*;
 
+
 public class Evento {
 	// ATRIBUTOS
 	protected String nombre;
@@ -9,7 +10,10 @@ public class Evento {
 	protected float duracionReal;
 	protected Categoria categoria;
 	protected boolean urgente;
+	protected boolean activa;
+
 	// HashCode?
+	
 
 	/**
 	 * Construye un evento a partir de todos los datos
@@ -30,6 +34,8 @@ public class Evento {
 		this.duracionReal = duracionReal;
 		this.categoria = categoria;
 		this.urgente = urgente;
+		this.activa = true;
+
 	}
 
 	/**
@@ -44,6 +50,8 @@ public class Evento {
 		this.duracionReal = 0.0f;
 		this.categoria = null;
 		this.urgente = false;
+		this.activa = true;
+
 	}
 
 	/**
@@ -80,6 +88,21 @@ public class Evento {
 		ZonedDateTime fechaInicio = ZonedDateTime.of(dt, ZoneId.of("Europe/Madrid"));
 		this.fechaFin = fechaInicio.plusMinutes(duracionMinutos);
 	}
+	
+	
+	/**Constructor que al no establecer un nombre, una categoría y la urgencia pero no fecha de inicio, ni de fin 
+	 * ni duración se crea un evento y directamente se introduce en la lista de Tareas Pendientes
+	 * @return
+	 */
+	public Evento(String nombre, Categoria categoria, boolean urgente) {
+		super();
+		this.nombre = nombre;
+		this.categoria = categoria;
+		this.urgente = urgente;
+		this.activa = true;
+
+	}
+
 
 // METODOS
 
@@ -147,6 +170,14 @@ public class Evento {
 
 	public void setUrgente(boolean urgente) {
 		this.urgente = urgente;
+	}
+
+	public boolean isActiva() {
+		return activa;
+	}
+
+	public void setActiva(boolean activa) {
+		this.activa = activa;
 	}
 	
 //TODO Comprobar que la fecha de inicio es anterior a la fecha de fin
