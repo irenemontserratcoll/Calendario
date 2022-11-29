@@ -47,9 +47,9 @@ public class VentanaUsuario extends JFrame{
 		JPanel contraseña = new JPanel();
 		JPanel login = new JPanel();
 		JPanel nuevoUsuario = new JPanel();
-		JLabel imagen = new JLabel();
 		
-		imagen.setIcon(new ImageIcon("/res/favicon.ico"));
+		ImageIcon icono = new ImageIcon(VentanaUsuario.class.getResource("/Logo.jpg"));
+		JLabel imagen = new JLabel(icono,JLabel.CENTER);
 		
 		textoUsuario = new JLabel("Usuario");
 		usuario.add(textoUsuario);
