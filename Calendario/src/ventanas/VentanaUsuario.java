@@ -2,6 +2,7 @@ package ventanas;
 
 
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,9 +45,14 @@ public class VentanaUsuario extends JFrame{
 		principal = new JPanel(new GridLayout(5,1));
 		
 		JPanel usuario = new JPanel();
+		usuario.setBackground(Color.WHITE);
 		JPanel contraseña = new JPanel();
+		contraseña.setBackground(Color.WHITE);
 		JPanel login = new JPanel();
+		login.setBackground(Color.WHITE);
 		JPanel nuevoUsuario = new JPanel();
+		nuevoUsuario.setBackground(Color.WHITE);
+
 		
 		ImageIcon icono = new ImageIcon(VentanaUsuario.class.getResource("/Logobien.jpg"));
 		JLabel imagen = new JLabel(icono,JLabel.CENTER);
