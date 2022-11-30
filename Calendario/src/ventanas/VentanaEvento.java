@@ -1,6 +1,6 @@
 package ventanas;
 
-import java.awt.Color;
+
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,7 @@ import javax.swing.SwingUtilities;
 
 import org.jdatepicker.JDateComponentFactory;
 import org.jdatepicker.JDatePicker;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
+
 
 
 public class VentanaEvento extends JFrame {
@@ -46,6 +44,26 @@ public class VentanaEvento extends JFrame {
 		//Combo box con calendario para elegir día
 		JPanel fechaini = new JPanel();
 		JPanel fechafin = new JPanel();
+		
+		//Combo box con horas desde las 00 hasta las 23:30 (cada media hora)
+				JPanel horas = new JPanel();
+				List<String> horasl = new ArrayList<String>();
+			
+				for (int i=0;i<24;i++) {
+					horasl.add(i + ":00");
+					horasl.add(i + ":30");
+				}
+				JComboBox<Object> horasInicio = new JComboBox<Object>();
+			
+				for(int i=0;i<horasl.size();i++){
+					horasInicio.addItem(horasl.get(i));
+				}
+				JComboBox<Object> horasFin = new JComboBox<Object>();
+			
+				for(int i=0;i<horasl.size();i++){
+					horasFin.addItem(horasl.get(i));
+				}
+		
 		 JDatePicker picker = new JDateComponentFactory().createJDatePicker();
 		    picker.setTextEditable(true);
 		    picker.setShowYearButtons(true);
@@ -58,8 +76,10 @@ public class VentanaEvento extends JFrame {
 		horaFin = new JLabel("Fecha fin");
 		fechaini.add(horaIni);
 		fechaini.add((JComponent) picker);
+		fechaini.add(horasInicio);
 		fechafin.add(horaFin);
 	    fechafin.add((JComponent) picker1);
+	    fechafin.add(horasFin);
 
 	
 		
