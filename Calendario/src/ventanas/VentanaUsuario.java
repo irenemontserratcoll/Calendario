@@ -88,12 +88,8 @@ public class VentanaUsuario extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Boton A click!");
-                if (comprobarBaseDatos()!="Login correcto") {
-                    JOptionPane.showConfirmDialog(null, "¿Desea crear un nuevo usuario?", "Confirmación", JOptionPane.YES_NO_OPTION);   
-                }else {
-            		JOptionPane.showMessageDialog(null, "Este usuario ya existe","Error",JOptionPane.ERROR_MESSAGE);
-                }
+                System.out.println("Click boton nuevo Usuario");
+                anyadirUsuario();
                 
             }
         });
@@ -125,14 +121,49 @@ public class VentanaUsuario extends JFrame{
 	public static void mensajeError(String s) {
 		JOptionPane.showMessageDialog(null, s,"Error",JOptionPane.ERROR_MESSAGE);
     }
-	
+
+	public void anyadirUsuario() {
+		String bd = comprobarBaseDatos();
+		if (bd.equals("Usuario no registrado")) {
+			int reply = JOptionPane.showConfirmDialog(null, "¿Desea crear un nuevo usuario?", "Confirmación",
+					JOptionPane.YES_NO_OPTION);
+			if (reply == JOptionPane.YES_OPTION) {
+				String usuario = nombreUsuario.getText().toString();
+				String contrasenya = valorContraseña.getText().toString();
+
+				switch (baseDatosUsuarios.anyadirUsuarioBD(usuario, contrasenya)) {
+				case 0:
+					JOptionPane.showMessageDialog(null, "Usuario creado. Ya puedes acceder a tu nuevo calendario!",
+							"USUARIO CREADO", JOptionPane.INFORMATION_MESSAGE);
+					break;
+				case 1:
+					mensajeError("Campos vacíos");
+					break;
+				case 2:
+					mensajeError("El usuario ya existe");
+					break;
+				case 3:
+					mensajeError("Error");
+					break;
+				}
+				;
+			}
+
+		} else if (bd.equals("Login correcto") || bd.equals("Contraseña incorrecta")) {
+			JOptionPane.showMessageDialog(null, "Este usuario ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null, "", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
+
 	public static String comprobarBaseDatos() {
         String usuario = nombreUsuario.getText().toString();
-        System.out.println("Usuario: "+usuario);
+        //System.out.println("Usuario: "+usuario);
         String contrasenya = valorContraseña.getText().toString();
-        System.out.println("Contraseña: "+contrasenya);
+        //System.out.println("Contraseña: "+contrasenya);
         
-        System.out.println("Error: "+ baseDatosUsuarios.loginCorrecto(usuario, contrasenya));
+        //System.out.println("Error: "+ baseDatosUsuarios.loginCorrecto(usuario, contrasenya));
         switch (baseDatosUsuarios.loginCorrecto(usuario, contrasenya)) {
         case 0:
         	//System.out.println("Login correcto");

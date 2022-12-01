@@ -2,6 +2,7 @@ package baseDeDatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -81,7 +82,7 @@ public class Usuarios {
 			ResultSet rs1 = stmt1.executeQuery("SELECT COUNT(Usuario) FROM usuarios WHERE Usuario='"+nombreUsuario+"'");
 			//while (rs1.next()) {
 				int numUsuarios = rs1.getInt("COUNT(Usuario)");
-				System.out.println("Numeros usuarios: "+numUsuarios);
+				//System.out.println("Numeros usuarios: "+numUsuarios);
 				if (numUsuarios==0) {return 2;}
 			//}		
 			stmt1.close();
@@ -109,10 +110,40 @@ public class Usuarios {
 			return 3; //Error en conexión con base de datos
 		}
 		return 3;
-		
-
 	}
 	
+	/**Metodo para añadir un nuevo usuario en la base de datos
+	 * @param nombreUsuario
+	 * @param valorContraseña
+	 * 
+	 * Devuelve:
+	 * 0- Insercción correcta
+	 * 1- Campos vacios
+	 * 2- Usuario ya existe en la base de datos
+	 * 3- Error
+	 */
+	public int anyadirUsuarioBD(String nombreUsuario, String valorContraseña) {
+		// CONTROL DE ERRORES
+		if (nombreUsuario.isEmpty() || valorContraseña.isEmpty()) {
+			return 1; 
+		} else if (loginCorrecto(nombreUsuario, " ") == 1) {
+			return 2;
+		} else {
+		// INSERTAR
+			try {
+				PreparedStatement insertaUsuario = conn
+						.prepareStatement("INSERT INTO Usuarios (Usuario, Contraseña) VALUES (?, ?);)");
+				insertaUsuario.setString(1, nombreUsuario);
+				insertaUsuario.setString(2, valorContraseña);
+				insertaUsuario.executeUpdate();
+				return 0;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 3;
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		//iniciar();
 		
