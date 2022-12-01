@@ -42,7 +42,8 @@ public class VentanaUsuario extends JFrame{
 		setTitle("Ventana Usuario");
 		setSize(700,400);
 		
-		principal = new JPanel(new GridLayout(5,1));
+		principal = new JPanel(new GridLayout(2,1));
+		JPanel abajo = new JPanel(new GridLayout(4,1));
 		
 		JPanel usuario = new JPanel();
 		usuario.setBackground(Color.WHITE);
@@ -107,11 +108,14 @@ public class VentanaUsuario extends JFrame{
 		login.add(bLogin);
 		nuevoUsuario.add(bNuevoUsuario);
 		
+		abajo.add(usuario);
+		abajo.add(contraseña);
+		abajo.add(login);
+		abajo.add(nuevoUsuario);
+		
+		
 		principal.add(imagen);
-		principal.add(usuario);
-		principal.add(contraseña); 
-		principal.add(login);
-		principal.add(nuevoUsuario);
+		principal.add(abajo);
 				
 
 		add(principal);
