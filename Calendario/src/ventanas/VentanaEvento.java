@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -114,7 +115,12 @@ public class VentanaEvento extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (nombreEvento.getText().length()== 0) {
 					JOptionPane.showMessageDialog(null, "Es necesario introducir título de evento", "error", JOptionPane.WARNING_MESSAGE);
-				}else {
+				}if (picker.getModel().getValue() != null){
+					Calendar fecha1 = (Calendar) picker.getModel().getValue();
+					Calendar fecha2 = (Calendar) picker1.getModel().getValue();
+					if (fecha2.compareTo(fecha1)<0) {
+						JOptionPane.showMessageDialog(null, "La fecha de inicio tiene que ser anterior a la fecha de fin", "error", JOptionPane.WARNING_MESSAGE);
+					} 
 					
 				}
 			}
