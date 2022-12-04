@@ -10,8 +10,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -111,7 +113,11 @@ public class VentanaEvento extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				if (nombreEvento.getText().length()== 0) {
+					JOptionPane.showMessageDialog(null, "Es necesario introducir título de evento", "error", JOptionPane.WARNING_MESSAGE);
+				}else {
+					
+				}
 			}
 		});
 
