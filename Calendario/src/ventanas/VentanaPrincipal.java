@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.time.Month;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -17,9 +21,13 @@ import clases.Evento;
 
 public class VentanaPrincipal extends JFrame {
 	ZonedDateTime fecha = ZonedDateTime.now();
+	JTable tablaCalendario;
 	
 
 	private static final long serialVersionUID = 1L;
+	
+
+
 	public VentanaPrincipal() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Calendario");
@@ -43,6 +51,14 @@ public class VentanaPrincipal extends JFrame {
 		JComboBox<Object> mes = new JComboBox<Object>();
 		mes.setModel(new DefaultComboBoxModel<Object>(Month.values()));
 		mes.setSelectedItem(fecha.getMonth()); //Mes actual
+		mes.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				Month mes = (Month) e.getItem();
+				fecha = fecha.withMonth(mes.getValue());
+			}
+		});
 		
 		String[] anyos = new String[12];
 		for (int i=0;i<12;i++) {
@@ -51,12 +67,34 @@ public class VentanaPrincipal extends JFrame {
 		}
 		JComboBox<Object> anyo = new JComboBox<Object>(anyos);
 		anyo.setSelectedItem(""+fecha.getYear()); //Mes actual
+		anyo.addItemListener(new ItemListener() {		
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				String a = (String) e.getItem();
+				int sumaryAnyos = Integer.parseInt(a)-fecha.getYear();
+				fecha = fecha.plusYears(sumaryAnyos);
+			}
+		});
 		
 		JButton siguiente = new JButton(">");
 		siguiente.setFont(new Font("Tahoma", 0, 20));
+		siguiente.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				fecha = fecha.plusDays(7);
+				tablaCalendario.repaint();
+			}
+		});
 		
 		JButton anterior = new JButton("<");
 		anterior.setFont(new Font("Tahoma", 0, 20));
+		anterior.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				fecha = fecha.minusDays(7);
+				tablaCalendario.repaint();
+			}
+		});
 		
 		
 		panelTitulo.add(mes);
@@ -66,9 +104,9 @@ public class VentanaPrincipal extends JFrame {
 		panelTitulo.add(siguiente);
 		
 		
-		
+//TABLA
 		ModeloTablaCalendario modelo = new ModeloTablaCalendario(fecha);
-		JTable tablaCalendario = new JTable(modelo);
+		tablaCalendario = new JTable(modelo);
 		
 		
 		TableColumnModel columnModel = tablaCalendario.getColumnModel();
@@ -88,7 +126,7 @@ public class VentanaPrincipal extends JFrame {
 		tituloCategorias.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
 		
-		//Apartado lista de categorias
+//Apartado lista de categorias
 		
 		List<clases.Categoria> listaCategorias = List.of(
 				new Categoria("Estudiar", null, Color.BLUE),
