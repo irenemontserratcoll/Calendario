@@ -5,7 +5,10 @@ import java.time.ZonedDateTime;
 import javax.swing.table.DefaultTableModel;
 
 public class ModeloTablaCalendario extends DefaultTableModel{
-
+	private static int NUM_COLUMNAS = 8;
+	private static int NUM_FILAS = 48;
+	
+	
 	private static final long serialVersionUID = 1L;
 
 
@@ -39,12 +42,12 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	}
 	@Override
 	public int getRowCount() {
-		return 49;
+		return NUM_FILAS;
 	}
 
 	@Override
 	public int getColumnCount() {
-		return 8;
+		return NUM_COLUMNAS;
 	}
 	
 

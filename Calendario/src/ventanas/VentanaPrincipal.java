@@ -8,12 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import clases.Categoria;
@@ -135,17 +137,26 @@ public class VentanaPrincipal extends JFrame {
 		
 		modelo = new ModeloTablaCalendario(this);
 		tablaCalendario = new JTable(modelo);
-		//TODO Actualizar tabla con la fecha seleccionada
 		
-		
+		//Columna 0
 		TableColumnModel columnModel = tablaCalendario.getColumnModel();
-	    columnModel.getColumn(0).setPreferredWidth(60);
+		DefaultTableCellRenderer alineadoCentro = new DefaultTableCellRenderer();
+		alineadoCentro.setHorizontalAlignment(JLabel.CENTER);
+	    columnModel.getColumn(0).setMaxWidth(80);
+	    columnModel.getColumn(0).setCellRenderer(alineadoCentro);
+	    for(int i=0; i<48; i++) {
+	    	LocalTime tiempo = LocalTime.of(0, 0);
+	    	tablaCalendario.setValueAt(tiempo.plusMinutes(i*30), i, 0);
+	    }
+	    
+	    
 
 	    
 	    JScrollPane panelCalendario = new JScrollPane(tablaCalendario);
 		principal.add(panelTitulo, BorderLayout.NORTH);
 		principal.add(panelCalendario, BorderLayout.CENTER);
 		
+//
 		
 		JPanel barraDerecha = new JPanel(new GridLayout(2,1));
 		
@@ -175,7 +186,7 @@ public class VentanaPrincipal extends JFrame {
 		categorias.add(jListCategorias, BorderLayout.CENTER);
 		
 	
-		//Apartado Tareas Pendientes
+//Apartado Tareas Pendientes
 		
 		JPanel pendientes = new JPanel();
 		JLabel tituloPendientes = new JLabel(" Tareas pendientes ");
