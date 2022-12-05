@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 
 import clases.Categoria;
+import clases.Evento;
 
 
 public class VentanaPrincipal extends JFrame {
@@ -87,6 +88,8 @@ public class VentanaPrincipal extends JFrame {
 		tituloCategorias.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
 		
+		//Apartado lista de categorias
+		
 		List<clases.Categoria> listaCategorias = List.of(
 				new Categoria("Estudiar", null, Color.BLUE),
 				new Categoria("Deporte", null, Color.RED),
@@ -103,13 +106,31 @@ public class VentanaPrincipal extends JFrame {
 		categorias.setLayout(new BorderLayout());
 		categorias.add(tituloCategorias, BorderLayout.NORTH);
 		categorias.add(jListCategorias, BorderLayout.CENTER);
-				
 		
+	
+		//Apartado Tareas Pendientes
 		
 		JPanel pendientes = new JPanel();
 		JLabel tituloPendientes = new JLabel(" Tareas pendientes ");
 		tituloPendientes.setFont(new Font("Tahoma", Font.BOLD, 20));
-		pendientes.add(tituloPendientes);
+		
+		List<clases.Evento> listaTareasPendientes = List.of(
+				new Evento("Correr", listaCategorias.get(1),true),
+				new Evento ("Saltar", listaCategorias.get(1) , false)			
+				);
+		
+		DefaultListModel<Evento> modeloTareasPendientes = new DefaultListModel<>();
+		modeloTareasPendientes.addAll(listaTareasPendientes);
+		JList<Evento> jListTareasPendientes = new JList<>();
+		jListTareasPendientes.setModel(modeloTareasPendientes);
+		RendererPendientes renderer2 = new RendererPendientes();
+		jListTareasPendientes.addMouseListener(renderer2);
+		jListTareasPendientes.setCellRenderer(renderer2);
+		
+		pendientes.setLayout(new BorderLayout());
+		pendientes.add(tituloPendientes, BorderLayout.NORTH);
+		pendientes.add(jListTareasPendientes, BorderLayout.CENTER);
+		
 		
 		barraDerecha.add(categorias);
 		barraDerecha.add(pendientes);
@@ -121,7 +142,8 @@ public class VentanaPrincipal extends JFrame {
 		setVisible(true);
 		
 	}
-	
+
+
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
