@@ -65,8 +65,11 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 		JPanel panelCalendario = new JPanel();
-		JTable tablaCalendario = new JTable(15,8);
-		
+		ModeloTablaCalendario modelo = new ModeloTablaCalendario(fecha);
+		for (int col=1; col<8;col++) {
+			modelo.setValueAt(modelo.getColumnName(col), 0, col);
+		}
+		JTable tablaCalendario = new JTable(modelo);
 		panelCalendario.add(tablaCalendario);
 		
 		principal.add(panelTitulo, BorderLayout.NORTH);
