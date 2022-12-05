@@ -11,8 +11,10 @@ import java.awt.event.ItemListener;
 import java.time.Month;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
 
 import clases.Categoria;
@@ -20,12 +22,23 @@ import clases.Evento;
 
 
 public class VentanaPrincipal extends JFrame {
+	private static Logger logger = Logger.getLogger(Logger.class.getName());
 	ZonedDateTime fecha = ZonedDateTime.now();
+	
+	JComboBox<Object> anyo;
+	JComboBox<Object> mes;
+	
+	ModeloTablaCalendario modelo;
 	JTable tablaCalendario;
+
 	
 
+	public ZonedDateTime getFecha() {
+		return fecha;
+	}
+
+
 	private static final long serialVersionUID = 1L;
-	
 
 
 	public VentanaPrincipal() {
@@ -48,7 +61,7 @@ public class VentanaPrincipal extends JFrame {
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 50));
 
 		
-		JComboBox<Object> mes = new JComboBox<Object>();
+		mes = new JComboBox<Object>();
 		mes.setModel(new DefaultComboBoxModel<Object>(Month.values()));
 		mes.setSelectedItem(fecha.getMonth()); //Mes actual
 		mes.addItemListener(new ItemListener() {
@@ -57,6 +70,9 @@ public class VentanaPrincipal extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				Month mes = (Month) e.getItem();
 				fecha = fecha.withMonth(mes.getValue());
+				tablaCalendario.repaint();
+				
+				logger.info("Nueva fecha seleccionada: " + fecha);
 			}
 		});
 		
@@ -65,7 +81,7 @@ public class VentanaPrincipal extends JFrame {
 			int opcionAnyo = fecha.getYear()-5+i;
 			anyos[i]= ""+ opcionAnyo;
 		}
-		JComboBox<Object> anyo = new JComboBox<Object>(anyos);
+		anyo = new JComboBox<Object>(anyos);
 		anyo.setSelectedItem(""+fecha.getYear()); //Mes actual
 		anyo.addItemListener(new ItemListener() {		
 			@Override
@@ -73,6 +89,10 @@ public class VentanaPrincipal extends JFrame {
 				String a = (String) e.getItem();
 				int sumaryAnyos = Integer.parseInt(a)-fecha.getYear();
 				fecha = fecha.plusYears(sumaryAnyos);
+				tablaCalendario.setModel(new ModeloTablaCalendario(VentanaPrincipal.this));
+				tablaCalendario.setModel(new ModeloTablaCalendario(VentanaPrincipal.this));
+				tablaCalendario.repaint();
+				logger.info("Nueva fecha seleccionada: " + fecha);
 			}
 		});
 		
@@ -82,7 +102,11 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fecha = fecha.plusDays(7);
+				mes.setSelectedItem(fecha.getMonth());
+				anyo.setSelectedItem(""+fecha.getYear());
+				tablaCalendario.setModel(new ModeloTablaCalendario(VentanaPrincipal.this));
 				tablaCalendario.repaint();
+				logger.info("Nueva fecha seleccionada: " + fecha);
 			}
 		});
 		
@@ -92,7 +116,11 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fecha = fecha.minusDays(7);
+				mes.setSelectedItem(fecha.getMonth());
+				anyo.setSelectedItem(""+fecha.getYear());
+				tablaCalendario.setModel(new ModeloTablaCalendario(VentanaPrincipal.this));
 				tablaCalendario.repaint();
+				logger.info("Nueva fecha seleccionada: " + fecha);
 			}
 		});
 		
@@ -105,8 +133,10 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 //TABLA
-		ModeloTablaCalendario modelo = new ModeloTablaCalendario(fecha);
+		
+		modelo = new ModeloTablaCalendario(this);
 		tablaCalendario = new JTable(modelo);
+		//TODO Actualizar tabla con la fecha seleccionada
 		
 		
 		TableColumnModel columnModel = tablaCalendario.getColumnModel();
