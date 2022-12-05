@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.table.TableColumnModel;
 
 import clases.Categoria;
 
@@ -64,14 +65,16 @@ public class VentanaPrincipal extends JFrame {
 		panelTitulo.add(siguiente);
 		
 		
-		JPanel panelCalendario = new JPanel();
-		ModeloTablaCalendario modelo = new ModeloTablaCalendario(fecha);
-		for (int col=1; col<8;col++) {
-			modelo.setValueAt(modelo.getColumnName(col), 0, col);
-		}
-		JTable tablaCalendario = new JTable(modelo);
-		panelCalendario.add(tablaCalendario);
 		
+		ModeloTablaCalendario modelo = new ModeloTablaCalendario(fecha);
+		JTable tablaCalendario = new JTable(modelo);
+		
+		
+		TableColumnModel columnModel = tablaCalendario.getColumnModel();
+	    columnModel.getColumn(0).setPreferredWidth(60);
+
+	    
+	    JScrollPane panelCalendario = new JScrollPane(tablaCalendario);
 		principal.add(panelTitulo, BorderLayout.NORTH);
 		principal.add(panelCalendario, BorderLayout.CENTER);
 		

@@ -8,11 +8,12 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 
 	private static final long serialVersionUID = 1L;
 	ZonedDateTime fecha;
+	
 
 	public ModeloTablaCalendario(ZonedDateTime fecha) {
+		super();
 		this.fecha = fecha;
 	}
-	
 	@Override
 	public String getColumnName(int col) {
 		// Método para obtener el nombre de las columnas de la tabla
