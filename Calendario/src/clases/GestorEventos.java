@@ -8,13 +8,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 
 public class GestorEventos {
 	// ATRIBUTOS
 	private final String usuario; // En la ventana usuario. If usuario y contraseña bien. Abrir gestor eventos
 									// [usuario]
-	private static ArrayList<Evento> listaEventos;
-	private ArrayList<Evento> listaUrgente;
+	
+	//RERCORDAR CAMBIAR LOS ARRAYLIST POR LIST
+	private static List<Evento> listaEventos;
+	private List<Evento> listaUrgente;
 
 	// CONSTRUCTOR
 	/**
@@ -26,14 +31,14 @@ public class GestorEventos {
 	 * @param listaEventos
 	 * @param listaUrgente
 	 */
-	public GestorEventos(String usuario, ArrayList<Evento> listaEventos) {
+	public GestorEventos(String usuario, List<Evento> listaEventos) {
 		this.usuario = usuario;
 		GestorEventos.listaEventos = listaEventos;
 
 	}
 
 	// METODOS
-	public ArrayList<Evento> getListaUrgente() {
+	public List<Evento> getListaUrgente() {
 		for (Evento evento : getListaEventos()) {
 			if (evento.isUrgente()) {
 				listaUrgente.add(evento);
@@ -46,7 +51,7 @@ public class GestorEventos {
 		return usuario;
 	}
 
-	public ArrayList<Evento> getListaEventos() {
+	public List<Evento> getListaEventos() {
 		return listaEventos;
 	}
 
@@ -60,14 +65,14 @@ public class GestorEventos {
 		listaEventos.remove(evento);
 	}
 
-	public void setListaUrgente(ArrayList<Evento> listaUrgente) {
+	public void setListaUrgente(List<Evento> listaUrgente) {
 
 		this.listaUrgente = listaUrgente;
 
 	}
 	
 	
-	public void crearListaTareas(ArrayList<Evento> listaEventos) {
+	public void crearListaTareas(List<Evento> listaEventos) {
 		
 	}
 	
@@ -102,7 +107,7 @@ public class GestorEventos {
 			}
 	}
 	
-	public static  ArrayList<Evento> leerDeFicheroCSV(String fichero) {
+	public static  List<Evento> leerDeFicheroCSV(String fichero) {
 		try (BufferedReader reader = new BufferedReader(new FileReader(fichero))) {
 			String linea = null;
 			while ((linea = reader.readLine()) != null) {
@@ -123,8 +128,19 @@ public class GestorEventos {
 		}
 		return listaEventos;
 	}
-
+	
+	
+	public static List<Evento> crearListaTareasPnedientes(ArrayList<Evento> eventos){
+		List<Evento> tareaPendiente = new ArrayList<>();
+		for (Evento ev : eventos) {
+			ev.getCategoria();
+			if (!(Objects.nonNull(ev.getFechaFin()))&&!(Objects.nonNull(ev.getFechaInicio()) && !(Objects.nonNull(ev.getDuracionReal())))){
+				tareaPendiente.add(ev);
+			}
+		}
+		return tareaPendiente;	
 	}
+}
 
 
 
