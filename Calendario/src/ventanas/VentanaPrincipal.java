@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.time.LocalTime;
 import java.time.Month;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -139,15 +138,13 @@ public class VentanaPrincipal extends JFrame {
 		tablaCalendario = new JTable(modelo);
 		
 		//Columna 0
-		TableColumnModel columnModel = tablaCalendario.getColumnModel();
+		
 		DefaultTableCellRenderer alineadoCentro = new DefaultTableCellRenderer();
 		alineadoCentro.setHorizontalAlignment(JLabel.CENTER);
+		TableColumnModel columnModel = tablaCalendario.getColumnModel();
 	    columnModel.getColumn(0).setMaxWidth(80);
 	    columnModel.getColumn(0).setCellRenderer(alineadoCentro);
-	    for(int i=0; i<48; i++) {
-	    	LocalTime tiempo = LocalTime.of(0, 0);
-	    	tablaCalendario.setValueAt(tiempo.plusMinutes(i*30), i, 0);
-	    }
+
 	    
 	    
 

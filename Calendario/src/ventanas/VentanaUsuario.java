@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import baseDeDatos.Usuarios;
+import baseDeDatos.GestorBaseDatos;
 
 public class VentanaUsuario extends JFrame{
 
@@ -31,13 +31,14 @@ public class VentanaUsuario extends JFrame{
 	static JTextField valorContraseña;
 	JButton bLogin;
 	JButton bNuevoUsuario;
-	static Usuarios baseDatosUsuarios;
+	static GestorBaseDatos baseDatosUsuarios;
+//	static Usuarios baseDatosUsuarios;
 	JDialog crearUsuario;
 	
 
 	public VentanaUsuario(){
-		baseDatosUsuarios=new Usuarios();
-		baseDatosUsuarios.iniciar();
+		baseDatosUsuarios=new GestorBaseDatos();
+		GestorBaseDatos.iniciar();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Ventana Usuario");
 		setSize(700,400);
@@ -97,7 +98,7 @@ public class VentanaUsuario extends JFrame{
 		addWindowListener( new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				baseDatosUsuarios.close();
+				GestorBaseDatos.close();
 			}
 		});
 		
