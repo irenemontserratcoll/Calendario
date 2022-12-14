@@ -123,13 +123,27 @@ public class VentanaPrincipal extends JFrame {
 				logger.info("Nueva fecha seleccionada: " + fecha);
 			}
 		});
-		
+		// Botón crear evento
+			JPanel bajo = new JPanel();
+				JButton bEv = new JButton("Crear evento");
+				bEv.addActionListener(new ActionListener() {	
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+								new VentanaEvento();
+							}
+						});
+					}
+				});
+					
 		
 		panelTitulo.add(mes);
 		panelTitulo.add(anyo);
 		panelTitulo.add(titulo);
 		panelTitulo.add(anterior);
 		panelTitulo.add(siguiente);
+
 		
 		
 //TABLA
@@ -147,12 +161,12 @@ public class VentanaPrincipal extends JFrame {
 
 	    
 	    
-
+	    bajo.add(bEv);
 	    
 	    JScrollPane panelCalendario = new JScrollPane(tablaCalendario);
 		principal.add(panelTitulo, BorderLayout.NORTH);
 		principal.add(panelCalendario, BorderLayout.CENTER);
-		
+		principal.add(bajo, BorderLayout.SOUTH);
 //
 		
 		JPanel barraDerecha = new JPanel(new GridLayout(2,1));
