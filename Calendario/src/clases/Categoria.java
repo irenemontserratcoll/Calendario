@@ -4,6 +4,7 @@ import java.awt.Color;
 public class Categoria {
 	
 	//Atributos
+	protected Usuario usuario; //Modificar creacion de categoria con usuario
 	protected String categoria;
 	protected Usuario autorizados;
 	protected Color color;
