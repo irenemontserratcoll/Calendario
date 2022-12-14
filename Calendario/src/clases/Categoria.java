@@ -63,7 +63,4 @@ public class Categoria {
 	public String toString() {
 		return categoria + "Autorizados: " + autorizados + "Color: " + color;
 	}
-	
-	
-
 }
