@@ -103,7 +103,7 @@ public class Evento {
 
 	}
 
-
+	
 // METODOS
 
 	// GETTERS Y SETTERS

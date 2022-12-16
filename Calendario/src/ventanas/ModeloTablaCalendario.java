@@ -1,5 +1,6 @@
 package ventanas;
 
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +19,11 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	public ModeloTablaCalendario(VentanaPrincipal ventana) {
 		super();
 		this.ventana = ventana;
+		
+		for(int i=0; i<NUM_FILAS; i++) {
+	    	LocalTime tiempo = LocalTime.of(0, 0);
+	    	this.setValueAt(tiempo.plusMinutes(i*30), i, 0);
+	    }
 	}
 	
 	

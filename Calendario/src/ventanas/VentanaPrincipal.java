@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.time.LocalTime;
 import java.time.Month;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -123,13 +122,27 @@ public class VentanaPrincipal extends JFrame {
 				logger.info("Nueva fecha seleccionada: " + fecha);
 			}
 		});
-		
+		// Botón crear evento
+			JPanel bajo = new JPanel();
+				JButton bEv = new JButton("Crear evento");
+				bEv.addActionListener(new ActionListener() {	
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+								new VentanaEvento();
+							}
+						});
+					}
+				});
+					
 		
 		panelTitulo.add(mes);
 		panelTitulo.add(anyo);
 		panelTitulo.add(titulo);
 		panelTitulo.add(anterior);
 		panelTitulo.add(siguiente);
+
 		
 		
 //TABLA
@@ -137,24 +150,23 @@ public class VentanaPrincipal extends JFrame {
 		modelo = new ModeloTablaCalendario(this);
 		tablaCalendario = new JTable(modelo);
 		
+		
 		//Columna 0
-		TableColumnModel columnModel = tablaCalendario.getColumnModel();
+		
 		DefaultTableCellRenderer alineadoCentro = new DefaultTableCellRenderer();
 		alineadoCentro.setHorizontalAlignment(JLabel.CENTER);
+		TableColumnModel columnModel = tablaCalendario.getColumnModel();
 	    columnModel.getColumn(0).setMaxWidth(80);
 	    columnModel.getColumn(0).setCellRenderer(alineadoCentro);
-	    for(int i=0; i<48; i++) {
-	    	LocalTime tiempo = LocalTime.of(0, 0);
-	    	tablaCalendario.setValueAt(tiempo.plusMinutes(i*30), i, 0);
-	    }
-	    
-	    
 
+	    
+	    
+	    bajo.add(bEv);
 	    
 	    JScrollPane panelCalendario = new JScrollPane(tablaCalendario);
 		principal.add(panelTitulo, BorderLayout.NORTH);
 		principal.add(panelCalendario, BorderLayout.CENTER);
-		
+		principal.add(bajo, BorderLayout.SOUTH);
 //
 		
 		JPanel barraDerecha = new JPanel(new GridLayout(2,1));

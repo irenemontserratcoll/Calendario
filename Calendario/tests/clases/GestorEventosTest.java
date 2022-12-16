@@ -2,7 +2,7 @@ package clases;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,11 +33,11 @@ public class GestorEventosTest {
 
 	@Test
 	public void testGetListaEventosUrgentes() {
-
 		calendario12.getListaEventos().get(0).setUrgente(true);
-
-		ArrayList<Evento> listaEsperada = new ArrayList<Evento>();
-		listaEsperada.add(new Evento("Comida"));
+		
+		List<Evento> listaEsperada = new ArrayList<Evento>();
+		listaEsperada.add(new Evento("Comida", null, true));
+		
 		assertSame(listaEsperada.get(0).getNombre(), calendario12.getListaUrgente().get(0).getNombre());
 	}
 
