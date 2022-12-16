@@ -1,12 +1,16 @@
 package ventanas;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import clases.Categoria;
@@ -20,16 +24,17 @@ public class VentanaCategoria extends JFrame {
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Ventana Categoria");
-		setSize(300, 200);
-		JPanel principal = new JPanel();
+		setSize(300, 350);
+		JPanel principal = new JPanel(new GridLayout(10, 1));
 
 		// Titulo evento
 		JPanel titulo = new JPanel();
-		textoCategoria = new JLabel("Categoria");
+		textoCategoria = new JLabel("Seleccionar categoria existente");
 		titulo.add(textoCategoria);
 		
 		// JComboBox
 		
+		JPanel comboBoxCat = new JPanel();
 		List<clases.Categoria> listaCategorias = List.of(
 				new Categoria("Estudiar", null, Color.BLUE),
 				new Categoria("Deporte", null, Color.RED),
@@ -39,10 +44,51 @@ public class VentanaCategoria extends JFrame {
 		for (Categoria c : listaCategorias) {
 			categorias.addItem(c.getCategoria());
 		}
-
-		principal.add(titulo);
-		principal.add(categorias);
+		comboBoxCat.add(categorias);
 		
+		//JButton para aceptar la categoria
+		JPanel aceptar = new JPanel();
+		JButton botonAceptar = new JButton("Aceptar");
+		aceptar.add(botonAceptar);
+		
+		JSeparator espacio = new JSeparator(JSeparator.HORIZONTAL);
+		espacio.setBackground(Color.BLACK);
+
+		//Panel categoria 
+		JPanel subCat = new JPanel();
+		JLabel subtitulo = new JLabel("Crear nueva categoria");
+		subCat.add(subtitulo);
+		
+		JPanel CategoriaNueva = new JPanel();
+		JLabel nombre = new JLabel("Categoria");
+		CategoriaNueva.add(nombre);
+		JTextField nombreCategoria = new JTextField(20);
+		CategoriaNueva.add(nombreCategoria);
+		
+		JPanel colorCategoria = new JPanel();
+		JLabel color = new JLabel("Color");
+		colorCategoria.add(color);
+		JComboBox<Color> colores = new JComboBox<Color>();
+		colorCategoria.add(colores);
+		
+		//JButton para aceptar nueva categoria
+		JPanel crear = new JPanel();
+		JButton botoncrear = new JButton("Crear");
+		crear.add(botoncrear);
+		
+		JPanel vacio = new JPanel();
+
+		
+		
+		principal.add(titulo);
+		principal.add(comboBoxCat);
+		principal.add(aceptar);
+		principal.add(vacio);
+		principal.add(espacio);
+		principal.add(subCat);
+		principal.add(CategoriaNueva);
+		principal.add(colorCategoria);
+		principal.add(crear);
 		
 		add(principal);
 		setLocationRelativeTo(null);
