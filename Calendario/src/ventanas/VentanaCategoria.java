@@ -53,6 +53,8 @@ public class VentanaCategoria extends JFrame {
 		
 		JSeparator espacio = new JSeparator(JSeparator.HORIZONTAL);
 		espacio.setBackground(Color.BLACK);
+		
+		JPanel vacio = new JPanel();
 
 		//Panel categoria 
 		JPanel subCat = new JPanel();
@@ -75,10 +77,6 @@ public class VentanaCategoria extends JFrame {
 		JPanel crear = new JPanel();
 		JButton botoncrear = new JButton("Crear");
 		crear.add(botoncrear);
-		
-		JPanel vacio = new JPanel();
-
-		
 		
 		principal.add(titulo);
 		principal.add(comboBoxCat);
