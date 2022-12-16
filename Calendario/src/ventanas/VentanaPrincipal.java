@@ -151,6 +151,7 @@ public class VentanaPrincipal extends JFrame {
 		modelo = new ModeloTablaCalendario(this);
 		tablaCalendario = new JTable(modelo);
 		
+		
 		//Columna 0
 		
 		DefaultTableCellRenderer alineadoCentro = new DefaultTableCellRenderer();
