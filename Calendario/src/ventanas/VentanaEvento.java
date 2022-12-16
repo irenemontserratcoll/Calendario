@@ -88,7 +88,16 @@ public class VentanaEvento extends JFrame {
 		
 		// Categoria
 		JPanel categoria = new JPanel();
-		JLabel categ = new JLabel("Categoria");
+		JButton categ = new JButton("Categoria");
+		categ.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO
+			}
+		});
+		
+		
 		JTextField categorias = new JTextField(20);
 		
 		

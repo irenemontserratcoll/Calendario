@@ -61,7 +61,6 @@ public class VentanaPrincipal extends JFrame {
 		JLabel titulo = new JLabel("      Deusto Calendar     ");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 50));
 
-		
 		mes = new JComboBox<Object>();
 		mes.setModel(new DefaultComboBoxModel<Object>(Month.values()));
 		mes.setSelectedItem(fecha.getMonth()); //Mes actual
