@@ -90,19 +90,19 @@ public class VentanaEvento extends JFrame {
 		JPanel categoria = new JPanel();
 		JButton categ = new JButton("Categoria");
 		categ.addActionListener( new ActionListener() {
-			
+				
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						new VentanaCategoria();
+					}
+				});
 			}
 		});
-		
-		
-		JTextField categorias = new JTextField(20);
-		
+				
 		
 		categoria.add(categ);
-		categoria.add(categorias);
 		//Urgente si/no
 		ButtonGroup grupo = new ButtonGroup();
 		JPanel urgente = new JPanel();
@@ -144,6 +144,7 @@ public class VentanaEvento extends JFrame {
 		principal.add(urgente);
 		principal.add(boton);
 		
+		setLocationRelativeTo(null);
 		add(principal);
 		setVisible(true);
 	}

@@ -48,7 +48,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		JSplitPane barra = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		barra.setBorder(null); //No se ve el borde
-		barra.setResizeWeight(0.70); // Una parte ocupa este procentaje de panel
+		barra.setResizeWeight(0.80); // Una parte ocupa este procentaje de panel
 		barra.setEnabled(false); // El usuario no puede moverla
 		barra.setDividerSize(0); //No se ve
 		
@@ -57,8 +57,8 @@ public class VentanaPrincipal extends JFrame {
 		
 		JPanel panelTitulo = new JPanel();
 		
-		JLabel titulo = new JLabel("      Deusto Calendar     ");
-		titulo.setFont(new Font("Tahoma", Font.BOLD, 50));
+		ImageIcon icono = new ImageIcon(VentanaUsuario.class.getResource("/Logobien2.0.jpg"));
+		JLabel titulo = new JLabel(icono,JLabel.CENTER);
 
 		mes = new JComboBox<Object>();
 		mes.setModel(new DefaultComboBoxModel<Object>(Month.values()));
@@ -96,7 +96,7 @@ public class VentanaPrincipal extends JFrame {
 		});
 		
 		JButton siguiente = new JButton(">");
-		siguiente.setFont(new Font("Tahoma", 0, 20));
+		siguiente.setFont(new Font("Tahoma", 0, 10));
 		siguiente.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -110,7 +110,7 @@ public class VentanaPrincipal extends JFrame {
 		});
 		
 		JButton anterior = new JButton("<");
-		anterior.setFont(new Font("Tahoma", 0, 20));
+		anterior.setFont(new Font("Tahoma", 0, 10));
 		anterior.addActionListener(new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -142,6 +142,7 @@ public class VentanaPrincipal extends JFrame {
 		panelTitulo.add(titulo);
 		panelTitulo.add(anterior);
 		panelTitulo.add(siguiente);
+		panelTitulo.add(bajo);
 
 		
 		

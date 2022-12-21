@@ -2,6 +2,8 @@ package ventanas;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -50,6 +52,14 @@ public class VentanaCategoria extends JFrame {
 		JPanel aceptar = new JPanel();
 		JButton botonAceptar = new JButton("Aceptar");
 		aceptar.add(botonAceptar);
+		botonAceptar.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				setVisible(false);
+			}
+		});
 		
 		JSeparator espacio = new JSeparator(JSeparator.HORIZONTAL);
 		espacio.setBackground(Color.BLACK);
@@ -77,6 +87,13 @@ public class VentanaCategoria extends JFrame {
 		JPanel crear = new JPanel();
 		JButton botoncrear = new JButton("Crear");
 		crear.add(botoncrear);
+		botoncrear.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
 		
 		principal.add(titulo);
 		principal.add(comboBoxCat);
