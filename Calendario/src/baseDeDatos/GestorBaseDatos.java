@@ -1,5 +1,6 @@
 package baseDeDatos;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -137,6 +138,61 @@ public class GestorBaseDatos {
 			}
 		}
 	}
+	
+	
+	/**Metodo para comprobar si una categoria existe.
+	 * @param nombreUsuario
+	 * @param nombreCategoria
+	 * @param color
+	 * @return
+	 * Devuelve un 0 si encuentra la categoria, 
+	 * devuelve un 1 si no existe,
+	 * devuelve un 2 si es un error.
+	 */
+	public int buscarCategoria ( String nombreUsuario, String nombreCategoria, Color color) {
+		try {
+			Statement stmt = conn.createStatement();
+			String consulta = "SELECT (Nombre) FROM categorias WHERE Usuario = '" + nombreUsuario + "';";
+			ResultSet rs = stmt.executeQuery(consulta);
+			while (rs.next()) {
+				String categoria = rs.getString("Nombre");
+				if (categoria.equals(nombreCategoria) ) {
+					return 0;
+				}else {
+					return 1;
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 2;
+		}
+		return 3;		
+	}
+	
+	/**Añade en la base de datos una categoria nueva.
+	 * 
+	 * @param nombreUsuario
+	 * @param nombreCategoria
+	 * @param color
+	 * @return
+	 */
+	public void anyadirCategoria(String nombreUsuario, String nombreCategoria, Color color) {
+		try {
+			PreparedStatement intertaCategoria = conn
+					.prepareStatement("INSERT INTO categorias (Usuario, Nombre, Color) VALUES (?, ?, ?);)");
+			intertaCategoria.setString(1, nombreUsuario);
+			intertaCategoria.setString(2, nombreCategoria);
+			
+			//NO SE COMO HACER PARA AÑADIR EN LA BASE DE DATOS EL COLOR COMO STRING 
+			
+			intertaCategoria.setString(3, "Blanco");
+			intertaCategoria.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	public static void main(String[] args) {
 //		iniciar();

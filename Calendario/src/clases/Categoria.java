@@ -27,9 +27,20 @@ public class Categoria {
 	}
 		
 	//Get y set
+	
+	
 
 	public boolean isActiva() {
 		return activa;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
 	public void setActiva(boolean activa) {
@@ -42,6 +53,8 @@ public class Categoria {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
+	
+	
 
 	public Usuario getAutorizados() {
 		return autorizados;

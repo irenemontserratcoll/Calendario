@@ -148,12 +148,15 @@ public class VentanaEvento extends JFrame {
 		add(principal);
 		setVisible(true);
 	}
+	
+	//YO CREO QUE ESTO NO HACE FALTA PORQUE AL FINAL
+	//LLAMAMOS DESDE UNA VENTANA A LA OTRA 
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new VentanaEvento();
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				new VentanaEvento();
+//			}
+//		});
+//	}
 }

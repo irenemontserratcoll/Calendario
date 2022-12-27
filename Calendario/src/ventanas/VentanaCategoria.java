@@ -10,20 +10,30 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import baseDeDatos.GestorBaseDatos;
 import clases.Categoria;
+import clases.Usuario;
 
 public class VentanaCategoria extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	static GestorBaseDatos baseDatosUsuarios;
 	JLabel textoCategoria;
 	
 	public VentanaCategoria() {
+	
+		//ESTO SOBRARA CUANDO CONECTEMOS CON LAS DEMAS VENTANAS LO QUITAMOS
+		baseDatosUsuarios=new GestorBaseDatos();
+		GestorBaseDatos.iniciar();
 
+		Usuario usuario =  new Usuario("prueba","Pruebas");
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Ventana Categoria");
 		setSize(300, 350);
@@ -77,6 +87,7 @@ public class VentanaCategoria extends JFrame {
 		JTextField nombreCategoria = new JTextField(20);
 		CategoriaNueva.add(nombreCategoria);
 		
+
 		JPanel colorCategoria = new JPanel();
 		JLabel color = new JLabel("Color");
 		colorCategoria.add(color);
@@ -91,6 +102,9 @@ public class VentanaCategoria extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String nomCat = nombreCategoria.getText();
+				anyadirCategoria(usuario.getNombre(),nomCat, null);
+				
 				setVisible(false);
 			}
 		});
@@ -109,8 +123,18 @@ public class VentanaCategoria extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
-
 	
+	public void anyadirCategoria(String nombreUsuario, String nombreCategoria, Color color) {
+		switch (baseDatosUsuarios.buscarCategoria(nombreUsuario, nombreCategoria, color)) {
+		case 0:
+			JOptionPane.showMessageDialog(null, "Esta Categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+		case 1:
+			baseDatosUsuarios.anyadirCategoria(nombreUsuario, nombreCategoria, color);
+			JOptionPane.showMessageDialog(null, "Categoria creada", "Categoria creada", JOptionPane.INFORMATION_MESSAGE);
+		case 2: 
+			JOptionPane.showMessageDialog(null, "", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 	
 	
 	
