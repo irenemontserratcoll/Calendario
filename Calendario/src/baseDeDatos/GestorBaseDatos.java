@@ -7,37 +7,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.*;
+
+import clases.Categoria;
+import clases.Evento;
 
 public class GestorBaseDatos {
 	private static Logger logger = Logger.getLogger(Logger.class.getName());
 	private static Connection conn;
 	
 	public static boolean iniciar(){
-		//INICIO LA BASE DE DATOS
-		
-		// Primero cargamos los drivers
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e) {
 			logger.severe("No se ha podido cargar el driver de la base de datos: "+ e.getMessage());
 		}
-		// Segundo paso es crear una conexión
 		try {
 			conn = DriverManager.getConnection("jdbc:sqlite:CalendarioBD.db");
-//			Statement stmt = conn.createStatement();
-
-//			try (ResultSet rs = stmt.executeQuery("SELECT Usuario, Contraseña FROM usuarios")) {
-//				while (rs.next()) {
-//
-//					String nombre = rs.getString("Usuarios");
-//					String contraseña = rs.getString("Contraseña");
-//					listaUsuarios.add(new Usuario(nombre, contraseña));
-//
-//				}
-//			} catch (SQLException e) {
-//				logger.severe("No se ha podido ejecutar la sentencia SQL" + e.getMessage());
-//			}
 			logger.info("Conexion con base de datos Calendario.BD establecida");
 			return true;
 
@@ -170,7 +162,7 @@ public class GestorBaseDatos {
 		return 3;		
 	}
 	
-	/**Añade en la base de datos una categoria nueva.
+	/** Añade en la base de datos una categoria nueva.
 	 * 
 	 * @param nombreUsuario
 	 * @param nombreCategoria
@@ -191,6 +183,67 @@ public class GestorBaseDatos {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+/**Obtiene una lista con los eventos de un determinado usuario almacenados en la BD
+ * @param nombreUsuario
+ * @param listaEventos
+ * @return listaEventos devuelve la propia lista de eventos, habiendo añadido los eventos de ese nombre de Usuario en la BD
+ */
+	
+	public List<Evento> getListaEventosUsuario(String nombreUsuario, List<Evento> listaEventos) {
+		try {
+			Statement obtenerEventos = conn.createStatement();
+			String consulta = "SELECT * FROM eventos WHERE usuario = '"+ nombreUsuario +"';";
+			ResultSet rs2 = obtenerEventos.executeQuery(consulta);
+			
+			while (rs2.next()) {
+				long lFechaInicio = rs2.getLong("Fecha Inicio");
+				long lFechaFin = rs2.getLong("Fecha Fin");
+				float duracionReal = rs2.getFloat("Duracion Real");
+				String sCategoria = rs2.getString("Categoria");
+				String sUrgente = rs2.getString("Urgente");
+				LocalDateTime lInicio = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaInicio), TimeZone.getDefault().toZoneId());
+				ZonedDateTime fechaInicio = ZonedDateTime.of(lInicio, ZoneId.of("Europe/Madrid"));
+				LocalDateTime lFin = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaFin), TimeZone.getDefault().toZoneId());
+				ZonedDateTime fechaFin = ZonedDateTime.of(lInicio, ZoneId.of("Europe/Madrid"));
+				Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
+				//TODO es urgente
+				
+				Evento e = new Evento(nombreUsuario,fechaInicio, fechaFin, duracionReal, cat, false);
+				listaEventos.add(e);
+			}
+			obtenerEventos.close();		
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaEventos;
+	}
+	
+	/**Obtiene la categoria almacenada en la BD dado el nombre del usuario y de la categorica
+	 * @param nombreUsuario
+	 * @param nombreCategoria
+	 * @return Categoria
+	 */
+	public Categoria getCategoriaDeNombre(String nombreUsuario, String nombreCategoria) {
+		try {
+			Statement obtenerCategoria = conn.createStatement();
+			String consulta ="SELECT * FROM categorias WHERE nombre = '"+nombreCategoria+"' AND usuario = '" + nombreUsuario + "'";
+			ResultSet rs5 = obtenerCategoria.executeQuery(consulta);
+			while (rs5.next()) {
+				int intColor = rs5.getInt("Color");
+				Color color = new Color(intColor); //En RGB
+				Categoria cat = new Categoria(nombreCategoria, color);
+				return cat;
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			logger.severe("No se ha podido cargar la categoria de la base de datos: "+ e.getMessage());
+		}
+		return null;
+		
 	}
 	
 

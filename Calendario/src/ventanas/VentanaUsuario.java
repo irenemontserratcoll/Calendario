@@ -23,6 +23,8 @@ import baseDeDatos.GestorBaseDatos;
 public class VentanaUsuario extends JFrame{
 
 	private static final long serialVersionUID = 1L;
+	static GestorBaseDatos baseDatosUsuarios;
+	
 	JPanel principal;
 	JLabel textoUsuario;
 	static JTextField nombreUsuario;
@@ -30,8 +32,6 @@ public class VentanaUsuario extends JFrame{
 	static JTextField valorContraseña;
 	JButton bLogin;
 	JButton bNuevoUsuario;
-	static GestorBaseDatos baseDatosUsuarios;
-//	static Usuarios baseDatosUsuarios;
 	JDialog crearUsuario;
 	
 
@@ -77,7 +77,7 @@ public class VentanaUsuario extends JFrame{
                 System.out.println("Boton login click!");
                 if (comprobarBaseDatos()=="Login correcto") {
                 	JOptionPane.showMessageDialog(null, "LOGIN CORRECTO","login correcto",JOptionPane.INFORMATION_MESSAGE);
-                	new VentanaPrincipal();
+                	new VentanaPrincipal(); //Pasar la conexión
                 } else {
                     mensajeError(comprobarBaseDatos());
                 }

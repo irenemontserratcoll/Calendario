@@ -48,9 +48,9 @@ public class VentanaCategoria extends JFrame {
 		
 		JPanel comboBoxCat = new JPanel();
 		List<clases.Categoria> listaCategorias = List.of(
-				new Categoria("Estudiar", null, Color.BLUE),
-				new Categoria("Deporte", null, Color.RED),
-				new Categoria("Proyecto Programacion", null, Color.GREEN));
+				new Categoria("Estudiar", Color.BLUE),
+				new Categoria("Deporte", Color.RED),
+				new Categoria("Proyecto Programacion", Color.GREEN));
 		
 		JComboBox<String> categorias = new JComboBox<String>();
 		for (Categoria c : listaCategorias) {

@@ -99,7 +99,7 @@ public class Evento {
 		this.nombre = nombre;
 		this.categoria = categoria;
 		this.urgente = urgente;
-		this.activa = true;
+		//this.activa = true;
 
 	}
 
