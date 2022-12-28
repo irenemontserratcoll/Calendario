@@ -1,7 +1,6 @@
 package ventanas;
 
 
-
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -78,6 +77,7 @@ public class VentanaUsuario extends JFrame{
                 System.out.println("Boton login click!");
                 if (comprobarBaseDatos()=="Login correcto") {
                 	JOptionPane.showMessageDialog(null, "LOGIN CORRECTO","login correcto",JOptionPane.INFORMATION_MESSAGE);
+                	new VentanaPrincipal();
                 } else {
                     mensajeError(comprobarBaseDatos());
                 }

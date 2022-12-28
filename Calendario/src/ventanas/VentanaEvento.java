@@ -88,12 +88,21 @@ public class VentanaEvento extends JFrame {
 		
 		// Categoria
 		JPanel categoria = new JPanel();
-		JLabel categ = new JLabel("Categoria");
-		JTextField categorias = new JTextField(20);
-		
+		JButton categ = new JButton("Categoria");
+		categ.addActionListener( new ActionListener() {
+				
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						new VentanaCategoria();
+					}
+				});
+			}
+		});
+				
 		
 		categoria.add(categ);
-		categoria.add(categorias);
 		//Urgente si/no
 		ButtonGroup grupo = new ButtonGroup();
 		JPanel urgente = new JPanel();
@@ -135,15 +144,19 @@ public class VentanaEvento extends JFrame {
 		principal.add(urgente);
 		principal.add(boton);
 		
+		setLocationRelativeTo(null);
 		add(principal);
 		setVisible(true);
 	}
+	
+	//YO CREO QUE ESTO NO HACE FALTA PORQUE AL FINAL
+	//LLAMAMOS DESDE UNA VENTANA A LA OTRA 
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new VentanaEvento();
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				new VentanaEvento();
+//			}
+//		});
+//	}
 }
