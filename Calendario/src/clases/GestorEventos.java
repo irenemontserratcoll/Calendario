@@ -18,38 +18,45 @@ public class GestorEventos {
 	// ATRIBUTOS
 	private final String usuario; // En la ventana usuario. If usuario y contraseña bien. Abrir gestor eventos
 									// [usuario]
-	private GestorBaseDatos baseDatos;
 	
 	private static List<Evento> listaEventos;
 	private List<Evento> listaUrgente;
 
 	// CONSTRUCTOR
-	/**
-	 * Construye el Gestor de Eventos o Calendario particular del usuario. Es
-	 * necesario que tenga un nombre de usuario único para poder diferenciarlo de
-	 * los otros. Contiene una lista (ArrayList) con todos los eventos del usuario.
-	 * 
-	 * @param usuario
-	 * @param listaEventos
-	 * @param listaUrgente
-	 */
-	public GestorEventos(String usuario, List<Evento> listaEventos) {
-		this.usuario = usuario;
-		GestorEventos.listaEventos = listaEventos;
-	}
+//	/**
+//	 * Construye el Gestor de Eventos o Calendario particular del usuario. Es
+//	 * necesario que tenga un nombre de usuario único para poder diferenciarlo de
+//	 * los otros. Contiene una lista (ArrayList) con todos los eventos del usuario.
+//	 * 
+//	 * @param usuario
+//	 * @param listaEventos
+//	 * @param listaUrgente
+//	 */
+//	public GestorEventos(String usuario, List<Evento> listaEventos) {
+//		this.usuario = usuario;
+//		GestorEventos.listaEventos = listaEventos;
+//	}
 	
+	/**Creo el gestor eventos a partir de la base de datos.
+	 * Obteniendo la lista de eventos de un usuario concreto.
+	 * @param usuario
+	 * @param baseDatos
+	 */
 	public GestorEventos(String usuario, GestorBaseDatos baseDatos) {
 		this.usuario = usuario;
-		this.baseDatos = baseDatos;
-		//this.listaEventos = funcion gestor BD
+		listaEventos = new ArrayList<>();
+		listaEventos = baseDatos.getListaEventosUsuario(usuario, listaEventos);
+		listaUrgente = new ArrayList<>();
+		for (Evento evento : listaEventos) {
+			if (evento.isUrgente()) {
+				listaUrgente.add(evento);
+			}
+		}
 	}
-	//Gestiona eventos de un usuario por lo que se crea a partir de un usuario y el gestor de la base de datos, tras haber logineado.
-	//El gestor de la base de datos nos da todos los eventos de un usuario a partir de un metodo e inicializamos el atributo lista eventos
-	//Crear la lista de urgentes
 
 	// METODOS
 	public List<Evento> getListaUrgente() {
-		for (Evento evento : getListaEventos()) {
+		for (Evento evento : listaEventos) {
 			if (evento.isUrgente()) {
 				listaUrgente.add(evento);
 			}
@@ -66,9 +73,10 @@ public class GestorEventos {
 	}
 
 	public void addEvento(Evento evento) {
-
 		listaEventos.add(evento);
-
+		if(evento.isUrgente()) {
+			listaUrgente.add(evento);
+		}
 	}
 
 	public void removeEvento(Evento evento) {

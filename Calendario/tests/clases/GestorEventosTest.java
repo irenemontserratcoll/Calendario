@@ -7,6 +7,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import baseDeDatos.GestorBaseDatos;
+
 public class GestorEventosTest {
 
 	private GestorEventos calendario12;
@@ -15,7 +17,10 @@ public class GestorEventosTest {
 	public void setUp() {
 		ArrayList<Evento> listaPrueba = new ArrayList<Evento>();
 		listaPrueba.add(new Evento("Comida"));
-		calendario12 = new GestorEventos("Nahia", listaPrueba);
+		GestorBaseDatos g = new GestorBaseDatos();
+		g.iniciar();
+		calendario12 = new GestorEventos("Nahia",g );
+		
 	}
 
 	@Test
@@ -33,12 +38,13 @@ public class GestorEventosTest {
 
 	@Test
 	public void testGetListaEventosUrgentes() {
+		calendario12.addEvento(new Evento("Comida", null,false));
 		calendario12.getListaEventos().get(0).setUrgente(true);
 		
 		List<Evento> listaEsperada = new ArrayList<Evento>();
 		listaEsperada.add(new Evento("Comida", null, true));
 		
-		assertSame(listaEsperada.get(0).getNombre(), calendario12.getListaUrgente().get(0).getNombre());
+		assertEquals(listaEsperada.get(0).getNombre(), calendario12.getListaUrgente().get(0).getNombre());
 	}
 
 	@Test

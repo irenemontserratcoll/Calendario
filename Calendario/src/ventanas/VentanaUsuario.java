@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import baseDeDatos.GestorBaseDatos;
+import clases.GestorEventos;
 
 public class VentanaUsuario extends JFrame{
 
@@ -77,7 +78,13 @@ public class VentanaUsuario extends JFrame{
                 System.out.println("Boton login click!");
                 if (comprobarBaseDatos()=="Login correcto") {
                 	JOptionPane.showMessageDialog(null, "LOGIN CORRECTO","login correcto",JOptionPane.INFORMATION_MESSAGE);
-                	new VentanaPrincipal(); //Pasar la conexión
+                	//Creo un gestor de eventos a partir del usuario de login y de la base de datos. (Con los eventos del usuario)
+                	GestorEventos gestorEventos = new GestorEventos(nombreUsuario.getText().toString(), baseDatosUsuarios);  
+                	SwingUtilities.invokeLater(new Runnable() {
+            			public void run() {
+            				new VentanaPrincipal(gestorEventos);
+            			}
+            		});
                 } else {
                     mensajeError(comprobarBaseDatos());
                 }

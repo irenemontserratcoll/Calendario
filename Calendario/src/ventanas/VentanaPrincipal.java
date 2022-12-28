@@ -21,9 +21,11 @@ import javax.swing.table.TableColumnModel;
 
 import clases.Categoria;
 import clases.Evento;
+import clases.GestorEventos;
 
 
 public class VentanaPrincipal extends JFrame {
+	private GestorEventos gestorEventos;
 	private static Logger logger = Logger.getLogger(Logger.class.getName());
 	ZonedDateTime fecha = ZonedDateTime.now();
 	
@@ -42,8 +44,9 @@ public class VentanaPrincipal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-
-	public VentanaPrincipal() {
+	//La ventana Principal se crea a partir del gestor de eventos con los eventos de un usuario concreto.
+	public VentanaPrincipal(GestorEventos gestorEventos) {
+		this.gestorEventos = gestorEventos;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Calendario");
 		setSize(1600,1000);
@@ -241,12 +244,13 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new VentanaPrincipal();
-			}
-		});
-	}
+//Ahora se inicia desde ventana usuario
+	
+//	public static void main(String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				new VentanaPrincipal();
+//			}
+//		});
+//	}
 }
