@@ -16,11 +16,10 @@ import baseDeDatos.GestorBaseDatos;
 
 public class GestorEventos {
 	// ATRIBUTOS
-	private final String usuario; // En la ventana usuario. If usuario y contraseña bien. Abrir gestor eventos
-									// [usuario]
-	
-	private static List<Evento> listaEventos;
+	private final String usuario; //  Abrir gestor eventos de cada usuario
+	private static List<Evento> listaEventos; //Lista con todos los eventos de la base de datos
 	private List<Evento> listaUrgente;
+	private GestorBaseDatos baseDatos; //Tiene que estar conectado con la base de datos
 
 	// CONSTRUCTOR
 //	/**
@@ -44,6 +43,7 @@ public class GestorEventos {
 	 */
 	public GestorEventos(String usuario, GestorBaseDatos baseDatos) {
 		this.usuario = usuario;
+		this.baseDatos=baseDatos;
 		listaEventos = new ArrayList<>();
 		listaEventos = baseDatos.getListaEventosUsuario(usuario, listaEventos);
 		listaUrgente = new ArrayList<>();
@@ -73,6 +73,7 @@ public class GestorEventos {
 	}
 
 	public void addEvento(Evento evento) {
+		//TODO añadir tambien a la base de datos
 		listaEventos.add(evento);
 		if(evento.isUrgente()) {
 			listaUrgente.add(evento);

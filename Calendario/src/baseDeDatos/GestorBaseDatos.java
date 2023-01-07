@@ -17,6 +17,7 @@ import java.util.*;
 
 import clases.Categoria;
 import clases.Evento;
+import clases.Usuario;
 
 public class GestorBaseDatos {
 	private static Logger logger = Logger.getLogger(Logger.class.getName());
@@ -176,7 +177,7 @@ public class GestorBaseDatos {
 			intertaCategoria.setString(1, nombreUsuario);
 			intertaCategoria.setString(2, nombreCategoria);
 			
-			//NO SE COMO HACER PARA AÑADIR EN LA BASE DE DATOS EL COLOR COMO STRING 
+			//TODO NO SE COMO HACER PARA AÑADIR EN LA BASE DE DATOS EL COLOR COMO STRING 
 			
 			intertaCategoria.setString(3, "Blanco");
 			intertaCategoria.executeUpdate();
@@ -185,6 +186,44 @@ public class GestorBaseDatos {
 		}
 	}
 	
+	/**
+	 * Metodo para añadir un evento a la base de datos
+	 * 
+	 * @param evento  que queremos añadir
+	 * @param usuario al que pertenece
+	 */
+	public void anyadirEvento(Evento evento, Usuario usuario) {
+		// Ejemplo statement
+		// INSERT INTO eventos VALUES ('Nahia', 'Estudiar', 76737, 78998, 30,
+		// 'bailar','si');
+
+		try {
+			PreparedStatement insertarEvento = conn
+					.prepareStatement("INSERT INTO eventos VALUES ('?', '?', ?, ?, ?, '?','?'");
+			insertarEvento.setString(1, usuario.getNombre());
+			insertarEvento.setString(1, evento.getNombre());
+			Long fechaInicio = evento.getFechaInicio().toInstant().toEpochMilli();
+			insertarEvento.setLong(3, fechaInicio);
+			Long fechaFin = evento.getFechaFin().toInstant().toEpochMilli();
+			insertarEvento.setLong(4, fechaFin);
+			insertarEvento.setInt(5, (int) evento.getDuracionReal());
+			insertarEvento.setString(6, evento.getCategoria().getCategoria());
+			String urgente = "";
+			if (evento.isUrgente()) {
+				urgente = "Si";
+			} else {
+				urgente = "No";
+			}
+			insertarEvento.setString(7, urgente);
+
+			insertarEvento.executeUpdate();
+			logger.info("Evento añadido a la base de datos");
+		} catch (SQLException e) {
+			logger.severe("No se ha añadido el evento a la Base de datos");
+			e.printStackTrace();
+		}
+	}
+
 /**Obtiene una lista con los eventos de un determinado usuario almacenados en la BD
  * @param nombreUsuario
  * @param listaEventos
@@ -203,14 +242,17 @@ public class GestorBaseDatos {
 				float duracionReal = rs2.getFloat("Duracion Real");
 				String sCategoria = rs2.getString("Categoria");
 				String sUrgente = rs2.getString("Urgente");
+				Boolean urgente=false;
+				if (sUrgente.contains("Si")) {
+					urgente=true;
+				}
 				LocalDateTime lInicio = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaInicio), TimeZone.getDefault().toZoneId());
 				ZonedDateTime fechaInicio = ZonedDateTime.of(lInicio, ZoneId.of("Europe/Madrid"));
 				LocalDateTime lFin = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaFin), TimeZone.getDefault().toZoneId());
-				ZonedDateTime fechaFin = ZonedDateTime.of(lInicio, ZoneId.of("Europe/Madrid"));
+				ZonedDateTime fechaFin = ZonedDateTime.of(lFin, ZoneId.of("Europe/Madrid"));
 				Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
-				//TODO es urgente
 				
-				Evento e = new Evento(nombreUsuario,fechaInicio, fechaFin, duracionReal, cat, false);
+				Evento e = new Evento(nombreUsuario,fechaInicio, fechaFin, duracionReal, cat, urgente);
 				listaEventos.add(e);
 			}
 			obtenerEventos.close();		
@@ -247,8 +289,4 @@ public class GestorBaseDatos {
 	}
 	
 
-	public static void main(String[] args) {
-//		iniciar();
-//		close();
-	}
 }

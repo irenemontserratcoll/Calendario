@@ -7,7 +7,7 @@ public class Evento {
 	protected String nombre;
 	protected ZonedDateTime fechaInicio;
 	protected ZonedDateTime fechaFin;
-	protected float duracionReal;
+	protected float duracionReal; //Esto no lo usamos, habria que quitarlo
 	protected Categoria categoria;
 	protected boolean urgente;
 	protected boolean activa;

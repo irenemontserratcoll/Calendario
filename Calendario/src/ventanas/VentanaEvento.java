@@ -114,14 +114,14 @@ public class VentanaEvento extends JFrame {
 		grupo.add(no);
 		urgente.add(si);
 		urgente.add(no);
-		// Botón crear evento
 		JPanel boton = new JPanel();
-		bEv = new JButton("Crear evento");
+		bEv = new JButton("Crear evento");// Botón crear evento
 
 		bEv.addActionListener(new ActionListener() {
-
+			//TODO Crear evento en la base de Datos
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("Boton nuevo evento pulsado");
 				if (nombreEvento.getText().length()== 0) {
 					JOptionPane.showMessageDialog(null, "Es necesario introducir título de evento", "error", JOptionPane.WARNING_MESSAGE);
 				}if (picker.getModel().getValue() != null){
