@@ -268,7 +268,7 @@ public class GestorBaseDatos {
 	 * @param nombreCategoria
 	 * @return Categoria
 	 */
-	public Categoria getCategoriaDeNombre(String nombreUsuario, String nombreCategoria) {
+	public static Categoria getCategoriaDeNombre(String nombreUsuario, String nombreCategoria) {
 		try {
 			Statement obtenerCategoria = conn.createStatement();
 			String consulta ="SELECT * FROM categorias WHERE nombre = '"+nombreCategoria+"' AND usuario = '" + nombreUsuario + "'";
@@ -286,6 +286,55 @@ public class GestorBaseDatos {
 		}
 		return null;
 		
+	}
+	
+	/**
+	 * 
+	 * @param nombreUsuario del que se quieren buscar los eventos
+	 * @param diasMostrados en la pantalla en ese momento
+	 * @return Lista de los eventos de esa semana.
+	 */
+	public static List<Evento> getEventosSemana(String nombreUsuario, List<String> diasMostrados  ){
+		try {
+			List<Evento> listaEventos = new ArrayList<Evento>();
+			Statement obtenerEventos = conn.createStatement();
+			String consulta = "SELECT * FROM eventos WHERE usuario = '"+ nombreUsuario +"' ";
+			ResultSet rs2 = obtenerEventos.executeQuery(consulta);
+
+			while (rs2.next()) {
+				System.out.println("he llegado aqui");
+
+				long lFechaInicio = rs2.getLong("Fecha Inicio");
+				long lFechaFin = rs2.getLong("Fecha Fin");
+				float duracionReal = rs2.getFloat("Duracion Real");
+				String sCategoria = rs2.getString("Categoria");
+				String sUrgente = rs2.getString("Urgente");
+				Boolean urgente=false;
+				if (sUrgente.contains("Si")) {
+					urgente=true;
+				}
+				LocalDateTime lInicio = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaInicio), TimeZone.getDefault().toZoneId());
+				ZonedDateTime fechaInicio = ZonedDateTime.of(lInicio, ZoneId.of("Europe/Madrid"));
+				LocalDateTime lFin = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaFin), TimeZone.getDefault().toZoneId());
+				ZonedDateTime fechaFin = ZonedDateTime.of(lFin, ZoneId.of("Europe/Madrid"));
+				Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
+
+				
+				for (String dia: diasMostrados){
+					if ((fechaInicio.getDayOfWeek() + " " +fechaInicio.getDayOfMonth( )).equals(dia)) {
+						Evento e = new Evento(nombreUsuario,fechaInicio, fechaFin, duracionReal, cat, urgente);
+						listaEventos.add(e);
+					}
+				}
+
+			}
+			obtenerEventos.close();		
+			return listaEventos;
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 
