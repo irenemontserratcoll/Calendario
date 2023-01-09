@@ -3,6 +3,9 @@ package ventanas;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -22,6 +25,11 @@ import javax.swing.SwingUtilities;
 import org.jdatepicker.JDateComponentFactory;
 import org.jdatepicker.JDatePicker;
 
+import baseDeDatos.GestorBaseDatos;
+import clases.Categoria;
+import clases.Evento;
+import clases.GestorEventos;
+
 public class VentanaEvento extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -32,9 +40,12 @@ public class VentanaEvento extends JFrame {
 	JDatePicker depart_date_picker;
 	JButton bEv;
 	private JRadioButton si,no;
+	private GestorEventos gestor;
+	VentanaCategoria v;
 
-	public VentanaEvento() {
+	public VentanaEvento(GestorEventos gestor) {
 
+		this.gestor=gestor;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Ventana Evento");
 		setSize(400, 500);
@@ -53,21 +64,19 @@ public class VentanaEvento extends JFrame {
 
 		// Combo box con horas desde las 00 hasta las 23:30 (cada media hora)
 		List<String> horasl = new ArrayList<String>();
-
 		for (int i = 0; i < 24; i++) {
 			horasl.add(i + ":00");
 			horasl.add(i + ":30");
 		}
-		JComboBox<Object> horasInicio = new JComboBox<Object>();
+		
+		JComboBox<String> horasInicio = new JComboBox<String>();
+		JComboBox<String> horasFin = new JComboBox<String>();
 
 		for (int i = 0; i < horasl.size(); i++) {
 			horasInicio.addItem(horasl.get(i));
-		}
-		JComboBox<Object> horasFin = new JComboBox<Object>();
-
-		for (int i = 0; i < horasl.size(); i++) {
 			horasFin.addItem(horasl.get(i));
 		}
+		
 
 		JDatePicker picker = new JDateComponentFactory().createJDatePicker();
 		picker.setTextEditable(true);
@@ -95,7 +104,7 @@ public class VentanaEvento extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						new VentanaCategoria();
+						v = new VentanaCategoria();
 					}
 				});
 			}
@@ -118,18 +127,43 @@ public class VentanaEvento extends JFrame {
 		bEv = new JButton("Crear evento");// Botón crear evento
 
 		bEv.addActionListener(new ActionListener() {
-			//TODO Crear evento en la base de Datos
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Boton nuevo evento pulsado");
 				if (nombreEvento.getText().length()== 0) {
 					JOptionPane.showMessageDialog(null, "Es necesario introducir título de evento", "error", JOptionPane.WARNING_MESSAGE);
-				}if (picker.getModel().getValue() != null){
+				}else if (picker.getModel().getValue() != null){
 					Calendar fecha1 = (Calendar) picker.getModel().getValue();
 					Calendar fecha2 = (Calendar) picker1.getModel().getValue();
 					if (fecha2.compareTo(fecha1)<0) {
 						JOptionPane.showMessageDialog(null, "La fecha de inicio tiene que ser anterior a la fecha de fin", "error", JOptionPane.WARNING_MESSAGE);
-					} 
+					}else { //Evento correcto
+						//Fecha inicio
+						Instant f1 = fecha1.toInstant();
+						String a1 = (String) horasInicio.getSelectedItem();
+						String[] ae = a1.split(":");
+						int hora = Integer.parseInt(ae[0]);
+						int minuto = Integer.parseInt(ae[1]);
+						ZonedDateTime z1 = ZonedDateTime.ofInstant(f1, ZoneId.systemDefault());
+						z1 = z1.plusHours(hora);
+						z1 =z1.plusMinutes(minuto);
+						
+						//Fecha fin
+						Instant f2 = fecha2.toInstant();
+						String a2 = (String) horasFin.getSelectedItem();
+						String[] ae2 = a2.split(":");
+						int hora2 = Integer.parseInt(ae2[0]);
+						int minuto2 = Integer.parseInt(ae2[1]);
+						ZonedDateTime z2 = ZonedDateTime.ofInstant(f2, ZoneId.systemDefault());	
+						z2 = z2.plusHours(hora2);
+						z2 =z2.plusMinutes(minuto2);
+						
+						Boolean urgente = si.isCursorSet();
+						Categoria categoria = v.categoriaSeleccionada();
+						float duracion = 0.0F;
+						Evento eventos = new Evento(nombreEvento.getText(),z1 , z2,duracion , categoria, urgente);
+						gestor.addEvento(eventos);
+					}
 					
 				}
 			}

@@ -18,7 +18,7 @@ public class GestorEventosTest {
 		ArrayList<Evento> listaPrueba = new ArrayList<Evento>();
 		listaPrueba.add(new Evento("Comida"));
 		GestorBaseDatos g = new GestorBaseDatos();
-		g.iniciar();
+		GestorBaseDatos.iniciar();
 		calendario12 = new GestorEventos("Nahia",g );
 		
 	}
