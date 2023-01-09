@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.Month;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -34,7 +35,7 @@ public class VentanaPrincipal extends JFrame {
 	
 	ModeloTablaCalendario modelo;
 	JTable tablaCalendario;
-
+    List<String> diasMuestraPantalla = new ArrayList<String>();
 	
 
 	public ZonedDateTime getFecha() {
@@ -64,6 +65,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		ImageIcon icono = new ImageIcon(VentanaUsuario.class.getResource("/Logobien2.0.jpg"));
 		JLabel titulo = new JLabel(icono,JLabel.CENTER);
+
 
 		mes = new JComboBox<Object>();
 		mes.setModel(new DefaultComboBoxModel<Object>(Month.values()));
@@ -111,6 +113,10 @@ public class VentanaPrincipal extends JFrame {
 				tablaCalendario.setModel(new ModeloTablaCalendario(VentanaPrincipal.this));
 				tablaCalendario.repaint();
 				logger.info("Nueva fecha seleccionada: " + fecha);
+				diasMuestraPantalla = new ArrayList<>();
+			    for( int i=1 ; i<10 ; ++i ) {
+			    	diasMuestraPantalla.add(modelo.getColumnName(i));
+			    }
 			}
 		});
 		
@@ -125,6 +131,10 @@ public class VentanaPrincipal extends JFrame {
 				tablaCalendario.setModel(new ModeloTablaCalendario(VentanaPrincipal.this));
 				tablaCalendario.repaint();
 				logger.info("Nueva fecha seleccionada: " + fecha);
+				diasMuestraPantalla = new ArrayList<>();
+			    for( int i=1 ; i<10 ; ++i ) {
+			    	diasMuestraPantalla.add(modelo.getColumnName(i));
+			    }
 			}
 		});
 		// Botón crear evento
@@ -152,10 +162,14 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 //TABLA
-		
 		modelo = new ModeloTablaCalendario(this);
 		tablaCalendario = new JTable(modelo);
-		
+	    for( int i=1 ; i<10 ; ++i ) {
+	    	diasMuestraPantalla.add(modelo.getColumnName(i));
+	    }
+	    modelo.getEventosSemana(diasMuestraPantalla);
+	   
+        String evento = (String) tablaCalendario.getValueAt(6, 6);
 		
 		//Columna 0
 		
@@ -163,8 +177,7 @@ public class VentanaPrincipal extends JFrame {
 		alineadoCentro.setHorizontalAlignment(JLabel.CENTER);
 		TableColumnModel columnModel = tablaCalendario.getColumnModel();
 	    columnModel.getColumn(0).setMaxWidth(80);
-	    columnModel.getColumn(0).setCellRenderer(alineadoCentro);
-
+	    columnModel.getColumn(0).setCellRenderer(alineadoCentro);	  	    
 	    
 	    
 	    bajo.add(bEv);
@@ -244,13 +257,4 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	
-//Ahora se inicia desde ventana usuario
-	
-//	public static void main(String[] args) {
-//		SwingUtilities.invokeLater(new Runnable() {
-//			public void run() {
-//				new VentanaPrincipal();
-//			}
-//		});
-//	}
 }
