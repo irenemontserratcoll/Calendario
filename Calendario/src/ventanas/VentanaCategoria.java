@@ -25,6 +25,7 @@ public class VentanaCategoria extends JFrame {
 	private static final long serialVersionUID = 1L;
 	static GestorBaseDatos baseDatosUsuarios;
 	JLabel textoCategoria;
+	JComboBox<String> categorias;
 	
 	public VentanaCategoria() {
 	
@@ -47,14 +48,22 @@ public class VentanaCategoria extends JFrame {
 		// JComboBox
 		
 		JPanel comboBoxCat = new JPanel();
+		
+		//TODO esto se tiene que sacar de la base de datos
 		List<clases.Categoria> listaCategorias = List.of(
 				new Categoria("Estudiar", Color.BLUE),
 				new Categoria("Deporte", Color.RED),
 				new Categoria("Proyecto Programacion", Color.GREEN));
 		
-		JComboBox<String> categorias = new JComboBox<String>();
+//		JComboBox<String> categorias = new JComboBox<String>();
+//		for (Categoria c : listaCategorias) {
+//			categorias.addItem(c.getCategoria());
+//		}
+//		comboBoxCat.add(categorias);
+		
+		JComboBox<Categoria> categorias = new JComboBox<Categoria>();
 		for (Categoria c : listaCategorias) {
-			categorias.addItem(c.getCategoria());
+			categorias.addItem(c);
 		}
 		comboBoxCat.add(categorias);
 		
@@ -63,10 +72,8 @@ public class VentanaCategoria extends JFrame {
 		JButton botonAceptar = new JButton("Aceptar");
 		aceptar.add(botonAceptar);
 		botonAceptar.addActionListener( new ActionListener() {
-			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {				
 				setVisible(false);
 			}
 		});
@@ -136,7 +143,9 @@ public class VentanaCategoria extends JFrame {
 		}
 	}
 	
-	
+	public Categoria categoriaSeleccionada() {
+		return (Categoria) categorias.getSelectedItem();
+	}
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {

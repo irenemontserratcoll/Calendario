@@ -73,7 +73,7 @@ public class GestorEventos {
 	}
 
 	public void addEvento(Evento evento) {
-		//TODO añadir tambien a la base de datos
+		baseDatos.anyadirEvento(evento, usuario);
 		listaEventos.add(evento);
 		if(evento.isUrgente()) {
 			listaUrgente.add(evento);

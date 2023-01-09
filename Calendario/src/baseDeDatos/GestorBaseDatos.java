@@ -192,7 +192,7 @@ public class GestorBaseDatos {
 	 * @param evento  que queremos añadir
 	 * @param usuario al que pertenece
 	 */
-	public void anyadirEvento(Evento evento, Usuario usuario) {
+	public void anyadirEvento(Evento evento, String usuario) {
 		// Ejemplo statement
 		// INSERT INTO eventos VALUES ('Nahia', 'Estudiar', 76737, 78998, 30,
 		// 'bailar','si');
@@ -200,7 +200,7 @@ public class GestorBaseDatos {
 		try {
 			PreparedStatement insertarEvento = conn
 					.prepareStatement("INSERT INTO eventos VALUES ('?', '?', ?, ?, ?, '?','?'");
-			insertarEvento.setString(1, usuario.getNombre());
+			insertarEvento.setString(1, usuario);
 			insertarEvento.setString(1, evento.getNombre());
 			Long fechaInicio = evento.getFechaInicio().toInstant().toEpochMilli();
 			insertarEvento.setLong(3, fechaInicio);
