@@ -38,9 +38,8 @@ public class GeneradorContraseñas {
 	
 	
 	
-	private String generateRec(int length, int size) {
+	private String generarContraseña(int length, int size) {
 	
-		
 			if (length == size) 
 				return "";
 			
@@ -49,11 +48,11 @@ public class GeneradorContraseñas {
 			
 			for (CharType charType : getRandomOrder()) {
 				switch (charType) {
-					case num:	password = generateRec(length + 1, size);
+					case num:	password = generarContraseña(length + 1, size);
 								randomChar = getNumAl();
 								break;
 								
-					case letras:password = generateRec(length + 1, size);
+					case letras:password = generarContraseña(length + 1, size);
 								randomChar = getLetraAl();
 								break;
 				}
@@ -67,6 +66,6 @@ public class GeneradorContraseñas {
 	}
 
 	public String generate() {
-		return generateRec(0, 10);
+		return generarContraseña(0, 10);
 	}
 }
