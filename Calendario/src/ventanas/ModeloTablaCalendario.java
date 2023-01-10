@@ -15,7 +15,7 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	private static int NUM_COLUMNAS = 8;
 	private static int NUM_FILAS = 48;
 	
-	
+	List<Evento> eventosSemana = new ArrayList<>();
 	private static final long serialVersionUID = 1L;
 
 
@@ -26,10 +26,7 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 		super();
 		this.ventana = ventana;
 		
-		for(int i=0; i<NUM_FILAS; i++) {
-	    	LocalTime tiempo = LocalTime.of(0, 0);
-	    	this.setValueAt(tiempo.plusMinutes(i*30), i, 0);
-	    }
+		
 	}
 	
 	
@@ -72,24 +69,23 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 		if (getColumnName(4).equals("MONDAY 9")) {
 			System.out.println("Hoy es día 9");
 			Evento prueba = new Evento("deporte");
-			ventana.modelo.setValueAt("Hola", 8, 4);
-			ventana.modelo.setValueAt(prueba.getNombre(), 9, 4);
-			ventana.modelo.getValueAt(10, 4);
-
-			
 		}
 		
 		return " ";
 	}
 	
+  
     @Override
     public Object getValueAt(int row, int column) {
-        // como el modelo de datos es una lista de objetos en este caso
-        // se obtiene la fila/objeto correspondiente
-        // en función del número de columna se obtiene la propiedad
-        Evento e = new Evento("deporte");
-
-        return e.getNombre();
+    	Evento e = new Evento("deporte");
+    	eventosSemana.add(e);
+        switch (column) {
+			case 0: 
+		    	LocalTime tiempo = LocalTime.of(0, 0);
+		    	return tiempo.plusMinutes(row*30);
+			case 1: return e.getNombre();
+			default: return null;
+        }
     }
     
  

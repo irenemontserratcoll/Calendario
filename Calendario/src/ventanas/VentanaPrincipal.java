@@ -167,9 +167,9 @@ public class VentanaPrincipal extends JFrame {
 	    for( int i=1 ; i<10 ; ++i ) {
 	    	diasMuestraPantalla.add(modelo.getColumnName(i));
 	    }
-	    modelo.getEventosSemana(diasMuestraPantalla);
+	   // modelo.getEventosSemana(diasMuestraPantalla);
 	   
-        String evento = (String) tablaCalendario.getValueAt(6, 6);
+        
 		
 		//Columna 0
 		

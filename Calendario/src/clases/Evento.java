@@ -45,6 +45,7 @@ public class Evento {
 	 */
 	public Evento(String nombre) {
 		super();
+		this.nombre= nombre;
 		this.fechaInicio = null;
 		this.fechaFin = null;
 		this.duracionReal = 0.0f;
