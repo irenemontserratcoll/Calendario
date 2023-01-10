@@ -7,10 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,7 +22,7 @@ import javax.swing.SwingUtilities;
 import baseDeDatos.GestorBaseDatos;
 import clases.GestorEventos;
 import recursividad.GeneradorContraseñas;
-import recursividad.GeneradorContraseñas.CharType;
+
 
 public class VentanaUsuario extends JFrame{
 
@@ -74,7 +71,18 @@ public class VentanaUsuario extends JFrame{
 		contraseña.add(textoContraseña);
 		valorContraseña = new JTextField(20);
 		contraseña.add(valorContraseña);
-        
+		JButton botonGenerarContrasena = new JButton("Generar Contraseña");
+		contraseña.add(botonGenerarContrasena);
+        botonGenerarContrasena.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GeneradorContraseñas g = new GeneradorContraseñas();
+				String valor = g.generate();
+				valorContraseña.setText(valor);
+				
+			}
+		});
 
 		bLogin = new JButton("Login");
 		bLogin.addActionListener(new ActionListener() {
