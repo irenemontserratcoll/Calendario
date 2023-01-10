@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +24,8 @@ import javax.swing.SwingUtilities;
 
 import baseDeDatos.GestorBaseDatos;
 import clases.GestorEventos;
+import recursividad.GeneradorContraseñas;
+import recursividad.GeneradorContraseñas.CharType;
 
 public class VentanaUsuario extends JFrame{
 
@@ -124,8 +130,9 @@ public class VentanaUsuario extends JFrame{
 
 		add(principal);
 		setVisible(true);
-	}
 	
+	}
+
 	public static void mensajeError(String s) {
 		JOptionPane.showMessageDialog(null, s,"Error",JOptionPane.ERROR_MESSAGE);
     }
@@ -136,6 +143,13 @@ public class VentanaUsuario extends JFrame{
 			int reply = JOptionPane.showConfirmDialog(null, "¿Desea crear un nuevo usuario?", "Confirmación",
 					JOptionPane.YES_NO_OPTION);
 			if (reply == JOptionPane.YES_OPTION) {
+				int contraAut = JOptionPane.showConfirmDialog(null, "¿Desea generar contraseña automaticamente?", "Confirmación",
+						JOptionPane.YES_NO_OPTION);
+				if (contraAut == JOptionPane.YES_OPTION) {
+					GeneradorContraseñas c = new GeneradorContraseñas();
+					String contrasenyaAut = c.generate();
+					valorContraseña.setText(contrasenyaAut);		
+				}
 				String usuario = nombreUsuario.getText().toString();
 				String contrasenya = valorContraseña.getText().toString();
 
