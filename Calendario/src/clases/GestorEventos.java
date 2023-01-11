@@ -73,6 +73,25 @@ public class GestorEventos {
 		return listaEventos;
 	}
 
+	/** Función que devuelve una lista con los eventos de la semana
+	 * dada la fecha del día central de la semana (atributo fecha de la Ventana Principal)
+	 * @param fecha
+	 * @return listaSemana
+	 */
+	public List<Evento> getListaEventosSemanal(ZonedDateTime fecha){
+		List<Evento> listaSemana = new ArrayList<Evento>();
+		for(Evento e: listaEventos) {
+			ZonedDateTime inicio = e.getFechaInicio();
+			ZonedDateTime fin = e.getFechaFin();
+			if ( (fecha.isAfter(inicio.minusDays(3)) && fecha.isBefore(fin.plusDays(3)) ) ||  //El evento comienza durante la semana pero sigue
+					(inicio.isBefore(fecha.plusDays(3))  && (inicio.isAfter(fecha.minusDays(3)) ) )   ){ //El evento comienza durante la semana
+				listaSemana.add(e);
+			}
+		}
+		return listaSemana;
+		
+	}
+	
 	public void addEvento(Evento evento) {
 		baseDatos.anyadirEvento(evento, usuario);
 		listaEventos.add(evento);

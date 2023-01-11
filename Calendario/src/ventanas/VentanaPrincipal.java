@@ -27,6 +27,7 @@ import clases.GestorEventos;
 
 public class VentanaPrincipal extends JFrame {
 	private GestorEventos gestorEventos;
+	List<Evento> listaEventosVisibles = new ArrayList<Evento>();
 	private static Logger logger = Logger.getLogger(Logger.class.getName());
 	ZonedDateTime fecha = ZonedDateTime.now();
 	
@@ -48,6 +49,7 @@ public class VentanaPrincipal extends JFrame {
 	//La ventana Principal se crea a partir del gestor de eventos con los eventos de un usuario concreto.
 	public VentanaPrincipal(GestorEventos gestorEventos) {
 		this.gestorEventos = gestorEventos;
+		this.listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Calendario");
 		setSize(1600,1000);

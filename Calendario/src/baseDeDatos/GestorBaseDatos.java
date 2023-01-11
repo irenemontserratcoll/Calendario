@@ -253,7 +253,7 @@ public class GestorBaseDatos {
 				LocalDateTime lFin = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaFin), TimeZone.getDefault().toZoneId());
 				ZonedDateTime fechaFin = ZonedDateTime.of(lFin, ZoneId.of("Europe/Madrid"));
 				//Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
-				
+				//TODO COLORES EN LA BD
 				Categoria cat = new Categoria(sCategoria, Color.BLACK);
 				Evento e = new Evento(nombreEvento,fechaInicio, fechaFin, duracionReal, cat, urgente);
 				listaEventos.add(e);
