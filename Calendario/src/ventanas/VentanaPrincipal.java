@@ -49,7 +49,7 @@ public class VentanaPrincipal extends JFrame {
 	//La ventana Principal se crea a partir del gestor de eventos con los eventos de un usuario concreto.
 	public VentanaPrincipal(GestorEventos gestorEventos) {
 		this.gestorEventos = gestorEventos;
-		this.listaEventosVisibles = gestorEventos.getListaEventos();
+		this.listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Calendario");
 		setSize(1600,1000);
