@@ -23,7 +23,7 @@ import clases.Usuario;
 public class VentanaCategoria extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	static GestorBaseDatos baseDatosUsuarios;
+	GestorBaseDatos baseDatosUsuarios;
 	JLabel textoCategoria;
 	JComboBox<String> categorias;
 	
@@ -31,7 +31,7 @@ public class VentanaCategoria extends JFrame {
 	
 		//ESTO SOBRARA CUANDO CONECTEMOS CON LAS DEMAS VENTANAS LO QUITAMOS
 		baseDatosUsuarios=new GestorBaseDatos();
-		GestorBaseDatos.iniciar();
+		baseDatosUsuarios.iniciar();
 
 		Usuario usuario =  new Usuario("prueba","Pruebas");
 		

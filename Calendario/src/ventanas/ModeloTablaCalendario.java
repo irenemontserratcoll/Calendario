@@ -93,8 +93,14 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	    	return tiempo.plusMinutes(row*30);
 		}else {
 			for (Evento e: ventana.listaEventosVisibles) {
-				if ( (column >= ColumnaInicioEvento(e, ventana.fecha) && column <= ColumnaInicioEvento(e, ventana.fecha)) && (row >= FilaInicioEvento(e) && row <= FilaFinEvento(e)) ){
-						return e.getNombre();
+				System.out.println(e.getNombre());
+				System.out.println("  Col inicio: "+ColumnaInicioEvento(e, ventana.fecha));
+				System.out.println("  Col fin: "+ ColumnaFinEvento(e, ventana.fecha));
+				System.out.println("  Row inicio: "+ FilaInicioEvento(e));
+				System.out.println("  Row fin: "+ FilaFinEvento(e));
+				if ( (column >= ColumnaInicioEvento(e, ventana.fecha) && column <= ColumnaFinEvento(e, ventana.fecha)) && (row >= FilaInicioEvento(e) && row <= FilaFinEvento(e)) ){
+						
+					return e.getNombre();
 					}
 				}
 			}
@@ -105,7 +111,7 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 		ZonedDateTime inicioEvento = e.getFechaInicio();
 		int diferencia = (int) Duration.between(fecha, inicioEvento).toDays();
 		int columna = 4+diferencia;
-		if (columna <7 && columna >0) {
+		if (columna <8 && columna >0) {
 			return columna;
 		}else {
 			return 1;
@@ -116,7 +122,7 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 		ZonedDateTime finEvento = e.getFechaFin();
 		int diferencia = (int) Duration.between(fecha, finEvento).toDays();
 		int columna = 4+diferencia;
-		if (columna <7 && columna >0) {
+		if (columna <8 && columna >0) {
 			return columna;
 		}else {
 			return 7;
@@ -142,7 +148,4 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 		}
 		return fila;
 	}
-    
- 
-
 }

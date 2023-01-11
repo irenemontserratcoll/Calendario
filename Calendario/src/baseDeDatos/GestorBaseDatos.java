@@ -18,6 +18,7 @@ import java.util.*;
 import clases.Categoria;
 import clases.Evento;
 //import clases.Usuario;
+import clases.Usuario;
 
 public class GestorBaseDatos {
 	private static Logger logger = Logger.getLogger(Logger.class.getName());
@@ -41,6 +42,27 @@ public class GestorBaseDatos {
 		}
 	}
 	
+	public static void cargarPrueba() {
+		Usuario u1 = new Usuario("PRUEBA", "PRUEBA");
+		
+		Categoria deporte = new Categoria("Deporte", Color.GREEN);
+		Categoria estudiar = new Categoria("Estudiar", Color.BLUE);
+		Categoria otros = new Categoria("Otros", Color.GRAY);
+		
+		ZonedDateTime hoy = ZonedDateTime.now();
+		
+		Evento e1 = new Evento("Bailar", hoy.minusDays(2).minusHours(3), hoy.minusDays(2).minusHours(2), 20.2F, deporte, true);
+		Evento e2 = new Evento("Correr", hoy.plusDays(1).plusHours(1), hoy.plusDays(1).plusHours(2), 20.2F, deporte, true);
+		Evento e3 = new Evento("Matematicas", hoy.minusMinutes(120), hoy, 5,estudiar, false);
+		Evento e4 = new Evento ("Llamar mama", hoy.plusDays(3), hoy.plusDays(3).plusMinutes(30), 5, otros, true);
+		
+		anyadirEvento(e1, u1.getNombre());
+		anyadirEvento(e2, u1.getNombre());
+		anyadirEvento(e3, u1.getNombre());
+		anyadirEvento(e4, u1.getNombre());
+		
+		
+	}
 	
 	
 	public static void close() {
@@ -194,16 +216,16 @@ public class GestorBaseDatos {
 	 * @param evento  que queremos añadir
 	 * @param usuario al que pertenece
 	 */
-	public void anyadirEvento(Evento evento, String usuario) {
+	public static void anyadirEvento(Evento evento, String usuario) {
 		// Ejemplo statement
 		// INSERT INTO eventos VALUES ('Nahia', 'Estudiar', 76737, 78998, 30,
 		// 'bailar','si');
 
 		try {
 			PreparedStatement insertarEvento = conn
-					.prepareStatement("INSERT INTO eventos VALUES ('?', '?', ?, ?, ?, '?','?'");
+					.prepareStatement("INSERT INTO eventos VALUES (?, ?,?, ?, ?, ?,?)");
 			insertarEvento.setString(1, usuario);
-			insertarEvento.setString(1, evento.getNombre());
+			insertarEvento.setString(2, evento.getNombre());
 			Long fechaInicio = evento.getFechaInicio().toInstant().toEpochMilli();
 			insertarEvento.setLong(3, fechaInicio);
 			Long fechaFin = evento.getFechaFin().toInstant().toEpochMilli();
@@ -342,12 +364,4 @@ public class GestorBaseDatos {
 		}
 	}
 	
-public static void main(String[] args) {
-	iniciar();
-	List<Evento> lista = getListaEventosUsuario("Nahia");
-	for (Evento e: lista) {
-		System.out.println(e.getNombre() + " - " + e.getFechaInicio()+ " - " + e.getFechaFin() 
-		+ " - "+ e.getDuracionReal() + " - " + e.getCategoria().getCategoria()+ " - "+e.isUrgente());
-	}
-}
 }
