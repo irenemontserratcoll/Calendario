@@ -17,7 +17,7 @@ import java.util.*;
 
 import clases.Categoria;
 import clases.Evento;
-import clases.Usuario;
+//import clases.Usuario;
 
 public class GestorBaseDatos {
 	private static Logger logger = Logger.getLogger(Logger.class.getName());
@@ -226,17 +226,19 @@ public class GestorBaseDatos {
 
 /**Obtiene una lista con los eventos de un determinado usuario almacenados en la BD
  * @param nombreUsuario
- * @param listaEventos
- * @return listaEventos devuelve la propia lista de eventos, habiendo añadido los eventos de ese nombre de Usuario en la BD
+ * @return listaEventos devuelve la propia lista de eventos, habiendo añadido los eventos de ese nombre de Usuario en la lista
  */
 	
-	public List<Evento> getListaEventosUsuario(String nombreUsuario, List<Evento> listaEventos) {
+	public static ArrayList<Evento> getListaEventosUsuario(String nombreUsuario) {
+		ArrayList<Evento> listaEventos = new ArrayList<>();
 		try {
 			Statement obtenerEventos = conn.createStatement();
 			String consulta = "SELECT * FROM eventos WHERE usuario = '"+ nombreUsuario +"';";
 			ResultSet rs2 = obtenerEventos.executeQuery(consulta);
 			
+			
 			while (rs2.next()) {
+				String nombreEvento = rs2.getString("Nombre Evento");
 				long lFechaInicio = rs2.getLong("Fecha Inicio");
 				long lFechaFin = rs2.getLong("Fecha Fin");
 				float duracionReal = rs2.getFloat("Duracion Real");
@@ -250,9 +252,10 @@ public class GestorBaseDatos {
 				ZonedDateTime fechaInicio = ZonedDateTime.of(lInicio, ZoneId.of("Europe/Madrid"));
 				LocalDateTime lFin = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaFin), TimeZone.getDefault().toZoneId());
 				ZonedDateTime fechaFin = ZonedDateTime.of(lFin, ZoneId.of("Europe/Madrid"));
-				Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
+				//Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
 				
-				Evento e = new Evento(nombreUsuario,fechaInicio, fechaFin, duracionReal, cat, urgente);
+				Categoria cat = new Categoria(sCategoria, Color.BLACK);
+				Evento e = new Evento(nombreEvento,fechaInicio, fechaFin, duracionReal, cat, urgente);
 				listaEventos.add(e);
 			}
 			obtenerEventos.close();		
@@ -337,5 +340,12 @@ public class GestorBaseDatos {
 		}
 	}
 	
-
+public static void main(String[] args) {
+	iniciar();
+	List<Evento> lista = getListaEventosUsuario("Nahia");
+	for (Evento e: lista) {
+		System.out.println(e.getNombre() + " - " + e.getFechaInicio()+ " - " + e.getFechaFin() 
+		+ " - "+ e.getDuracionReal() + " - " + e.getCategoria().getCategoria()+ " - "+e.isUrgente());
+	}
+}
 }

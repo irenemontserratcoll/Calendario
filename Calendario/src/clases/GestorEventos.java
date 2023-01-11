@@ -41,11 +41,12 @@ public class GestorEventos {
 	 * @param usuario
 	 * @param baseDatos
 	 */
+	@SuppressWarnings("static-access")
 	public GestorEventos(String usuario, GestorBaseDatos baseDatos) {
 		this.usuario = usuario;
 		this.baseDatos=baseDatos;
 		listaEventos = new ArrayList<>();
-		listaEventos = baseDatos.getListaEventosUsuario(usuario, listaEventos);
+		listaEventos = baseDatos.getListaEventosUsuario(usuario);
 		listaUrgente = new ArrayList<>();
 		for (Evento evento : listaEventos) {
 			if (evento.isUrgente()) {
@@ -149,7 +150,7 @@ public class GestorEventos {
 	}
 	
 	
-	public static List<Evento> crearListaTareasPnedientes(ArrayList<Evento> eventos){
+	public static List<Evento> crearListaTareasPendientes(ArrayList<Evento> eventos){
 		List<Evento> tareaPendiente = new ArrayList<>();
 		for (Evento ev : eventos) {
 			ev.getCategoria();
