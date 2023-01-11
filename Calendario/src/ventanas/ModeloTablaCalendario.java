@@ -1,5 +1,6 @@
 package ventanas;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
@@ -15,12 +16,11 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	private static int NUM_COLUMNAS = 8;
 	private static int NUM_FILAS = 48;
 	
-	List<Evento> eventosSemana = new ArrayList<>();
+	List<Evento> eventosSemana = new ArrayList<>(); //Ahora esta en ventana Principal
 	private static final long serialVersionUID = 1L;
 
 
 	VentanaPrincipal ventana;
-	//ZonedDateTime fecha = ventana.getFecha();
 		
 	public ModeloTablaCalendario(VentanaPrincipal ventana) {
 		super();
@@ -75,18 +75,73 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	}
 	
   
-    @Override
-    public Object getValueAt(int row, int column) {
-    	Evento e = new Evento("deporte");
-    	eventosSemana.add(e);
-        switch (column) {
-			case 0: 
-		    	LocalTime tiempo = LocalTime.of(0, 0);
-		    	return tiempo.plusMinutes(row*30);
-			case 1: return e.getNombre();
-			default: return null;
-        }
-    }
+//    @Override
+//    public Object getValueAt(int row, int column) {
+//    	Evento e = new Evento("deporte");
+//    	eventosSemana.add(e);
+//        switch (column) {
+//			case 0: 
+//		    	LocalTime tiempo = LocalTime.of(0, 0);
+//		    	return tiempo.plusMinutes(row*30);
+//			case 1: return e.getNombre();
+//			default: return null;
+//        }
+//    }
+	public Object getValueAt(int row, int column) {
+		if (column==0) {
+			LocalTime tiempo = LocalTime.of(0, 0);
+	    	return tiempo.plusMinutes(row*30);
+		}else {
+			for (Evento e: ventana.listaEventosVisibles) {
+				if ( (column >= ColumnaInicioEvento(e, ventana.fecha) && column <= ColumnaInicioEvento(e, ventana.fecha)) && (row >= FilaInicioEvento(e) && row <= FilaFinEvento(e)) ){
+						return e.getNombre();
+					}
+				}
+			}
+		return null;
+	}
+		
+	public int ColumnaInicioEvento(Evento e, ZonedDateTime fecha) {
+		ZonedDateTime inicioEvento = e.getFechaInicio();
+		int diferencia = (int) Duration.between(fecha, inicioEvento).toDays();
+		int columna = 4+diferencia;
+		if (columna <7 && columna >0) {
+			return columna;
+		}else {
+			return 1;
+		}
+	}
+	
+	public int ColumnaFinEvento(Evento e, ZonedDateTime fecha) {
+		ZonedDateTime finEvento = e.getFechaFin();
+		int diferencia = (int) Duration.between(fecha, finEvento).toDays();
+		int columna = 4+diferencia;
+		if (columna <7 && columna >0) {
+			return columna;
+		}else {
+			return 7;
+		}
+	}
+	
+	public int FilaInicioEvento(Evento e) {
+		int hora = e.getFechaInicio().getHour();
+		int minuto = e.getFechaInicio().getMinute();
+		int fila = hora*2;
+		if (minuto>0) {
+			fila+=1;
+		}
+		return fila;
+	}
+	
+	public int FilaFinEvento(Evento e) {
+		int hora = e.getFechaFin().getHour();
+		int minuto = e.getFechaFin().getMinute();
+		int fila = hora*2;
+		if (minuto>0) {
+			fila+=1;
+		}
+		return fila;
+	}
     
  
 

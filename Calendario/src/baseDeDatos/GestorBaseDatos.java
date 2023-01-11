@@ -41,6 +41,8 @@ public class GestorBaseDatos {
 		}
 	}
 	
+	
+	
 	public static void close() {
 		try {
 			if (conn!=null) conn.close();

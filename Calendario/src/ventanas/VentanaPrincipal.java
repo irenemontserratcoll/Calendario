@@ -260,46 +260,5 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	
-	public int ColumnaInicioEvento(Evento e, ZonedDateTime fecha) {
-		ZonedDateTime inicioEvento = e.getFechaInicio();
-		int diferencia = (int) Duration.between(fecha, inicioEvento).toDays();
-		int columna = 4+diferencia;
-		if (columna <7 && columna >0) {
-			return columna;
-		}else {
-			return 1;
-		}
-	}
-	
-	public int ColumnaFinEvento(Evento e, ZonedDateTime fecha) {
-		ZonedDateTime finEvento = e.getFechaFin();
-		int diferencia = (int) Duration.between(fecha, finEvento).toDays();
-		int columna = 4+diferencia;
-		if (columna <7 && columna >0) {
-			return columna;
-		}else {
-			return 7;
-		}
-	}
-	
-	public int FilaInicioEvento(Evento e, ZonedDateTime fecha) {
-		int hora = e.getFechaInicio().getHour();
-		int minuto = e.getFechaInicio().getMinute();
-		int fila = hora*2;
-		if (minuto>0) {
-			fila+=1;
-		}
-		return fila;
-	}
-	
-	public int FilaFinEvento(Evento e, ZonedDateTime fecha) {
-		int hora = e.getFechaFin().getHour();
-		int minuto = e.getFechaFin().getMinute();
-		int fila = hora*2;
-		if (minuto>0) {
-			fila+=1;
-		}
-		return fila;
-	}
 	
 }
