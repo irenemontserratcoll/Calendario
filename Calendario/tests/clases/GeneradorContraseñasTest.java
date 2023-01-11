@@ -2,11 +2,8 @@ package clases;
 
 import static org.junit.Assert.*;
 
-import java.lang.annotation.Repeatable;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+
+
 
 import org.junit.Test;
 
@@ -15,7 +12,7 @@ import recursividad.GeneradorContraseñas.CharType;
 
 public class GeneradorContraseñasTest {
 
-	private static Random random = new Random();
+
 	@Test
 	public void CharTypeTest() {
 		CharType char1 = CharType.letras;

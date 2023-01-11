@@ -9,56 +9,53 @@ import java.util.Random;
 
 
 public class GeneradorContraseñas {
-	private final char[] letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-	private final char[] num = "0123456789".toCharArray();
-	private Random contraseña;
+	public static char[] letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+	public static char[] num = "0123456789".toCharArray();
+	private static Random random = new Random();
 	
 	public enum CharType {
 		letras, num;
 	}
 	
-	public GeneradorContraseñas() {
-		contraseña = new Random();
-	}
 	
-	private char getLetraAl() {
-		return letras[contraseña.nextInt(letras.length)];
+	public static char getLetraAl() {
+		return letras[random.nextInt(letras.length)];
 	}
 	
 	
-	private char getNumAl() {
-		return num[contraseña.nextInt(num.length)];
+	public static char getNumAl() {
+		return num[random.nextInt(num.length)];
 	}
 	
-	private List<CharType> getRandomOrder() {
+	private static List<CharType> getRandomOrder() {
 		List<CharType> generationOrder = Arrays.asList(CharType.values());
-		Collections.shuffle(generationOrder, contraseña);
+		Collections.shuffle(generationOrder, random);
 		return generationOrder;
 	}
 	
 	
 	
-	private String generarContraseña(int length, int size) {
+	public static String generarContraseña(int length, int size) {
 	
 			if (length == size) 
 				return "";
 			
-			String password = null;
+			String contraseña = null;
 			char randomChar = 0;
 			
 			for (CharType charType : getRandomOrder()) {
 				switch (charType) {
-					case num:	password = generarContraseña(length + 1, size);
+					case num:	contraseña = generarContraseña(length + 1, size);
 								randomChar = getNumAl();
 								break;
 								
-					case letras:password = generarContraseña(length + 1, size);
+					case letras:contraseña = generarContraseña(length + 1, size);
 								randomChar = getLetraAl();
 								break;
 				}
 			
-				if (password != null) 
-					return randomChar + password;
+				if (contraseña != null) 
+					return randomChar + contraseña;
 			
 		}
 		
