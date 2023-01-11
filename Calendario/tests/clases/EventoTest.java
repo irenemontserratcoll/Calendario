@@ -118,6 +118,23 @@ public class EventoTest {
 		assertEquals(false, e.isUrgente());
 	}
 	
+	@Test
+    public void testEvento2() {
+		Evento evento2 = new Evento("Evento 2", new Categoria("IMPORTANTE"), true);
+        assertEquals("Evento 2", evento2.getNombre());
+        assertEquals("IMPORTANTE", evento2.getCategoria().toString());
+        evento2.setActiva(false);
+        assertFalse(evento2.isActiva());
+        assertTrue(evento2.isUrgente());
+    } 
+	@Test
+    public void testEvento3() {
+		Evento evento3 = new Evento("Evento 3");
+        assertEquals("Evento 3", evento3.getNombre());
+        assertNull(evento3.getFechaInicio());
+        assertNull(evento3.getFechaFin());
+    }
+	
 
 
 }
