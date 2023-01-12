@@ -21,6 +21,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import baseDeDatos.GestorBaseDatos;
 import clases.Categoria;
 import clases.Evento;
 import clases.GestorEventos;
@@ -48,7 +49,7 @@ public class VentanaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	//La ventana Principal se crea a partir del gestor de eventos con los eventos de un usuario concreto.
-	public VentanaPrincipal(GestorEventos gestorEventos, String nombreUsuario) {
+	public VentanaPrincipal(GestorEventos gestorEventos) {
 		this.gestorEventos = gestorEventos;
 		this.listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -149,6 +150,9 @@ public class VentanaPrincipal extends JFrame {
 						SwingUtilities.invokeLater(new Runnable() {
 							public void run() {
 								new VentanaEvento(gestorEventos, nombreUsuario);
+								System.out.println(GestorBaseDatos.getListaEventosUsuario(nombreUsuario));
+
+								new VentanaEvento(gestorEventos);
 							}
 						});
 					}
@@ -201,10 +205,7 @@ public class VentanaPrincipal extends JFrame {
 		
 //Apartado lista de categorias
 		
-		List<clases.Categoria> listaCategorias = List.of(
-				new Categoria("Estudiar", Color.BLUE),
-				new Categoria("Deporte", Color.RED),
-				new Categoria("Proyecto Programacion", Color.GREEN));
+		List<Categoria> listaCategorias = GestorBaseDatos.todasCategorias(nombreUsuario);
 		
 		DefaultListModel<Categoria> modeloCategorias = new DefaultListModel<>();
 		modeloCategorias.addAll(listaCategorias);

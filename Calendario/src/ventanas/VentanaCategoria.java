@@ -14,9 +14,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import baseDeDatos.GestorBaseDatos;
 import clases.Categoria;
+import clases.Usuario;
 
 public class VentanaCategoria extends JFrame {
 
@@ -25,8 +27,14 @@ public class VentanaCategoria extends JFrame {
 	JLabel textoCategoria;
 	JComboBox<String> categorias;
 	
-	public VentanaCategoria(String nombreUsuario) {
+	public VentanaCategoria() {
 	
+		//ESTO SOBRARA CUANDO CONECTEMOS CON LAS DEMAS VENTANAS LO QUITAMOS
+		baseDatosUsuarios=new GestorBaseDatos();
+		baseDatosUsuarios.iniciar();
+
+		Usuario usuario =  new Usuario("prueba","Pruebas");
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Ventana Categoria");
 		setSize(300, 350);
@@ -41,8 +49,18 @@ public class VentanaCategoria extends JFrame {
 		
 		JPanel comboBoxCat = new JPanel();
 		
-		List<Categoria> listaCategorias = GestorBaseDatos.todasCategorias(nombreUsuario);
-				
+		//TODO esto se tiene que sacar de la base de datos
+		List<clases.Categoria> listaCategorias = List.of(
+				new Categoria("Estudiar", Color.BLUE),
+				new Categoria("Deporte", Color.RED),
+				new Categoria("Proyecto Programacion", Color.GREEN));
+		
+//		JComboBox<String> categorias = new JComboBox<String>();
+//		for (Categoria c : listaCategorias) {
+//			categorias.addItem(c.getCategoria());
+//		}
+//		comboBoxCat.add(categorias);
+		
 		JComboBox<Categoria> categorias = new JComboBox<Categoria>();
 		for (Categoria c : listaCategorias) {
 			categorias.addItem(c);
@@ -92,7 +110,7 @@ public class VentanaCategoria extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String nomCat = nombreCategoria.getText();
-				anyadirCategoria(nombreUsuario,nomCat, null);
+				anyadirCategoria(usuario.getNombre(),nomCat, null);
 				
 				setVisible(false);
 			}
@@ -129,4 +147,11 @@ public class VentanaCategoria extends JFrame {
 		return (Categoria) categorias.getSelectedItem();
 	}
 	
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				new VentanaCategoria();
+			}
+		});
+	}
 }

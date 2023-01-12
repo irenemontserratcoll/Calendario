@@ -43,7 +43,7 @@ public class VentanaEvento extends JFrame {
 	private GestorEventos gestor;
 	VentanaCategoria v;
 
-	public VentanaEvento(GestorEventos gestor, String nombreUsuario) {
+	public VentanaEvento(GestorEventos gestor) {
 
 		this.gestor=gestor;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -104,7 +104,7 @@ public class VentanaEvento extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						v = new VentanaCategoria(nombreUsuario);
+						v = new VentanaCategoria();
 					}
 				});
 			}
@@ -183,4 +183,14 @@ public class VentanaEvento extends JFrame {
 		setVisible(true);
 	}
 	
+	//YO CREO QUE ESTO NO HACE FALTA PORQUE AL FINAL
+	//LLAMAMOS DESDE UNA VENTANA A LA OTRA 
+
+//	public static void main(String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				new VentanaEvento();
+//			}
+//		});
+//	}
 }

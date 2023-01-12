@@ -90,13 +90,14 @@ public class VentanaUsuario extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("Boton login click!");
                 if (comprobarBaseDatos()=="Login correcto") {
                 	JOptionPane.showMessageDialog(null, "LOGIN CORRECTO","login correcto",JOptionPane.INFORMATION_MESSAGE);
                 	//Creo un gestor de eventos a partir del usuario de login y de la base de datos. (Con los eventos del usuario)
                 	GestorEventos gestorEventos = new GestorEventos(nombreUsuario.getText().toString(), baseDatosUsuarios);  
                 	SwingUtilities.invokeLater(new Runnable() {
             			public void run() {
-            				new VentanaPrincipal(gestorEventos, nombreUsuario.getText());
+            				new VentanaPrincipal(gestorEventos);
             			}
             		});
                 } else {
