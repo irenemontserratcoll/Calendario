@@ -8,8 +8,8 @@ Instrucciones de uso:
 
 2. Desde la ventana se inicia sesión o se crear un usuario, creando así el calendario nuevo. 
 
-Usuario de prueaba: Nahia
-Contraseña: 010
+    Usuario de prueaba: PRUEBA
+    Contraseña: PRUEBA
 
 3. Al hacer click en login, se abrirá la ventana principal en la fecha actual.
 
