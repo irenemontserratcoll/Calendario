@@ -301,9 +301,11 @@ public class GestorBaseDatos {
 				//TODO COLORES EN LA BD
 				Categoria cat = new Categoria(sCategoria, Color.BLACK);
 				Evento e = new Evento(nombreEvento,fechaInicio, fechaFin, duracionReal, cat, urgente);
+
 				listaEventos.add(e);
 			}
-			obtenerEventos.close();		
+			obtenerEventos.close();	
+
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -412,8 +414,7 @@ public class GestorBaseDatos {
 				Evento e = new Evento(nombreEvento, null , null, duracionReal, cat, urgente);
 				listaEventos.add(e);
 			}
-			obtenerEventos.close();		
-			
+			obtenerEventos.close();	
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}

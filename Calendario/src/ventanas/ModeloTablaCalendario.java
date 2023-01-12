@@ -93,11 +93,11 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	    	return tiempo.plusMinutes(row*30);
 		}else {
 			for (Evento e: ventana.listaEventosVisibles) {
-				System.out.println(e.getNombre());
-				System.out.println("  Col inicio: "+ColumnaInicioEvento(e, ventana.fecha));
-				System.out.println("  Col fin: "+ ColumnaFinEvento(e, ventana.fecha));
-				System.out.println("  Row inicio: "+ FilaInicioEvento(e));
-				System.out.println("  Row fin: "+ FilaFinEvento(e));
+//				System.out.println(e.getNombre());
+//				System.out.println("  Col inicio: "+ColumnaInicioEvento(e, ventana.fecha));
+//				System.out.println("  Col fin: "+ ColumnaFinEvento(e, ventana.fecha));
+//				System.out.println("  Row inicio: "+ FilaInicioEvento(e));
+//				System.out.println("  Row fin: "+ FilaFinEvento(e));
 				if ( (column >= ColumnaInicioEvento(e, ventana.fecha) && column <= ColumnaFinEvento(e, ventana.fecha)) && (row >= FilaInicioEvento(e) && row <= FilaFinEvento(e)) ){
 						
 					return e.getNombre();

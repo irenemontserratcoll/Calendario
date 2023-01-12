@@ -222,16 +222,18 @@ public class VentanaPrincipal extends JFrame {
 		JLabel tituloPendientes = new JLabel(" Tareas pendientes ");
 		tituloPendientes.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
-		List<Evento> todosEventos = GestorBaseDatos.getListaEventosUsuario(nombreUsuario);
+		List<Evento> todosEventos = GestorBaseDatos.getTareasPendientes(nombreUsuario);
+		System.out.println(todosEventos);
 		List<Evento> listaTareasPendientes = new ArrayList<>();
 		
-		for (Evento evento : todosEventos) {
-			if (evento.getFechaFin() == null ) {
-				listaTareasPendientes.add(evento);
-				System.out.println(listaTareasPendientes);
-			}
-		}
-		
+//		for (Evento evento : todosEventos) {
+//			System.out.println(evento.getFechaInicio());
+//			if (evento.getFechaFin() == null ) {
+//				listaTareasPendientes.add(evento);
+//				System.out.println(evento);
+//			}
+//		}
+//		
 //		List<clases.Evento> listaTareasPendientes = List.of(
 //				new Evento("Correr", listaCategorias.get(1),true),
 //				new Evento ("Saltar", listaCategorias.get(1) , false)			
