@@ -11,7 +11,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.logging.Logger;
 import java.util.*;
 
@@ -169,7 +168,7 @@ public class GestorBaseDatos {
 	public int buscarCategoria ( String nombreUsuario, String nombreCategoria, Color color) {
 		try {
 			Statement stmt = conn.createStatement();
-			String consulta = "SELECT (Nombre) FROM categorias WHERE Usuario = '" + nombreUsuario + "';";
+			String consulta = "SELECT (Nombre) FROM categoria WHERE Usuario = '" + nombreUsuario + "';";
 			ResultSet rs = stmt.executeQuery(consulta);
 			while (rs.next()) {
 				String categoria = rs.getString("Nombre");
@@ -197,18 +196,40 @@ public class GestorBaseDatos {
 	public void anyadirCategoria(String nombreUsuario, String nombreCategoria, Color color) {
 		try {
 			PreparedStatement intertaCategoria = conn
-					.prepareStatement("INSERT INTO categorias (Usuario, Nombre, Color) VALUES (?, ?, ?);)");
+					.prepareStatement("INSERT INTO categoria (Usuario, Nombre, Color) VALUES (?, ?, ?);)");
 			intertaCategoria.setString(1, nombreUsuario);
-			intertaCategoria.setString(2, nombreCategoria);
-			
-			//TODO NO SE COMO HACER PARA AÑADIR EN LA BASE DE DATOS EL COLOR COMO STRING 
-			
-			intertaCategoria.setString(3, "Blanco");
-			intertaCategoria.executeUpdate();
+			intertaCategoria.setString(2, nombreCategoria);			
+			intertaCategoria.setString(3, color.toString());			intertaCategoria.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	/**Este método devuelve todas las categorias de un usuario en concreto.
+	 * 
+	 * @param nombreUsuario
+	 * @return
+	 */
+	public static List<Categoria> todasCategorias(String nombreUsuario){
+		List<Categoria> devolver = new ArrayList<>();
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			String consulta = "SELECT * FROM categoria WHERE Usuario = '" + nombreUsuario + "';";
+			ResultSet rs = stmt.executeQuery(consulta);
+			while (rs.next()) {
+				Categoria c = new Categoria(rs.getString("Nombre"),Color.getColor(rs.getString("Color")));
+				devolver.add(c);
+			}
+			stmt.close();
+			return devolver;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
+
 	
 	/**
 	 * Metodo para añadir un evento a la base de datos
@@ -298,7 +319,7 @@ public class GestorBaseDatos {
 	public static Categoria getCategoriaDeNombre(String nombreUsuario, String nombreCategoria) {
 		try {
 			Statement obtenerCategoria = conn.createStatement();
-			String consulta ="SELECT * FROM categorias WHERE nombre = '"+nombreCategoria+"' AND usuario = '" + nombreUsuario + "'";
+			String consulta ="SELECT * FROM categoria WHERE nombre = '"+nombreCategoria+"' AND usuario = '" + nombreUsuario + "'";
 			ResultSet rs5 = obtenerCategoria.executeQuery(consulta);
 			while (rs5.next()) {
 				int intColor = rs5.getInt("Color");
