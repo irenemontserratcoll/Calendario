@@ -10,7 +10,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.time.Duration;
 import java.time.Month;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -150,9 +149,6 @@ public class VentanaPrincipal extends JFrame {
 						SwingUtilities.invokeLater(new Runnable() {
 							public void run() {
 								new VentanaEvento(gestorEventos, nombreUsuario);
-								System.out.println(GestorBaseDatos.getListaEventosUsuario(nombreUsuario));
-
-								new VentanaEvento(gestorEventos, nombreUsuario);
 							}
 						});
 					}
@@ -226,10 +222,20 @@ public class VentanaPrincipal extends JFrame {
 		JLabel tituloPendientes = new JLabel(" Tareas pendientes ");
 		tituloPendientes.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
-		List<clases.Evento> listaTareasPendientes = List.of(
-				new Evento("Correr", listaCategorias.get(1),true),
-				new Evento ("Saltar", listaCategorias.get(1) , false)			
-				);
+		List<Evento> todosEventos = GestorBaseDatos.getListaEventosUsuario(nombreUsuario);
+		List<Evento> listaTareasPendientes = new ArrayList<>();
+		
+		for (Evento evento : todosEventos) {
+			if (evento.getFechaFin() == null ) {
+				listaTareasPendientes.add(evento);
+				System.out.println(listaTareasPendientes);
+			}
+		}
+		
+//		List<clases.Evento> listaTareasPendientes = List.of(
+//				new Evento("Correr", listaCategorias.get(1),true),
+//				new Evento ("Saltar", listaCategorias.get(1) , false)			
+//				);
 		
 		DefaultListModel<Evento> modeloTareasPendientes = new DefaultListModel<>();
 		modeloTareasPendientes.addAll(listaTareasPendientes);

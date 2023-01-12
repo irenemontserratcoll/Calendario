@@ -335,7 +335,7 @@ public class GestorBaseDatos {
 		return null;
 		
 	}
-	
+		
 	/**
 	 * 
 	 * @param nombreUsuario del que se quieren buscar los eventos
@@ -383,6 +383,42 @@ public class GestorBaseDatos {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	/**Mediante este metodo se seleccionan todos los eventos que no tienen fecha de inicio es decir que no son importantes.
+	 * 
+	 * @param nombreUsuario
+	 * @return Lista de eventos que son tareas pendientes
+	 */
+	public static List<Evento> getTareasPendientes (String nombreUsuario){
+		ArrayList<Evento> listaEventos = new ArrayList<>();
+		try {
+			Statement obtenerEventos = conn.createStatement();
+			 
+			String consulta = "SELECT * FROM eventos WHERE usuario = '"+ nombreUsuario +"' AND 'fecha inicio' IS null";
+			ResultSet rs2 = obtenerEventos.executeQuery(consulta);
+			while (rs2.next()) {
+				String nombreEvento = rs2.getString("Nombre Evento");
+				float duracionReal = rs2.getFloat("Duracion Real");
+				String sCategoria = rs2.getString("Categoria");
+				String sUrgente = rs2.getString("Urgente");
+				Boolean urgente=false;
+				if (sUrgente.contains("Si")) {
+					urgente=true;
+				}
+				//Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
+				//TODO COLORES EN LA BD
+				Categoria cat = new Categoria(sCategoria, Color.BLACK);
+				Evento e = new Evento(nombreEvento, null , null, duracionReal, cat, urgente);
+				listaEventos.add(e);
+			}
+			obtenerEventos.close();		
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaEventos;
+		
 	}
 	
 }
