@@ -48,7 +48,7 @@ public class VentanaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	//La ventana Principal se crea a partir del gestor de eventos con los eventos de un usuario concreto.
-	public VentanaPrincipal(GestorEventos gestorEventos) {
+	public VentanaPrincipal(GestorEventos gestorEventos, String nombreUsuario) {
 		this.gestorEventos = gestorEventos;
 		this.listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -148,7 +148,7 @@ public class VentanaPrincipal extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						SwingUtilities.invokeLater(new Runnable() {
 							public void run() {
-								new VentanaEvento(gestorEventos);
+								new VentanaEvento(gestorEventos, nombreUsuario);
 							}
 						});
 					}
