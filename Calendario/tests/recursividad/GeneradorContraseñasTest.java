@@ -1,4 +1,4 @@
-package clases;
+package recursividad;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import recursividad.GeneradorContraseñas;
 import recursividad.GeneradorContraseñas.CharType;
 
 public class GeneradorContraseñasTest {
