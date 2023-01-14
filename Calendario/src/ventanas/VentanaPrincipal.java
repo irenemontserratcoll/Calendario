@@ -67,8 +67,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel panelTitulo = new JPanel();
 		
 		
-		//ImageIcon icono = new ImageIcon("/Calendario/res/Logobien2.0.jpg");
-		ImageIcon icono = new ImageIcon(VentanaUsuario.class.getResource("/Logobien2.0.jpg")); //-> Me falla
+		ImageIcon icono = new ImageIcon(VentanaUsuario.class.getResource("/Logobien2.0.jpg"));
 		JLabel titulo = new JLabel(icono,JLabel.CENTER);
 
 
