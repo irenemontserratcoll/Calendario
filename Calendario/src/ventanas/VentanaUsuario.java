@@ -59,10 +59,10 @@ public class VentanaUsuario extends JFrame{
 		JPanel nuevoUsuario = new JPanel();
 		nuevoUsuario.setBackground(Color.WHITE);
 
-		
-		ImageIcon icono = new ImageIcon(VentanaUsuario.class.getResource("/Logobien.jpg"));
-		JLabel imagen = new JLabel(icono,JLabel.CENTER);
-		
+		ImageIcon icono = new ImageIcon("/Calendario/res/Logobien.jpg");// --> Asi me deja pero no sale el icono
+		//ImageIcon icono = new ImageIcon(VentanaUsuario.class.getResource("/Logobien.jpg")); // Aqui me falla
+		JLabel imagen = new JLabel(icono, JLabel.CENTER);
+
 		textoUsuario = new JLabel("Usuario");
 		usuario.add(textoUsuario);
 		nombreUsuario = new JTextField(20);

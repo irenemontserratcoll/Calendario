@@ -100,7 +100,8 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 //				System.out.println("  Row fin: "+ FilaFinEvento(e));
 				if ( (column >= ColumnaInicioEvento(e, ventana.fecha) && column <= ColumnaFinEvento(e, ventana.fecha)) && (row >= FilaInicioEvento(e) && row <= FilaFinEvento(e)) ){
 						
-					return e.getNombre();
+					//return e.getNombre();
+					return e;
 					}
 				}
 			}

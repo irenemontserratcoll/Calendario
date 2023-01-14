@@ -66,7 +66,9 @@ public class VentanaPrincipal extends JFrame {
 		
 		JPanel panelTitulo = new JPanel();
 		
-		ImageIcon icono = new ImageIcon(VentanaUsuario.class.getResource("/Logobien2.0.jpg"));
+		
+		//ImageIcon icono = new ImageIcon("/Calendario/res/Logobien2.0.jpg");
+		ImageIcon icono = new ImageIcon(VentanaUsuario.class.getResource("/Logobien2.0.jpg")); //-> Me falla
 		JLabel titulo = new JLabel(icono,JLabel.CENTER);
 
 
@@ -170,11 +172,12 @@ public class VentanaPrincipal extends JFrame {
 	    for( int i=1 ; i<10 ; ++i ) {
 	    	diasMuestraPantalla.add(modelo.getColumnName(i));
 	    }
+	    
+	    RendererTabla rendererTabla = new RendererTabla();
+	    for (int i=0; i<tablaCalendario.getColumnModel().getColumnCount();i++) {
+	    	 tablaCalendario.getColumnModel().getColumn(i).setCellRenderer(rendererTabla);
+	    }
 	   // modelo.getEventosSemana(diasMuestraPantalla);
-	   
-        
-		
-		//Columna 0
 		
 		DefaultTableCellRenderer alineadoCentro = new DefaultTableCellRenderer();
 		alineadoCentro.setHorizontalAlignment(JLabel.CENTER);
