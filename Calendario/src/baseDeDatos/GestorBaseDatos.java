@@ -219,7 +219,7 @@ public class GestorBaseDatos {
 			String consulta = "SELECT * FROM categoria WHERE Usuario = '" + nombreUsuario + "';";
 			ResultSet rs = stmt.executeQuery(consulta);
 			while (rs.next()) {
-				Categoria c = new Categoria(rs.getString("Nombre"),Color.getColor(rs.getString("Color")));
+				Categoria c = new Categoria(rs.getString("Nombre"),Color.decode(rs.getString("Color")));
 				devolver.add(c);
 			}
 			stmt.close();
@@ -300,7 +300,14 @@ public class GestorBaseDatos {
 				ZonedDateTime fechaFin = ZonedDateTime.of(lFin, ZoneId.of("Europe/Madrid"));
 				//Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
 				//TODO COLORES EN LA BD
-				Categoria cat = new Categoria(sCategoria, Color.BLACK);
+				
+				Color ccolus = Color.black;
+				for (Categoria catnombreBusca : todasCategorias(nombreUsuario)) {
+					if (catnombreBusca.getCategoria().equals(sCategoria)) {
+						ccolus = catnombreBusca.getColor();
+					}
+				}
+				Categoria cat = new Categoria(sCategoria, ccolus);
 				Evento e = new Evento(nombreEvento,fechaInicio, fechaFin, duracionReal, cat, urgente);
 
 				listaEventos.add(e);
