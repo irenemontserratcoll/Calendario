@@ -42,6 +42,8 @@ public class VentanaEvento extends JFrame {
 	private JRadioButton si,no;
 	private GestorEventos gestor;
 	VentanaCategoria v;
+	Categoria categoria;
+	VentanaEvento VentanaEvento;
 
 	public VentanaEvento(GestorEventos gestor, String nombreUsuario) {
 

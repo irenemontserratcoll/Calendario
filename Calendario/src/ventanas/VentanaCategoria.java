@@ -30,6 +30,7 @@ public class VentanaCategoria extends JFrame {
 	JLabel textoCategoria;
 	JComboBox<String> categorias;
 	Color colorCat;
+	Categoria categoria;
 	
 	public VentanaCategoria(String nombreUsuario) {
 			
@@ -61,7 +62,7 @@ public class VentanaCategoria extends JFrame {
 		aceptar.add(botonAceptar);
 		botonAceptar.addActionListener( new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {				
+			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 			}
 		});
@@ -139,8 +140,6 @@ public class VentanaCategoria extends JFrame {
 		case 1:
 			GestorBaseDatos.anyadirCategoria(nombreUsuario, nombreCategoria, color);
 			JOptionPane.showMessageDialog(null, "Categoria creada", "Categoria creada", JOptionPane.INFORMATION_MESSAGE);
-		case 2: 
-			JOptionPane.showMessageDialog(null, "", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

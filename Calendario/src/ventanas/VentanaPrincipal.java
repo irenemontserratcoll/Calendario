@@ -154,6 +154,7 @@ public class VentanaPrincipal extends JFrame {
 								new VentanaEvento(gestorEventos, nombreUsuario);
 							}
 						});
+						
 					}
 				});
 					
@@ -234,21 +235,7 @@ public class VentanaPrincipal extends JFrame {
 				tareasPendientes.add(eve);
 			}
 		}
-		System.out.println(tareasPendientes);
-		
-//		for (Evento evento : todosEventos) {
-//			System.out.println(evento.getFechaInicio());
-//			if (evento.getFechaFin() == null ) {
-//				listaTareasPendientes.add(evento);
-//				System.out.println(evento);
-//			}
-//		}
-//		
-//		List<clases.Evento> listaTareasPendientes = List.of(
-//				new Evento("Correr", listaCategorias.get(1),true),
-//				new Evento ("Saltar", listaCategorias.get(1) , false)			
-//				);
-		
+
 		DefaultListModel<Evento> modeloTareasPendientes = new DefaultListModel<>();
 		modeloTareasPendientes.addAll(tareasPendientes);
 		JList<Evento> jListTareasPendientes = new JList<>();
