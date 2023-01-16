@@ -121,6 +121,7 @@ public class VentanaPrincipal extends JFrame {
 			    for( int i=1 ; i<10 ; ++i ) {
 			    	diasMuestraPantalla.add(modelo.getColumnName(i));
 			    }
+			    tablaCalendario.repaint();
 			}
 		});
 		
@@ -139,6 +140,8 @@ public class VentanaPrincipal extends JFrame {
 			    for( int i=1 ; i<10 ; ++i ) {
 			    	diasMuestraPantalla.add(modelo.getColumnName(i));
 			    }
+			    tablaCalendario.repaint();
+
 			}
 		});
 		// Botón crear evento

@@ -20,7 +20,7 @@ public class RendererTabla  implements TableCellRenderer{
 				Evento e = (Evento) value;
 				label.setBackground(e.getCategoria().getColor());
 				label.setText(e.getNombre());
-				//label.setOpaque(true);--> Para que se vea el color. Ahora se ve negro
+				label.setOpaque(true); //--> Para que se vea el color. Ahora se ve negro
 			}
 		}
 		
