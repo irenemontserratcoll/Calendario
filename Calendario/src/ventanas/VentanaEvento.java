@@ -46,7 +46,7 @@ public class VentanaEvento extends JFrame {
 	public VentanaEvento(GestorEventos gestor, String nombreUsuario) {
 
 		this.gestor=gestor;
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Ventana Evento");
 		setSize(400, 500);
 		JPanel principal = new JPanel(new GridLayout(6, 1));

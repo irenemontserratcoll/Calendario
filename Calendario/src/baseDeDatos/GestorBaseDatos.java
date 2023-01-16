@@ -165,7 +165,7 @@ public class GestorBaseDatos {
 	 * devuelve un 1 si no existe,
 	 * devuelve un 2 si es un error.
 	 */
-	public int buscarCategoria ( String nombreUsuario, String nombreCategoria, Color color) {
+	public int buscarCategoria ( String nombreUsuario, String nombreCategoria) {
 		try {
 			Statement stmt = conn.createStatement();
 			String consulta = "SELECT (Nombre) FROM categoria WHERE Usuario = '" + nombreUsuario + "';";
@@ -199,7 +199,8 @@ public class GestorBaseDatos {
 					.prepareStatement("INSERT INTO categoria (Usuario, Nombre, Color) VALUES (?, ?, ?);)");
 			intertaCategoria.setString(1, nombreUsuario);
 			intertaCategoria.setString(2, nombreCategoria);			
-			intertaCategoria.setString(3, color.toString());			intertaCategoria.executeUpdate();
+			intertaCategoria.setString(3, "#" +(Integer.toHexString(color.getRed()) + Integer.toHexString(color.getGreen())+ Integer.toHexString(color.getBlue())).toUpperCase());			
+			intertaCategoria.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

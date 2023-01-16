@@ -1,15 +1,18 @@
 package ventanas;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -17,6 +20,7 @@ import javax.swing.JTextField;
 
 import baseDeDatos.GestorBaseDatos;
 import clases.Categoria;
+import clases.StringColores;
 
 
 public class VentanaCategoria extends JFrame {
@@ -25,10 +29,11 @@ public class VentanaCategoria extends JFrame {
 	GestorBaseDatos baseDatosUsuarios;
 	JLabel textoCategoria;
 	JComboBox<String> categorias;
+	Color colorCat;
 	
 	public VentanaCategoria(String nombreUsuario) {
 			
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Ventana Categoria");
 		setSize(300, 350);
 		JPanel principal = new JPanel(new GridLayout(10, 1));
@@ -81,8 +86,22 @@ public class VentanaCategoria extends JFrame {
 		JPanel colorCategoria = new JPanel();
 		JLabel color = new JLabel("Color");
 		colorCategoria.add(color);
-		JComboBox<Color> colores = new JComboBox<Color>();
+		
+		Color[] cc = {Color.decode(StringColores.AMARILLO.getName()),Color.decode(StringColores.AZUL.getName()),Color.decode(StringColores.GRIS.getName()),
+				Color.decode(StringColores.MORADO.getName()),Color.decode(StringColores.ROSA.getName()),Color.decode(StringColores.VERDE.getName())};
+		JComboBox<Color> colores = new JComboBox<Color>(cc);
+		colores.setRenderer(new ColorListCellRenderer());			
 		colorCategoria.add(colores);
+		
+		colores.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Color cl = (Color) colores.getSelectedItem();
+				Color colorCat = cl;
+				colores.setBackground(colorCat);
+			}
+		});
 		
 		//JButton para aceptar nueva categoria
 		JPanel crear = new JPanel();
@@ -93,8 +112,7 @@ public class VentanaCategoria extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String nomCat = nombreCategoria.getText();
-				anyadirCategoria(nombreUsuario,nomCat, null);
-				
+				anyadirCategoria(nombreUsuario,nomCat,colorCat);
 				setVisible(false);
 			}
 		});
@@ -115,7 +133,7 @@ public class VentanaCategoria extends JFrame {
 	}
 	
 	public void anyadirCategoria(String nombreUsuario, String nombreCategoria, Color color) {
-		switch (baseDatosUsuarios.buscarCategoria(nombreUsuario, nombreCategoria, color)) {
+		switch (baseDatosUsuarios.buscarCategoria(nombreUsuario, nombreCategoria)) {
 		case 0:
 			JOptionPane.showMessageDialog(null, "Esta Categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
 		case 1:
@@ -124,6 +142,16 @@ public class VentanaCategoria extends JFrame {
 		case 2: 
 			JOptionPane.showMessageDialog(null, "", "Error", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	private static class ColorListCellRenderer extends DefaultListCellRenderer {
+	    @Override
+	    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+	        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+	        label.setBackground((Color) value);
+	        label.setText("  ");
+	        return label;
+	    }
 	}
 	
 	public Categoria categoriaSeleccionada() {
