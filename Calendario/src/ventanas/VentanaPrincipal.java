@@ -1,6 +1,7 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -152,6 +153,7 @@ public class VentanaPrincipal extends JFrame {
 						SwingUtilities.invokeLater(new Runnable() {
 							public void run() {
 								new VentanaEvento(gestorEventos, nombreUsuario);
+								
 							}
 						});
 						
@@ -165,6 +167,7 @@ public class VentanaPrincipal extends JFrame {
 		panelTitulo.add(anterior);
 		panelTitulo.add(siguiente);
 		panelTitulo.add(bajo);
+		panelTitulo.setBackground(Color.WHITE);
 
 		
 		
@@ -194,7 +197,6 @@ public class VentanaPrincipal extends JFrame {
 		principal.add(panelTitulo, BorderLayout.NORTH);
 		principal.add(panelCalendario, BorderLayout.CENTER);
 		principal.add(bajo, BorderLayout.SOUTH);
-//
 		
 		JPanel barraDerecha = new JPanel(new GridLayout(2,1));
 		
@@ -216,6 +218,7 @@ public class VentanaPrincipal extends JFrame {
 		jListCategorias.addMouseListener(renderer);
 		jListCategorias.setCellRenderer(renderer);
 		
+		categorias.setBackground(Color.WHITE);
 		categorias.setLayout(new BorderLayout());
 		categorias.add(tituloCategorias, BorderLayout.NORTH);
 		categorias.add(jListCategorias, BorderLayout.CENTER);
@@ -226,6 +229,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel pendientes = new JPanel();
 		JLabel tituloPendientes = new JLabel(" Tareas pendientes ");
 		tituloPendientes.setFont(new Font("Tahoma", Font.BOLD, 20));
+		pendientes.setBackground(Color.WHITE);
 		
 		List<Evento> todosEventos = GestorBaseDatos.getListaEventosUsuario(nombreUsuario);
 		List<Evento> tareasPendientes = new ArrayList<>() ;

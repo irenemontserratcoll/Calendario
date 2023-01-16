@@ -106,6 +106,7 @@ public class VentanaEvento extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
+						VentanaEvento.this.categoria = VentanaCategoria.categoria;
 						v = new VentanaCategoria(nombreUsuario);
 					}
 				});
@@ -159,11 +160,11 @@ public class VentanaEvento extends JFrame {
 						ZonedDateTime z2 = ZonedDateTime.ofInstant(f2, ZoneId.systemDefault());	
 						z2 = z2.plusHours(hora2);
 						z2 =z2.plusMinutes(minuto2);
-						
+						VentanaEvento.this.categoria = VentanaCategoria.categoria;
+
 						Boolean urgente = si.isCursorSet();
-						Categoria categoria = v.categoriaSeleccionada();
 						float duracion = 0.0F;
-						Evento eventos = new Evento(nombreEvento.getText(),z1 , z2,duracion , categoria, urgente);
+						Evento eventos = new Evento(nombreEvento.getText(),z1 , z2,duracion , VentanaEvento.this.categoria, urgente);
 						gestor.addEvento(eventos);
 					}
 					

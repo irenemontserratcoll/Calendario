@@ -30,7 +30,7 @@ public class VentanaCategoria extends JFrame {
 	JLabel textoCategoria;
 	JComboBox<String> categorias;
 	Color colorCat;
-	Categoria categoria;
+	static Categoria categoria;
 	
 	public VentanaCategoria(String nombreUsuario) {
 			
@@ -63,6 +63,7 @@ public class VentanaCategoria extends JFrame {
 		botonAceptar.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				categoria = (Categoria) categorias.getSelectedItem();
 				setVisible(false);
 			}
 		});
@@ -113,6 +114,7 @@ public class VentanaCategoria extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String nomCat = nombreCategoria.getText();
+				categoria = new Categoria(nomCat,colorCat);
 				anyadirCategoria(nombreUsuario,nomCat,colorCat);
 				setVisible(false);
 			}
@@ -127,10 +129,12 @@ public class VentanaCategoria extends JFrame {
 		principal.add(CategoriaNueva);
 		principal.add(colorCategoria);
 		principal.add(crear);
-		
+			
 		add(principal);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		
+
 	}
 	
 	public void anyadirCategoria(String nombreUsuario, String nombreCategoria, Color color) {
@@ -158,8 +162,6 @@ public class VentanaCategoria extends JFrame {
 	    }
 	}
 	
-	public Categoria categoriaSeleccionada() {
-		return (Categoria) categorias.getSelectedItem();
-	}
+
 	
 }
