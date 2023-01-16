@@ -98,7 +98,7 @@ public class VentanaCategoria extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Color cl = (Color) colores.getSelectedItem();
-				Color colorCat = cl;
+				colorCat = cl;
 				colores.setBackground(colorCat);
 			}
 		});
@@ -133,11 +133,11 @@ public class VentanaCategoria extends JFrame {
 	}
 	
 	public void anyadirCategoria(String nombreUsuario, String nombreCategoria, Color color) {
-		switch (baseDatosUsuarios.buscarCategoria(nombreUsuario, nombreCategoria)) {
+		switch (GestorBaseDatos.buscarCategoria(nombreUsuario, nombreCategoria)) {
 		case 0:
 			JOptionPane.showMessageDialog(null, "Esta Categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
 		case 1:
-			baseDatosUsuarios.anyadirCategoria(nombreUsuario, nombreCategoria, color);
+			GestorBaseDatos.anyadirCategoria(nombreUsuario, nombreCategoria, color);
 			JOptionPane.showMessageDialog(null, "Categoria creada", "Categoria creada", JOptionPane.INFORMATION_MESSAGE);
 		case 2: 
 			JOptionPane.showMessageDialog(null, "", "Error", JOptionPane.ERROR_MESSAGE);
@@ -145,8 +145,13 @@ public class VentanaCategoria extends JFrame {
 	}
 	
 	private static class ColorListCellRenderer extends DefaultListCellRenderer {
-	    @Override
-	    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+	    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 	        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 	        label.setBackground((Color) value);
 	        label.setText("  ");

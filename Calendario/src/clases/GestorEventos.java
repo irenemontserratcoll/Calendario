@@ -83,9 +83,11 @@ public class GestorEventos {
 		for(Evento e: listaEventos) {
 			ZonedDateTime inicio = e.getFechaInicio();
 			ZonedDateTime fin = e.getFechaFin();
-			if ( (fecha.isAfter(inicio.minusDays(3)) && fecha.isBefore(fin.plusDays(3)) ) ||  //El evento comienza durante la semana pero sigue
-					(inicio.isBefore(fecha.plusDays(3))  && (inicio.isAfter(fecha.minusDays(3)) ) )   ){ //El evento comienza durante la semana
-				listaSemana.add(e);
+			if (inicio != null) {
+				if ( (fecha.isAfter(inicio.minusDays(3)) && fecha.isBefore(fin.plusDays(3)) ) ||  //El evento comienza durante la semana pero sigue
+						(inicio.isBefore(fecha.plusDays(3))  && (inicio.isAfter(fecha.minusDays(3)) ) )   ){ //El evento comienza durante la semana
+					listaSemana.add(e);
+				}
 			}
 		}
 		return listaSemana;

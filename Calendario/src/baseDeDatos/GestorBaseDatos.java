@@ -52,14 +52,17 @@ public class GestorBaseDatos {
 		
 		Evento e1 = new Evento("Bailar", hoy.minusDays(2).minusHours(3), hoy.minusDays(2).minusHours(2), 20.2F, deporte, true);
 		Evento e2 = new Evento("Correr", hoy.plusDays(1).plusHours(1), hoy.plusDays(1).plusHours(2), 20.2F, deporte, true);
-		Evento e3 = new Evento("Matematicas", hoy.minusMinutes(120), hoy, 5,estudiar, false);
+		Evento e3 = new Evento("Matematicas", hoy.minusMinutes(120), hoy, 5,estudiar, true);
 		Evento e4 = new Evento ("Llamar mama", hoy.plusDays(3), hoy.plusDays(3).plusMinutes(30), 5, otros, true);
+		Evento e5 = new Evento("Programacion", estudiar, true);
 		
 		anyadirEvento(e1, u1.getNombre());
 		anyadirEvento(e2, u1.getNombre());
 		anyadirEvento(e3, u1.getNombre());
 		anyadirEvento(e4, u1.getNombre());
-		
+		anyadirEvento(e5, u1.getNombre());
+
+				
 		
 	}
 	
@@ -165,7 +168,7 @@ public class GestorBaseDatos {
 	 * devuelve un 1 si no existe,
 	 * devuelve un 2 si es un error.
 	 */
-	public int buscarCategoria ( String nombreUsuario, String nombreCategoria) {
+	public static int buscarCategoria ( String nombreUsuario, String nombreCategoria) {
 		try {
 			Statement stmt = conn.createStatement();
 			String consulta = "SELECT (Nombre) FROM categoria WHERE Usuario = '" + nombreUsuario + "';";
@@ -193,13 +196,14 @@ public class GestorBaseDatos {
 	 * @param color
 	 * @return
 	 */
-	public void anyadirCategoria(String nombreUsuario, String nombreCategoria, Color color) {
+	public static void anyadirCategoria(String nombreUsuario, String nombreCategoria, Color color) {
 		try {
 			PreparedStatement intertaCategoria = conn
 					.prepareStatement("INSERT INTO categoria (Usuario, Nombre, Color) VALUES (?, ?, ?);)");
 			intertaCategoria.setString(1, nombreUsuario);
-			intertaCategoria.setString(2, nombreCategoria);			
-			intertaCategoria.setString(3, "#" +(Integer.toHexString(color.getRed()) + Integer.toHexString(color.getGreen())+ Integer.toHexString(color.getBlue())).toUpperCase());			
+			intertaCategoria.setString(2, nombreCategoria);	
+			String anadir = "#" +(Integer.toHexString(color.getRed()) + Integer.toHexString(color.getGreen())+ Integer.toHexString(color.getBlue())).toUpperCase();
+			intertaCategoria.setString(3, anadir);			
 			intertaCategoria.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -248,11 +252,26 @@ public class GestorBaseDatos {
 					.prepareStatement("INSERT INTO eventos VALUES (?, ?,?, ?, ?, ?,?)");
 			insertarEvento.setString(1, usuario);
 			insertarEvento.setString(2, evento.getNombre());
-			Long fechaInicio = evento.getFechaInicio().toInstant().toEpochMilli();
-			insertarEvento.setLong(3, fechaInicio);
-			Long fechaFin = evento.getFechaFin().toInstant().toEpochMilli();
-			insertarEvento.setLong(4, fechaFin);
-			insertarEvento.setInt(5, (int) evento.getDuracionReal());
+			if (evento.getFechaInicio() == null) {
+				insertarEvento.setLong(3, 0);
+			}else {
+				Long fechaInicio = evento.getFechaInicio().toInstant().toEpochMilli();
+				insertarEvento.setLong(3, fechaInicio);
+			}
+			
+			if (evento.getFechaFin() == null) {
+				insertarEvento.setLong(4, 0);
+			}else {
+				Long fechaFin = evento.getFechaFin().toInstant().toEpochMilli();
+				insertarEvento.setLong(4, fechaFin);
+			}
+
+			if (evento.getDuracionReal() == 0) {
+				insertarEvento.setLong(5, 0);
+			}else {
+				insertarEvento.setInt(5, (int) evento.getDuracionReal());
+			}
+
 			insertarEvento.setString(6, evento.getCategoria().getCategoria());
 			String urgente = "";
 			if (evento.isUrgente()) {
@@ -285,6 +304,8 @@ public class GestorBaseDatos {
 			
 			while (rs2.next()) {
 				String nombreEvento = rs2.getString("Nombre Evento");
+				ZonedDateTime fechaInicio;
+				ZonedDateTime fechaFin;
 				long lFechaInicio = rs2.getLong("Fecha Inicio");
 				long lFechaFin = rs2.getLong("Fecha Fin");
 				float duracionReal = rs2.getFloat("Duracion Real");
@@ -294,10 +315,20 @@ public class GestorBaseDatos {
 				if (sUrgente.contains("Si")) {
 					urgente=true;
 				}
-				LocalDateTime lInicio = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaInicio), TimeZone.getDefault().toZoneId());
-				ZonedDateTime fechaInicio = ZonedDateTime.of(lInicio, ZoneId.of("Europe/Madrid"));
-				LocalDateTime lFin = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaFin), TimeZone.getDefault().toZoneId());
-				ZonedDateTime fechaFin = ZonedDateTime.of(lFin, ZoneId.of("Europe/Madrid"));
+				if( lFechaInicio == 0 ) {
+					fechaInicio = null;
+				}else {
+					LocalDateTime lInicio = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaInicio), TimeZone.getDefault().toZoneId());
+					fechaInicio = ZonedDateTime.of(lInicio, ZoneId.of("Europe/Madrid"));
+				}
+				if( lFechaFin == 0 ) {
+					fechaFin = null;
+				}else {
+					LocalDateTime lFin = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaFin), TimeZone.getDefault().toZoneId());
+					fechaFin = ZonedDateTime.of(lFin, ZoneId.of("Europe/Madrid"));
+				}
+				
+								
 				//Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
 				//TODO COLORES EN LA BD
 				
@@ -332,9 +363,8 @@ public class GestorBaseDatos {
 			String consulta ="SELECT * FROM categoria WHERE nombre = '"+nombreCategoria+"' AND usuario = '" + nombreUsuario + "'";
 			ResultSet rs5 = obtenerCategoria.executeQuery(consulta);
 			while (rs5.next()) {
-				int intColor = rs5.getInt("Color");
-				Color color = new Color(intColor); //En RGB
-				Categoria cat = new Categoria(nombreCategoria, color);
+				Color colorAnadir = Color.decode(rs5.getString("Color"));
+				Categoria cat = new Categoria(nombreCategoria, colorAnadir);
 				return cat;
 			}
 			
@@ -416,9 +446,7 @@ public class GestorBaseDatos {
 				if (sUrgente.contains("Si")) {
 					urgente=true;
 				}
-				//Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
-				//TODO COLORES EN LA BD
-				Categoria cat = new Categoria(sCategoria, Color.BLACK);
+				Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
 				Evento e = new Evento(nombreEvento, null , null, duracionReal, cat, urgente);
 				listaEventos.add(e);
 			}

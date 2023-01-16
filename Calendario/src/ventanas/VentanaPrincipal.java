@@ -226,9 +226,15 @@ public class VentanaPrincipal extends JFrame {
 		JLabel tituloPendientes = new JLabel(" Tareas pendientes ");
 		tituloPendientes.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
-		List<Evento> todosEventos = GestorBaseDatos.getTareasPendientes(nombreUsuario);
-		System.out.println(todosEventos);
-		List<Evento> listaTareasPendientes = new ArrayList<>();
+		List<Evento> todosEventos = GestorBaseDatos.getListaEventosUsuario(nombreUsuario);
+		List<Evento> tareasPendientes = new ArrayList<>() ;
+
+		for (Evento eve : todosEventos) {
+			if (eve.getFechaFin() == null) {
+				tareasPendientes.add(eve);
+			}
+		}
+		System.out.println(tareasPendientes);
 		
 //		for (Evento evento : todosEventos) {
 //			System.out.println(evento.getFechaInicio());
@@ -244,7 +250,7 @@ public class VentanaPrincipal extends JFrame {
 //				);
 		
 		DefaultListModel<Evento> modeloTareasPendientes = new DefaultListModel<>();
-		modeloTareasPendientes.addAll(listaTareasPendientes);
+		modeloTareasPendientes.addAll(tareasPendientes);
 		JList<Evento> jListTareasPendientes = new JList<>();
 		jListTareasPendientes.setModel(modeloTareasPendientes);
 		RendererPendientes renderer2 = new RendererPendientes();
@@ -276,7 +282,6 @@ public class VentanaPrincipal extends JFrame {
 	public void actualizarTabla() {
 		//actualizo los eventos
 		listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
-		System.out.println(listaEventosVisibles);
 		
 		//MODELO
 		modelo = new ModeloTablaCalendario(this);

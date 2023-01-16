@@ -99,8 +99,11 @@ public class Evento {
 		super();
 		this.nombre = nombre;
 		this.categoria = categoria;
+		this.fechaInicio = null;
+		this.fechaFin = null;
+		this.duracionReal = 0;
 		this.urgente = urgente;
-		//this.activa = true;
+		this.activa = true;
 
 	}
 
