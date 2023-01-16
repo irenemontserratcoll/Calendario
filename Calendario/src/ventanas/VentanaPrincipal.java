@@ -1,7 +1,6 @@
 package ventanas;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -80,9 +79,10 @@ public class VentanaPrincipal extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				Month mes = (Month) e.getItem();
 				fecha = fecha.withMonth(mes.getValue());
-				tablaCalendario.repaint();
-				
+				actualizarTabla();
+				//tablaCalendario.repaint();
 				logger.info("Nueva fecha seleccionada: " + fecha);
+				
 			}
 		});
 		
@@ -99,9 +99,11 @@ public class VentanaPrincipal extends JFrame {
 				String a = (String) e.getItem();
 				int sumaryAnyos = Integer.parseInt(a)-fecha.getYear();
 				fecha = fecha.plusYears(sumaryAnyos);
+				actualizarTabla();
 				tablaCalendario.setModel(new ModeloTablaCalendario(VentanaPrincipal.this));
 				tablaCalendario.setModel(new ModeloTablaCalendario(VentanaPrincipal.this));
-				tablaCalendario.repaint();
+				//tablaCalendario.repaint();
+			
 				logger.info("Nueva fecha seleccionada: " + fecha);
 			}
 		});
@@ -114,14 +116,13 @@ public class VentanaPrincipal extends JFrame {
 				fecha = fecha.plusDays(7);
 				mes.setSelectedItem(fecha.getMonth());
 				anyo.setSelectedItem(""+fecha.getYear());
-				tablaCalendario.setModel(new ModeloTablaCalendario(VentanaPrincipal.this));
-				tablaCalendario.repaint();
+				actualizarTabla();
+
 				logger.info("Nueva fecha seleccionada: " + fecha);
 				diasMuestraPantalla = new ArrayList<>();
 			    for( int i=1 ; i<10 ; ++i ) {
 			    	diasMuestraPantalla.add(modelo.getColumnName(i));
 			    }
-			    tablaCalendario.repaint();
 			}
 		});
 		
@@ -133,15 +134,13 @@ public class VentanaPrincipal extends JFrame {
 				fecha = fecha.minusDays(7);
 				mes.setSelectedItem(fecha.getMonth());
 				anyo.setSelectedItem(""+fecha.getYear());
-				tablaCalendario.setModel(new ModeloTablaCalendario(VentanaPrincipal.this));
-				tablaCalendario.repaint();
+				actualizarTabla();
+				
 				logger.info("Nueva fecha seleccionada: " + fecha);
 				diasMuestraPantalla = new ArrayList<>();
 			    for( int i=1 ; i<10 ; ++i ) {
 			    	diasMuestraPantalla.add(modelo.getColumnName(i));
 			    }
-			    tablaCalendario.repaint();
-
 			}
 		});
 		// Botón crear evento
@@ -273,6 +272,34 @@ public class VentanaPrincipal extends JFrame {
 		setVisible(true);
 		
 	}
+	
+	public void actualizarTabla() {
+		//actualizo los eventos
+		listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
+		System.out.println(listaEventosVisibles);
+		
+		//MODELO
+		modelo = new ModeloTablaCalendario(this);
+		tablaCalendario.setModel(modelo);
+	    for( int i=1 ; i<10 ; ++i ) {
+	    	diasMuestraPantalla.add(modelo.getColumnName(i));
+	    }
+	    
+	    //RENDERER
+	    RendererTabla rendererTabla = new RendererTabla();
+	    for (int i=0; i<tablaCalendario.getColumnModel().getColumnCount();i++) {
+	    	 tablaCalendario.getColumnModel().getColumn(i).setCellRenderer(rendererTabla);
+	    }
+		
+		DefaultTableCellRenderer alineadoCentro = new DefaultTableCellRenderer();
+		alineadoCentro.setHorizontalAlignment(JLabel.CENTER);
+		TableColumnModel columnModel = tablaCalendario.getColumnModel();
+	    columnModel.getColumn(0).setMaxWidth(80);
+	    columnModel.getColumn(0).setCellRenderer(alineadoCentro);
+		
+	}
+	
+	
 	
 	
 }
