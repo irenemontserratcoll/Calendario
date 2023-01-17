@@ -10,6 +10,9 @@ import javax.swing.ListCellRenderer;
 
 import clases.Evento;
 
+/**Render del apartado tareas pendientes
+ * Renderiza como un JCheckBox las tareas pendientes
+ */
 public class RendererPendientes  extends JCheckBox implements ListCellRenderer<Evento>, MouseListener {
 
 	private static final long serialVersionUID = 1L;

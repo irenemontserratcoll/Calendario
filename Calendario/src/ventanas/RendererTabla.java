@@ -8,6 +8,10 @@ import javax.swing.table.TableCellRenderer;
 
 import clases.Evento;
 
+/**Renderer de la tabla de la Ventana principal. 
+ * Renderiza los eventos a mostrarse como un label con el color de su categoria
+ *
+ */
 public class RendererTabla  implements TableCellRenderer{
 
 	@Override
@@ -20,7 +24,7 @@ public class RendererTabla  implements TableCellRenderer{
 				Evento e = (Evento) value;
 				label.setBackground(e.getCategoria().getColor());
 				label.setText(e.getNombre());
-				label.setOpaque(true); //--> Para que se vea el color. Ahora se ve negro
+				label.setOpaque(true);
 			}
 		}
 		

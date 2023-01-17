@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -25,7 +26,6 @@ import javax.swing.SwingUtilities;
 import org.jdatepicker.JDateComponentFactory;
 import org.jdatepicker.JDatePicker;
 
-import baseDeDatos.GestorBaseDatos;
 import clases.Categoria;
 import clases.Evento;
 import clases.GestorEventos;
@@ -33,6 +33,8 @@ import clases.GestorEventos;
 public class VentanaEvento extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = Logger.getLogger(Logger.class.getName());
+
 	JLabel textoEvento;
 	JTextField nombreEvento;
 	JLabel horaIni;
@@ -45,8 +47,12 @@ public class VentanaEvento extends JFrame {
 	Categoria categoria;
 	VentanaEvento VentanaEvento;
 
+	/**Constructor de la ventana para Crear nuevos eventos
+	 * @param gestor
+	 * @param nombreUsuario
+	 */
 	public VentanaEvento(GestorEventos gestor, String nombreUsuario) {
-
+		
 		this.gestor=gestor;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Ventana Evento");
@@ -184,6 +190,7 @@ public class VentanaEvento extends JFrame {
 		setLocationRelativeTo(null);
 		add(principal);
 		setVisible(true);
+		logger.info("Abierta ventana creación de evento");
 	}
 	
 }

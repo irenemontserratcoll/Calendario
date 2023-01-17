@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
@@ -26,6 +27,8 @@ import clases.StringColores;
 public class VentanaCategoria extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = Logger.getLogger(Logger.class.getName());
+
 	GestorBaseDatos baseDatosUsuarios;
 	JLabel textoCategoria;
 	JComboBox<String> categorias;
@@ -133,10 +136,16 @@ public class VentanaCategoria extends JFrame {
 		add(principal);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		logger.info("Abierta ventana selección Categoria");
 		
 
 	}
 	
+	/** Método para anyadir una nueva categoria
+	 * @param nombreUsuario
+	 * @param nombreCategoria
+	 * @param color
+	 */
 	public void anyadirCategoria(String nombreUsuario, String nombreCategoria, Color color) {
 		switch (GestorBaseDatos.buscarCategoria(nombreUsuario, nombreCategoria)) {
 		case 0:
@@ -144,13 +153,11 @@ public class VentanaCategoria extends JFrame {
 		case 1:
 			GestorBaseDatos.anyadirCategoria(nombreUsuario, nombreCategoria, color);
 			JOptionPane.showMessageDialog(null, "Categoria creada", "Categoria creada", JOptionPane.INFORMATION_MESSAGE);
+		//TODO Se añade la nueva categoria a la base de datos?
 		}
 	}
 	
 	private static class ColorListCellRenderer extends DefaultListCellRenderer {
-	    /**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override

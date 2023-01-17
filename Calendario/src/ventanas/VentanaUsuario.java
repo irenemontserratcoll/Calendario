@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,6 +27,7 @@ import recursividad.GeneradorContraseñas;
 public class VentanaUsuario extends JFrame{
 
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = Logger.getLogger(Logger.class.getName());
 	static GestorBaseDatos baseDatosUsuarios;
 	
 	JPanel principal;
@@ -38,7 +39,9 @@ public class VentanaUsuario extends JFrame{
 	JButton bNuevoUsuario;
 	JDialog crearUsuario;
 	
-
+	/**
+	 * Creación de ventana usuario
+	 */
 	public VentanaUsuario(){
 		baseDatosUsuarios=new GestorBaseDatos();
 		GestorBaseDatos.iniciar();
@@ -142,10 +145,19 @@ public class VentanaUsuario extends JFrame{
 	
 	}
 
+	/**
+	 * Método para mostrar en un JOptionPane un mensaje de error
+	 * @param s -> Error que quieres mostrar
+	 */
 	public static void mensajeError(String s) {
 		JOptionPane.showMessageDialog(null, s,"Error",JOptionPane.ERROR_MESSAGE);
     }
 
+	/**
+	 * Metodo para anyadir un usuario a la base de datos. 
+	 * JDialog de interaccion con el usuario
+	 * Comprobación nuevo usuario correcto
+	 */
 	public void anyadirUsuario() {
 		String bd = comprobarBaseDatos();
 		if (bd.equals("Usuario no registrado")) {
@@ -166,6 +178,7 @@ public class VentanaUsuario extends JFrame{
 				case 0:
 					JOptionPane.showMessageDialog(null, "Usuario creado. Ya puedes acceder a tu nuevo calendario!",
 							"USUARIO CREADO", JOptionPane.INFORMATION_MESSAGE);
+					logger.info("Usuario creado correctamente");
 					break;
 				case 1:
 					mensajeError("Campos vacíos");
@@ -187,26 +200,23 @@ public class VentanaUsuario extends JFrame{
 		}
 
 	}
-
+	
+	/**
+	 * Método para comprobar que el login es correcto.
+	 * @return String con el resultado producido
+	 */
 	public static String comprobarBaseDatos() {
         String usuario = nombreUsuario.getText().toString();
-        //System.out.println("Usuario: "+usuario);
         String contrasenya = valorContraseña.getText().toString();
-        //System.out.println("Contraseña: "+contrasenya);
         
-        //System.out.println("Error: "+ baseDatosUsuarios.loginCorrecto(usuario, contrasenya));
         switch (baseDatosUsuarios.loginCorrecto(usuario, contrasenya)) {
         case 0:
-        	//System.out.println("Login correcto");
         	return "Login correcto";
         case 1:
-        	//mensajeError("Contraseña incorrecta");
         	return "Contraseña incorrecta";
         case 2:
-        	//mensajeError("Usuario no registrado");
         	return "Usuario no registrado";
         case 3:
-        	//mensajeError("Problema con la base de datos");
         	return"Problema con la base de datos"; 
         }
 		return null; 

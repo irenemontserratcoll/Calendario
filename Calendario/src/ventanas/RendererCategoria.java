@@ -11,6 +11,11 @@ import javax.swing.ListCellRenderer;
 
 import clases.Categoria;
 
+/**
+ * Renderer del apartado de Categorias
+ * Visualiza las categorias del usuario como un JCheckBox
+ *
+ */
 public class RendererCategoria extends JCheckBox implements ListCellRenderer<Categoria>, MouseListener {
 
 	private static final long serialVersionUID = 1L;

@@ -1,7 +1,6 @@
 package ventanas;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
-import baseDeDatos.GestorBaseDatos;
 import clases.Evento;
 
 public class ModeloTablaCalendario extends DefaultTableModel{
@@ -65,7 +63,7 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 		System.out.println("GetEventosSemana");
 		System.out.println(baseDeDatos.GestorBaseDatos.getEventosSemana("prueba" ,diasPantalla));
 		
-		
+		//TODO esto que es? Borrar?
 		if (getColumnName(4).equals("MONDAY 9")) {
 			System.out.println("Hoy es día 9");
 			Evento prueba = new Evento("deporte");
@@ -74,33 +72,13 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 		return " ";
 	}
 	
-  
-//    @Override
-//    public Object getValueAt(int row, int column) {
-//    	Evento e = new Evento("deporte");
-//    	eventosSemana.add(e);
-//        switch (column) {
-//			case 0: 
-//		    	LocalTime tiempo = LocalTime.of(0, 0);
-//		    	return tiempo.plusMinutes(row*30);
-//			case 1: return e.getNombre();
-//			default: return null;
-//        }
-//    }
 	public Object getValueAt(int row, int column) {
 		if (column==0) {
 			LocalTime tiempo = LocalTime.of(0, 0);
 	    	return tiempo.plusMinutes(row*30);
 		}else {
 			for (Evento e: ventana.listaEventosVisibles) {
-//				System.out.println(e.getNombre());
-//				System.out.println("  Col inicio: "+ColumnaInicioEvento(e, ventana.fecha));
-//				System.out.println("  Col fin: "+ ColumnaFinEvento(e, ventana.fecha));
-//				System.out.println("  Row inicio: "+ FilaInicioEvento(e));
-//				System.out.println("  Row fin: "+ FilaFinEvento(e));
 				if ( (column >= ColumnaInicioEvento(e, ventana.fecha) && column <= ColumnaFinEvento(e, ventana.fecha)) && (row >= FilaInicioEvento(e) && row <= FilaFinEvento(e)) ){
-						
-					//return e.getNombre();
 					return e;
 					}
 				}

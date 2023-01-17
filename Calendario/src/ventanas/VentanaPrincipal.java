@@ -48,7 +48,10 @@ public class VentanaPrincipal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	//La ventana Principal se crea a partir del gestor de eventos con los eventos de un usuario concreto.
+	/** Constructor de la ventana principal
+	 * @param gestorEventos -> Gestiona los eventos de la BD
+	 * @param nombreUsuario -> Nombre del usuario que ha hecho login
+	 */
 	public VentanaPrincipal(GestorEventos gestorEventos, String nombreUsuario) {
 		this.gestorEventos = gestorEventos;
 		this.listaCategorias = GestorBaseDatos.todasCategorias(nombreUsuario);
@@ -270,9 +273,12 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	
+	/** Metodo para actualizar la tabla
+	 * Funciona ante un cambio de fecha o categoria
+	 * 
+	 */
 	public void actualizarTabla() {
 		//actualizo los eventos
-		//listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
 		listaEventosVisibles = listaVisible();
 		//MODELO
 		modelo = new ModeloTablaCalendario(this);
@@ -292,17 +298,21 @@ public class VentanaPrincipal extends JFrame {
 		TableColumnModel columnModel = tablaCalendario.getColumnModel();
 	    columnModel.getColumn(0).setMaxWidth(80);
 	    columnModel.getColumn(0).setCellRenderer(alineadoCentro);
+	    logger.info("Tabla actualizada correctamente");
 		
 	}
+	
+	/**Metodo que devuelve todas los eventos que deben visualizarse en la tabla
+	 * 
+	 * @return Lista de evenos que deben visualizarse.
+	 */
 	public List<Evento> listaVisible() {
 		List<Evento> lista= new ArrayList<Evento>();
 		List<Categoria> listaCategoriasSeleccionadas = new ArrayList<>();
 		
 		for (Categoria c: listaCategorias) {
-			System.out.println("Categoria " +c);
 			if( c.isActiva()){
 				listaCategoriasSeleccionadas.add(c);
-				System.out.println("activa");
 			}
 		}
 		for (Evento e: gestorEventos.getListaEventosSemanal(fecha)) {
@@ -312,6 +322,7 @@ public class VentanaPrincipal extends JFrame {
 				}
 			}
 		}
+		logger.info("Lista eventos visible actualizada");
 		return lista;
 		
 	}
