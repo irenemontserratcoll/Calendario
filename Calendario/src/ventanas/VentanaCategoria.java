@@ -31,12 +31,14 @@ public class VentanaCategoria extends JFrame {
 
 	GestorBaseDatos baseDatosUsuarios;
 	JLabel textoCategoria;
-	JComboBox<String> categorias;
 	Color colorCat;
 	static Categoria categoria;
+	private JComboBox<Categoria> categorias;
+	private String nombreUsuario;
 	
 	public VentanaCategoria(String nombreUsuario) {
-			
+		
+		this.nombreUsuario=nombreUsuario;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Ventana Categoria");
 		setSize(450, 350);
@@ -53,7 +55,7 @@ public class VentanaCategoria extends JFrame {
 		
 		List<Categoria> listaCategorias = GestorBaseDatos.todasCategorias(nombreUsuario);
 		
-		JComboBox<Categoria> categorias = new JComboBox<Categoria>();
+		categorias = new JComboBox<Categoria>();
 		for (Categoria c : listaCategorias) {
 			categorias.addItem(c);
 		}
@@ -119,6 +121,7 @@ public class VentanaCategoria extends JFrame {
 				String nomCat = nombreCategoria.getText();
 				categoria = new Categoria(nomCat,colorCat);
 				anyadirCategoria(nombreUsuario,nomCat,colorCat);
+				actualizarComboBox();
 				setVisible(false);
 			}
 		});
@@ -153,10 +156,18 @@ public class VentanaCategoria extends JFrame {
 		case 1:
 			GestorBaseDatos.anyadirCategoria(nombreUsuario, nombreCategoria, color);
 			JOptionPane.showMessageDialog(null, "Categoria creada", "Categoria creada", JOptionPane.INFORMATION_MESSAGE);
-		//TODO Se añade la nueva categoria a la base de datos?
 		}
 	}
-	
+
+	private void actualizarComboBox() {
+		List<Categoria> listaCategorias = GestorBaseDatos.todasCategorias(nombreUsuario);
+
+		categorias = new JComboBox<Categoria>();
+		for (Categoria c : listaCategorias) {
+			categorias.addItem(c);
+		}
+	}
+
 	private static class ColorListCellRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 1L;
 
@@ -168,6 +179,7 @@ public class VentanaCategoria extends JFrame {
 	        return label;
 	    }
 	}
+	
 	
 
 	
