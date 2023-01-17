@@ -39,6 +39,7 @@ public class VentanaPrincipal extends JFrame {
 	ModeloTablaCalendario modelo;
 	JTable tablaCalendario;
     List<String> diasMuestraPantalla = new ArrayList<String>();
+    String sUsuario;
 	
 
 	public ZonedDateTime getFecha() {
@@ -53,6 +54,7 @@ public class VentanaPrincipal extends JFrame {
 	 * @param nombreUsuario -> Nombre del usuario que ha hecho login
 	 */
 	public VentanaPrincipal(GestorEventos gestorEventos, String nombreUsuario) {
+		this.sUsuario = nombreUsuario;
 		this.gestorEventos = gestorEventos;
 		this.listaCategorias = GestorBaseDatos.todasCategorias(nombreUsuario);
 		this.listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
@@ -309,7 +311,7 @@ public class VentanaPrincipal extends JFrame {
 	public List<Evento> listaVisible() {
 		List<Evento> lista= new ArrayList<Evento>();
 		List<Categoria> listaCategoriasSeleccionadas = new ArrayList<>();
-		
+		listaCategorias = GestorBaseDatos.todasCategorias(sUsuario);
 		for (Categoria c: listaCategorias) {
 			if( c.isActiva()){
 				listaCategoriasSeleccionadas.add(c);
