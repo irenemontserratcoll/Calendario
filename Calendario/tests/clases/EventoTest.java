@@ -129,12 +129,36 @@ public class EventoTest {
     } 
 	@Test
     public void testEvento3() {
-		Evento evento3 = new Evento("Evento 3");
-        assertEquals("Evento 3", evento3.getNombre());
-        assertNull(evento3.getFechaInicio());
-        assertNull(evento3.getFechaFin());
+		Evento evento2 = new Evento("Evento 3");
+        assertEquals("Evento 3", evento2.getNombre());
+        assertNull(evento2.getFechaInicio());
+        assertNull(evento2.getFechaFin());
+        String expectedString = evento2.getNombre()+ "" + evento2.fechaInicio + "" + evento2.fechaFin + "" + evento2.duracionReal + "" + evento2.categoria + "" + evento2.urgente + "" + evento2.activa;
+        assertEquals(expectedString, evento2.toString());
     }
+	@Test
+	public void testEventoConstructor1() {
+	    String nombre = "Evento";
+	    int anyo = 2022;
+	    int mes = 12;
+	    int dia = 25;
+	    int hora = 12;
+	    int minuto = 0;
+	    int duracionMinutos = 90;
+	    Evento evento1 = new Evento(nombre, anyo, mes, dia, hora, minuto);
+	    assertEquals(ZonedDateTime.of(LocalDateTime.of(anyo, mes, dia, hora, minuto), ZoneId.of("Europe/Madrid")), evento1.getFechaInicio());
+	    Evento evento2 = new Evento(nombre, anyo, mes, dia, hora, minuto, duracionMinutos);
+
+        LocalDateTime dt = LocalDateTime.of(anyo, mes, dia, hora, minuto);
+        ZonedDateTime expectedFechaInicio = ZonedDateTime.of(dt, ZoneId.of("Europe/Madrid"));
+        ZonedDateTime expectedFechaFin = expectedFechaInicio.plusMinutes(duracionMinutos);
+
+        assertEquals(expectedFechaFin, evento2.getFechaFin());
+        
+    }
+    
+	}
 	
 
 
-}
+
