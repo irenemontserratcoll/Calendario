@@ -3,7 +3,6 @@ package ventanas;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -13,6 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -44,6 +44,7 @@ public class VentanaEvento extends JFrame {
 	JDatePicker depart_date_picker;
 	JButton bEv;
 	private JRadioButton si,no;
+	@SuppressWarnings("unused")
 	private GestorEventos gestor;
 	VentanaCategoria v;
 	Categoria categoria;
@@ -62,7 +63,6 @@ public class VentanaEvento extends JFrame {
 		setTitle("Ventana Evento");
 		setSize(400, 500);
 		JPanel principal = new JPanel(new GridLayout(6, 1));
-
 		// Titulo evento
 		JPanel titulo = new JPanel();
 		textoEvento = new JLabel("Evento");
@@ -156,10 +156,9 @@ public class VentanaEvento extends JFrame {
 						String[] ae = a1.split(":");
 						int hora = Integer.parseInt(ae[0]);
 						int minuto = Integer.parseInt(ae[1]);
-						ZonedDateTime z1 = ZonedDateTime.ofInstant(f1, ZoneId.systemDefault());
+						ZonedDateTime z1 = ZonedDateTime.ofInstant(f1, ZoneId.systemDefault()).withHour(0).withMinute(0);
 						z1 = z1.plusHours(hora);
 						z1 =z1.plusMinutes(minuto);
-						//System.out.println(z1.format(formatter));
 						
 						//Fecha fin
 						Instant f2 = fecha2.toInstant();
@@ -167,10 +166,9 @@ public class VentanaEvento extends JFrame {
 						String[] ae2 = a2.split(":");
 						int hora2 = Integer.parseInt(ae2[0]);
 						int minuto2 = Integer.parseInt(ae2[1]);
-						ZonedDateTime z2 = ZonedDateTime.ofInstant(f2, ZoneId.systemDefault());	
+						ZonedDateTime z2 = ZonedDateTime.ofInstant(f2, ZoneId.systemDefault()).withHour(0).withMinute(0);	
 						z2 = z2.plusHours(hora2);
 						z2 =z2.plusMinutes(minuto2);
-						//System.out.println(z2.format(formatter));
 						
 						VentanaEvento.this.categoria = VentanaCategoria.categoria;
 
@@ -179,6 +177,8 @@ public class VentanaEvento extends JFrame {
 						Evento eventos = new Evento(nombreEvento.getText(),z1 , z2,duracion , VentanaEvento.this.categoria, urgente);
 						gestor.addEvento(eventos);
 						ventanaPrincipal.actualizarTabla();
+						logger.info("Evento añadido correctamente");
+						
 					}
 					
 				}
