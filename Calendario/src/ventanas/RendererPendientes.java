@@ -1,5 +1,6 @@
 package ventanas;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,6 +24,7 @@ public class RendererPendientes  extends JCheckBox implements ListCellRenderer<E
 		
 		setText(value.getNombre());
 		setSelected(value.isActiva());
+		setBackground(Color.WHITE);
 
 		return this;
 	}
@@ -40,25 +42,25 @@ public class RendererPendientes  extends JCheckBox implements ListCellRenderer<E
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		//  Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		//  Auto-generated method stub
 		
 	}
 

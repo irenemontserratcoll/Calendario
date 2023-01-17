@@ -13,7 +13,6 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	private static int NUM_COLUMNAS = 8;
 	private static int NUM_FILAS = 48;
 	
-	List<Evento> eventosSemana = new ArrayList<>(); //Ahora esta en ventana Principal
 	private static final long serialVersionUID = 1L;
 
 
@@ -22,14 +21,13 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	public ModeloTablaCalendario(VentanaPrincipal ventana) {
 		super();
 		this.ventana = ventana;
-		
-		
 	}
 	
-	
+	/**
+	 * Método para obtener el nombre de las columnas de la tabla
+	 */
 	@Override
 	public String getColumnName(int col) {
-		// Método para obtener el nombre de las columnas de la tabla
 		if (col==0) {
 			return "Dia";
 		}else {
@@ -38,6 +36,11 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 		}
 	}
 	
+	/**
+	 * Metodo para dar nombre a las columnas de la tabla
+	 * @param col
+	 * @return
+	 */
 	public String setColumnName(int col) {
 		if (col==0) {
 			return "Dia";
@@ -99,9 +102,9 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	
 	public int ColumnaFinEvento(Evento e, ZonedDateTime fecha) {
 		
-		int diaInicioEvento = e.getFechaFin().getDayOfYear();
+		int diaFinEvento = e.getFechaFin().getDayOfYear();
 		int diaReferencia = fecha.getDayOfYear();
-		int diferencia = diaInicioEvento-diaReferencia;
+		int diferencia = diaFinEvento-diaReferencia;
 		
 		int columna = 4+diferencia;
 		if (columna <8 && columna >0) {
