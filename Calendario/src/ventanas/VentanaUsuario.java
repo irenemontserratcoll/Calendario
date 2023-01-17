@@ -119,6 +119,7 @@ public class VentanaUsuario extends JFrame{
 		addWindowListener( new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+				GestorBaseDatos.borrarPrueba();
 				GestorBaseDatos.close();
 			}
 		});

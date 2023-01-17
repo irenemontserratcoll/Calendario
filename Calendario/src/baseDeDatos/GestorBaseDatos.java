@@ -23,6 +23,10 @@ public class GestorBaseDatos {
 	private static Logger logger = Logger.getLogger(Logger.class.getName());
 	private static Connection conn;
 	
+	/**
+	 * Metod para inciar la conexión de la BD
+	 * @return True-> Iniciada correctamente ; False -> Iniciada Incorrectamente
+	 */
 	public static boolean iniciar(){
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -41,30 +45,7 @@ public class GestorBaseDatos {
 		}
 	}
 	
-	public static void cargarPrueba() {
-		Usuario u1 = new Usuario("PRUEBA", "PRUEBA");
-		
-		Categoria deporte = new Categoria("Deporte", Color.GREEN);
-		Categoria estudiar = new Categoria("Estudiar", Color.BLUE);
-		Categoria otros = new Categoria("Otros", Color.GRAY);
-		
-		ZonedDateTime hoy = ZonedDateTime.now();
-		
-		Evento e1 = new Evento("Bailar", hoy.minusDays(2).minusHours(3), hoy.minusDays(2).minusHours(2), 20.2F, deporte, true);
-		Evento e2 = new Evento("Correr", hoy.plusDays(1).plusHours(1), hoy.plusDays(1).plusHours(2), 20.2F, deporte, true);
-		Evento e3 = new Evento("Matematicas", hoy.minusMinutes(120), hoy, 5,estudiar, true);
-		Evento e4 = new Evento ("Llamar mama", hoy.plusDays(3), hoy.plusDays(3).plusMinutes(30), 5, otros, true);
-		Evento e5 = new Evento("Programacion", estudiar, true);
-		
-		anyadirEvento(e1, u1.getNombre());
-		anyadirEvento(e2, u1.getNombre());
-		anyadirEvento(e3, u1.getNombre());
-		anyadirEvento(e4, u1.getNombre());
-		anyadirEvento(e5, u1.getNombre());
 
-				
-		
-	}
 	
 	
 	public static void close() {
@@ -243,9 +224,6 @@ public class GestorBaseDatos {
 	 * @param usuario al que pertenece
 	 */
 	public static void anyadirEvento(Evento evento, String usuario) {
-		// Ejemplo statement
-		// INSERT INTO eventos VALUES ('Nahia', 'Estudiar', 76737, 78998, 30,
-		// 'bailar','si');
 
 		try {
 			PreparedStatement insertarEvento = conn
@@ -289,11 +267,11 @@ public class GestorBaseDatos {
 		}
 	}
 
+	
 /**Obtiene una lista con los eventos de un determinado usuario almacenados en la BD
  * @param nombreUsuario
  * @return listaEventos devuelve la propia lista de eventos, habiendo añadido los eventos de ese nombre de Usuario en la lista
  */
-	
 	public static ArrayList<Evento> getListaEventosUsuario(String nombreUsuario) {
 		ArrayList<Evento> listaEventos = new ArrayList<>();
 		try {
@@ -327,10 +305,6 @@ public class GestorBaseDatos {
 					LocalDateTime lFin = LocalDateTime.ofInstant(Instant.ofEpochMilli(lFechaFin), TimeZone.getDefault().toZoneId());
 					fechaFin = ZonedDateTime.of(lFin, ZoneId.of("Europe/Madrid"));
 				}
-				
-								
-				//Categoria cat = getCategoriaDeNombre(nombreUsuario, sCategoria);
-				//TODO COLORES EN LA BD
 				
 				Color ccolus = Color.black;
 				for (Categoria catnombreBusca : todasCategorias(nombreUsuario)) {
@@ -456,6 +430,44 @@ public class GestorBaseDatos {
 		}
 		return listaEventos;
 		
+	}
+	
+	/**Carga datos de prueba
+	 */
+	public static void cargarPrueba() {
+		Usuario u1 = new Usuario("PRUEBA", "PRUEBA");
+		
+		Categoria deporte = new Categoria("Deporte", Color.GREEN);
+		Categoria estudiar = new Categoria("Estudiar", Color.BLUE);
+		Categoria otros = new Categoria("Otros", Color.GRAY);
+		
+		ZonedDateTime hoy = ZonedDateTime.now();
+		
+		Evento e1 = new Evento("Bailar", hoy.minusDays(2).minusHours(3), hoy.minusDays(2).minusHours(2), 20.2F, deporte, true);
+		Evento e2 = new Evento("Correr", hoy.plusDays(1).plusHours(1), hoy.plusDays(1).plusHours(2), 20.2F, deporte, true);
+		Evento e3 = new Evento("Matematicas", hoy.minusMinutes(120), hoy, 5,estudiar, true);
+		Evento e4 = new Evento ("Llamar mama", hoy.plusDays(3), hoy.plusDays(3).plusMinutes(30), 5, otros, true);
+		Evento e5 = new Evento("Programacion", estudiar, true);
+		
+		anyadirEvento(e1, u1.getNombre());
+		anyadirEvento(e2, u1.getNombre());
+		anyadirEvento(e3, u1.getNombre());
+		anyadirEvento(e4, u1.getNombre());
+		anyadirEvento(e5, u1.getNombre());
+	}
+	
+	/**Borrar datos de prueba
+	 */
+	public static void borrarPrueba() {
+		try {
+			PreparedStatement insertaUsuario = conn.prepareStatement("DELETE FROM eventos WHERE Usuario = 'PRUEBA';");
+			insertaUsuario.executeUpdate();
+			logger.info("Datos de PRUEBA borrados de la BD");
+		} catch (SQLException e) {
+			logger.severe("Borrado de datos de PRUEBA incorrecto");
+			e.printStackTrace();
+			
+		}
 	}
 	
 }
