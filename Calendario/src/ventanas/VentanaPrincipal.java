@@ -164,6 +164,7 @@ public class VentanaPrincipal extends JFrame {
 						
 					}
 				});
+				bajo.setBackground(Color.WHITE);
 					
 		
 		panelTitulo.add(mes);
@@ -171,7 +172,6 @@ public class VentanaPrincipal extends JFrame {
 		panelTitulo.add(titulo);
 		panelTitulo.add(anterior);
 		panelTitulo.add(siguiente);
-		panelTitulo.add(bajo);
 		panelTitulo.setBackground(Color.WHITE);
 
 		
@@ -195,13 +195,14 @@ public class VentanaPrincipal extends JFrame {
 	    columnModel.getColumn(0).setMaxWidth(80);
 	    columnModel.getColumn(0).setCellRenderer(alineadoCentro);	  	    
 	    
-	    
 	    bajo.add(bEv);
 	    
 	    JScrollPane panelCalendario = new JScrollPane(tablaCalendario);
+	    panelCalendario.setBackground(Color.WHITE);
 		principal.add(panelTitulo, BorderLayout.NORTH);
 		principal.add(panelCalendario, BorderLayout.CENTER);
 		principal.add(bajo, BorderLayout.SOUTH);
+		principal.setBackground(Color.WHITE);
 		
 		JPanel barraDerecha = new JPanel(new GridLayout(2,1));
 		
@@ -255,7 +256,7 @@ public class VentanaPrincipal extends JFrame {
 		pendientes.add(tituloPendientes, BorderLayout.NORTH);
 		pendientes.add(jListTareasPendientes, BorderLayout.CENTER);
 		
-		
+		barra.setBackground(Color.WHITE);
 		barraDerecha.add(categorias);
 		barraDerecha.add(pendientes);
 		barra.add(principal);

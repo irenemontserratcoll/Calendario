@@ -1,13 +1,18 @@
 package ventanas;
 
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import clases.Categoria;
 
@@ -29,10 +34,12 @@ public class RendererCategoria extends JCheckBox implements ListCellRenderer<Cat
 	public Component getListCellRendererComponent(JList<? extends Categoria> list, Categoria value, int index,
 			boolean isSelected, boolean cellHasFocus) {
 		
+		setSelected(value.isActiva());
 		setText(value.getCategoria());
 		setForeground(value.getColor());
-		setSelected(value.isActiva());
 		
+		setFont(new Font("default", Font.PLAIN, 15));
+		setBackground(Color.WHITE);
 		return this;
 	}
 	
