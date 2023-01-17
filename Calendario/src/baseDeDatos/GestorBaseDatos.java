@@ -441,6 +441,10 @@ public class GestorBaseDatos {
 		Categoria estudiar = new Categoria("Estudiar", Color.BLUE);
 		Categoria otros = new Categoria("Otros", Color.GRAY);
 		
+		anyadirCategoria("PRUEBA","Deporte",  Color.decode("#FFB5E8"));
+		anyadirCategoria("PRUEBA","Estudiar", Color.decode("#B28DFF"));
+		anyadirCategoria("PRUEBA","Otros", Color.decode("#DCD3FF"));
+		
 		ZonedDateTime hoy = ZonedDateTime.now();
 		
 		Evento e1 = new Evento("Bailar", hoy.minusDays(2).minusHours(3), hoy.minusDays(2).minusHours(2), 20.2F, deporte, true);
