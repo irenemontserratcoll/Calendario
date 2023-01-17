@@ -93,7 +93,7 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 		if (columna <8 && columna >0) {
 			return columna;
 		}else {
-			return 1;
+			return -1;
 		}
 	}
 	
@@ -107,7 +107,7 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 		if (columna <8 && columna >0) {
 			return columna;
 		}else {
-			return 7;
+			return -1;
 		}
 	}
 	

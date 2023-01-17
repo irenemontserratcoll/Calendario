@@ -157,7 +157,7 @@ public class VentanaEvento extends JFrame {
 						int hora = Integer.parseInt(ae[0]);
 						int minuto = Integer.parseInt(ae[1]);
 						ZonedDateTime z1 = ZonedDateTime.ofInstant(f1, ZoneId.systemDefault());
-						z1 = z1.plusHours(hora).plusHours(12);
+						z1 = z1.plusHours(hora);
 						z1 =z1.plusMinutes(minuto);
 						//System.out.println(z1.format(formatter));
 						
@@ -168,7 +168,7 @@ public class VentanaEvento extends JFrame {
 						int hora2 = Integer.parseInt(ae2[0]);
 						int minuto2 = Integer.parseInt(ae2[1]);
 						ZonedDateTime z2 = ZonedDateTime.ofInstant(f2, ZoneId.systemDefault());	
-						z2 = z2.plusHours(hora2).plusHours(12);
+						z2 = z2.plusHours(hora2);
 						z2 =z2.plusMinutes(minuto2);
 						//System.out.println(z2.format(formatter));
 						

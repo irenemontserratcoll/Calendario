@@ -21,20 +21,6 @@ public class GestorEventos {
 	private List<Evento> listaUrgente;
 	private GestorBaseDatos baseDatos; //Tiene que estar conectado con la base de datos
 
-	// CONSTRUCTOR
-//	/**
-//	 * Construye el Gestor de Eventos o Calendario particular del usuario. Es
-//	 * necesario que tenga un nombre de usuario único para poder diferenciarlo de
-//	 * los otros. Contiene una lista (ArrayList) con todos los eventos del usuario.
-//	 * 
-//	 * @param usuario
-//	 * @param listaEventos
-//	 * @param listaUrgente
-//	 */
-//	public GestorEventos(String usuario, List<Evento> listaEventos) {
-//		this.usuario = usuario;
-//		GestorEventos.listaEventos = listaEventos;
-//	}
 	
 	/**Creo el gestor eventos a partir de la base de datos.
 	 * Obteniendo la lista de eventos de un usuario concreto.
@@ -84,8 +70,8 @@ public class GestorEventos {
 			ZonedDateTime inicio = e.getFechaInicio();
 			ZonedDateTime fin = e.getFechaFin();
 			if (inicio != null) {
-				if ( (fecha.isAfter(inicio.minusDays(3)) && fecha.isBefore(fin.plusDays(3)) ) ||  //El evento comienza durante la semana pero sigue
-						(inicio.isBefore(fecha.plusDays(3))  && (inicio.isAfter(fecha.minusDays(3)) ) )   ){ //El evento comienza durante la semana
+				if ( (fecha.isAfter(inicio.minusDays(4)) && fecha.isBefore(fin.plusDays(4)) ) ||  //El evento comienza durante la semana pero sigue
+						(inicio.isBefore(fecha.plusDays(4))  && (inicio.isAfter(fecha.minusDays(4)) ) )   ){ //El evento comienza durante la semana
 					listaSemana.add(e);
 				}
 			}
@@ -94,6 +80,7 @@ public class GestorEventos {
 		
 	}
 	
+	@SuppressWarnings("static-access")
 	public void addEvento(Evento evento) {
 		baseDatos.anyadirEvento(evento, usuario);
 		listaEventos.add(evento);
@@ -133,8 +120,7 @@ public class GestorEventos {
 			e.isUrgente()
 			);
 			
-			// escribe el string al fichero
-			
+			// escribe el string al fichero	
 			writer.write(evento);
 		}
 		} catch (FileNotFoundException e) {
