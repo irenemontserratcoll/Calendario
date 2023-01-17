@@ -42,7 +42,7 @@ public class VentanaUsuario extends JFrame{
 	public VentanaUsuario(){
 		baseDatosUsuarios=new GestorBaseDatos();
 		GestorBaseDatos.iniciar();
-	//	GestorBaseDatos.cargarPrueba();
+		GestorBaseDatos.cargarPrueba();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Ventana Usuario");
 		setSize(700,400);

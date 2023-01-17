@@ -1,8 +1,27 @@
 package clases;
 import java.awt.Color;
+import java.util.Objects;
 
 public class Categoria {
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(categoria, color, usuario);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Categoria other = (Categoria) obj;
+		return Objects.equals(categoria, other.categoria) && Objects.equals(color, other.color)
+				&& Objects.equals(usuario, other.usuario);
+	}
+
 	//Atributos
 	protected Usuario usuario; //Modificar creacion de categoria con usuario
 	protected String categoria;

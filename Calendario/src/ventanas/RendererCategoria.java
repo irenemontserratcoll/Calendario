@@ -14,7 +14,12 @@ import clases.Categoria;
 public class RendererCategoria extends JCheckBox implements ListCellRenderer<Categoria>, MouseListener {
 
 	private static final long serialVersionUID = 1L;
-
+	private VentanaPrincipal ventanaPrincipal;
+	
+	public RendererCategoria(VentanaPrincipal ventanaPrincipal) {
+		super();
+		this.ventanaPrincipal = ventanaPrincipal;
+	}
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Categoria> list, Categoria value, int index,
 			boolean isSelected, boolean cellHasFocus) {
@@ -60,5 +65,6 @@ public class RendererCategoria extends JCheckBox implements ListCellRenderer<Cat
 		Categoria c = list.getModel().getElementAt(index);
 		c.setActiva(!c.isActiva());
 		list.repaint();
+		ventanaPrincipal.actualizarTabla();
 	}
 }

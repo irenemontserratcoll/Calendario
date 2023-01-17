@@ -29,6 +29,7 @@ import clases.GestorEventos;
 public class VentanaPrincipal extends JFrame {
 	private GestorEventos gestorEventos;
 	List<Evento> listaEventosVisibles = new ArrayList<Evento>();
+	List<Categoria> listaCategorias;
 	private static Logger logger = Logger.getLogger(Logger.class.getName());
 	ZonedDateTime fecha = ZonedDateTime.now();
 	
@@ -50,6 +51,7 @@ public class VentanaPrincipal extends JFrame {
 	//La ventana Principal se crea a partir del gestor de eventos con los eventos de un usuario concreto.
 	public VentanaPrincipal(GestorEventos gestorEventos, String nombreUsuario) {
 		this.gestorEventos = gestorEventos;
+		this.listaCategorias = GestorBaseDatos.todasCategorias(nombreUsuario);
 		this.listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Calendario");
@@ -208,13 +210,11 @@ public class VentanaPrincipal extends JFrame {
 		
 //Apartado lista de categorias
 		
-		List<Categoria> listaCategorias = GestorBaseDatos.todasCategorias(nombreUsuario);
-		
 		DefaultListModel<Categoria> modeloCategorias = new DefaultListModel<>();
 		modeloCategorias.addAll(listaCategorias);
 		JList<Categoria> jListCategorias = new JList<>();
 		jListCategorias.setModel(modeloCategorias);
-		RendererCategoria renderer = new RendererCategoria();
+		RendererCategoria renderer = new RendererCategoria(this);
 		jListCategorias.addMouseListener(renderer);
 		jListCategorias.setCellRenderer(renderer);
 		
@@ -272,8 +272,8 @@ public class VentanaPrincipal extends JFrame {
 	
 	public void actualizarTabla() {
 		//actualizo los eventos
-		listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
-		
+		//listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
+		listaEventosVisibles = listaVisible();
 		//MODELO
 		modelo = new ModeloTablaCalendario(this);
 		tablaCalendario.setModel(modelo);
@@ -292,6 +292,27 @@ public class VentanaPrincipal extends JFrame {
 		TableColumnModel columnModel = tablaCalendario.getColumnModel();
 	    columnModel.getColumn(0).setMaxWidth(80);
 	    columnModel.getColumn(0).setCellRenderer(alineadoCentro);
+		
+	}
+	public List<Evento> listaVisible() {
+		List<Evento> lista= new ArrayList<Evento>();
+		List<Categoria> listaCategoriasSeleccionadas = new ArrayList<>();
+		
+		for (Categoria c: listaCategorias) {
+			System.out.println("Categoria " +c);
+			if( c.isActiva()){
+				listaCategoriasSeleccionadas.add(c);
+				System.out.println("activa");
+			}
+		}
+		for (Evento e: gestorEventos.getListaEventosSemanal(fecha)) {
+			for (Categoria c: listaCategoriasSeleccionadas)	{
+				if (e.getCategoria().equals(c) && !lista.contains(e)) {
+					lista.add(e);
+				}
+			}
+		}
+		return lista;
 		
 	}
 	
