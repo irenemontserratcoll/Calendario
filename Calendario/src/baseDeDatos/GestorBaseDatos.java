@@ -466,12 +466,15 @@ public class GestorBaseDatos {
 		try {
 			PreparedStatement insertaUsuario = conn.prepareStatement("DELETE FROM eventos WHERE Usuario = 'PRUEBA';");
 			insertaUsuario.executeUpdate();
+			PreparedStatement eliminarCategoria = conn.prepareStatement("DELETE FROM categoria WHERE Usuario = 'PRUEBA';");
+			eliminarCategoria.executeUpdate();
 			logger.info("Datos de PRUEBA borrados de la BD");
 		} catch (SQLException e) {
 			logger.severe("Borrado de datos de PRUEBA incorrecto");
 			e.printStackTrace();
 			
 		}
+
 	}
 	
 }
