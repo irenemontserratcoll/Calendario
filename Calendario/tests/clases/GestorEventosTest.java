@@ -24,8 +24,6 @@ public class GestorEventosTest {
     private Evento evento2;
     private Evento evento3;
     private ArrayList<Evento> listaEventos;
-    private List<Evento> listaUrgente;
-    private Usuario usuario;
     private File tempFile;
 
 	@Before
@@ -42,7 +40,7 @@ public class GestorEventosTest {
         listaEventos.add(evento1);
         listaEventos.add(evento2);
         listaEventos.add(evento3);
-        listaUrgente = new ArrayList<Evento>();
+        new ArrayList<Evento>();
         tempFile = File.createTempFile("evento1", ".csv");
         String csvData = "Evento 1,2022-01-01T00:00:00Z,2022-01-01T01:00:00Z,1.0,urgente,false\n" +
                 "Evento 2,2022-01-02T00:00:00Z,2022-01-02T01:00:00Z,2.0,noUrgente,true";

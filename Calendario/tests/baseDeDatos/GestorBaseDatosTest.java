@@ -1,7 +1,6 @@
 package baseDeDatos;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -20,16 +19,16 @@ import org.junit.Test;
 import clases.Categoria;
 import clases.Evento;
 import clases.StringColores;
-import clases.Usuario;
 
 public class GestorBaseDatosTest {
 	private static Connection conn;
 
-	private GestorBaseDatos baseDatos;
+	private static GestorBaseDatos baseDatos;
+
 	@Before
 	public void SetUp() {
 		baseDatos = new GestorBaseDatos();
-		baseDatos.iniciar();
+		GestorBaseDatos.iniciar();
 	}
 	@Test
 	public void testIniciar() {
@@ -88,26 +87,26 @@ public class GestorBaseDatosTest {
 	    @Test
 	    public void testCategoriaEncontrada() {
 	    	Categoria cat = new Categoria("Deportes");
-	        int resultado = baseDatos.buscarCategoria("PRUEBA", cat.getCategoria());
+	        int resultado = GestorBaseDatos.buscarCategoria("PRUEBA", cat.getCategoria());
 	        assertEquals(0, resultado);
 	    }
 
 	    @Test
 	    public void testCategoriaNoEncontrada() {
-	        int resultado = baseDatos.buscarCategoria("PRUEBA", "noExiste");
+	        int resultado = GestorBaseDatos.buscarCategoria("PRUEBA", "noExiste");
 	        assertEquals(1, resultado);
 	    }
 
 	    @Test
 	    public void testUsuarioNoEncontrado() {
-	        int resultado = baseDatos.buscarCategoria("Noexiste", "prueba");
+	        int resultado = GestorBaseDatos.buscarCategoria("Noexiste", "prueba");
 	        assertEquals(3, resultado);
 	    }
 	    @Test
 	    public void testAñadirCategoria() {
 	        // Añadir una nueva categoría
-	    	baseDatos.anyadirCategoria("prueba1", "Leer", Color.BLUE);
-	        List<Categoria> categorias = baseDatos.todasCategorias("prueba1");
+	    	GestorBaseDatos.anyadirCategoria("prueba1", "Leer", Color.BLUE);
+	        List<Categoria> categorias = GestorBaseDatos.todasCategorias("prueba1");
 	        boolean encontrado = false;
 	        for (Categoria c : categorias) {
 	            if (c.getCategoria().equals("Leer") && c.getColor() == Color.BLUE) {
@@ -120,16 +119,16 @@ public class GestorBaseDatosTest {
 	    //VA A DAR SIEMPRE MAL PORQUE CADA VEZ QUE SE EJECUTE EL METODO ANTERIOR SE AÑADE UNA NUEVA CATEGORIA
 	    @Test
 	    public void testTodasCategorias() {
-	        List<Categoria> categorias = baseDatos.todasCategorias("PRUEBA");
+	        List<Categoria> categorias = GestorBaseDatos.todasCategorias("PRUEBA");
 	        assertEquals(8, categorias.size());
-	        ArrayList<Evento> eventos = baseDatos.getListaEventosUsuario("prueba1");
+	        ArrayList<Evento> eventos = GestorBaseDatos.getListaEventosUsuario("prueba1");
 	        assertEquals(0, eventos.size());
 	    }
 
 	    @Test
 	    public void testGetCategoriaDeNombre() {
 
-	        Categoria actualCategoria = baseDatos.getCategoriaDeNombre("PRUEBA", "Deporte");
+	        Categoria actualCategoria = GestorBaseDatos.getCategoriaDeNombre("PRUEBA", "Deporte");
 
 	        assertNotNull(actualCategoria);
 	        assertEquals("Deporte", actualCategoria.getCategoria());
@@ -156,7 +155,7 @@ public class GestorBaseDatosTest {
 	        Evento e2 = new Evento(nombreUsuario, fechaInicio, fechaFin, 2, cat, false);
 	        expectedEventos.add(e2);
 	        
-	        List<Evento> actualEventos = baseDatos.getEventosSemana(nombreUsuario, diasMostrados);
+	        List<Evento> actualEventos = GestorBaseDatos.getEventosSemana(nombreUsuario, diasMostrados);
 	        
 	        assertNotNull(actualEventos);
 
@@ -165,27 +164,17 @@ public class GestorBaseDatosTest {
 	    @Test
 	    public void testGetTareasPendientes() {
 	        String nombreUsuario = "prueba1";
-	        List<Evento> actualEventos =baseDatos.getTareasPendientes(nombreUsuario);
+	        List<Evento> actualEventos =GestorBaseDatos.getTareasPendientes(nombreUsuario);
 	        assertNotNull(actualEventos);
 	        assertEquals(0, actualEventos.size());
 	    }
 	    
 	    @Test
 	    public void testCargarPrueba() {
-	        // Arrange
-	        Usuario u1 = new Usuario("PRUEBA2", "PRUEBA");
-	        Categoria deporte = new Categoria("Deporte", Color.GREEN);
-	        Categoria estudiar = new Categoria("Estudiar", Color.BLUE);
-	        Categoria otros = new Categoria("Otros", Color.GRAY);
-	        ZonedDateTime hoy = ZonedDateTime.now();
-	        Evento e1 = new Evento("Bailar", hoy.minusDays(2).minusHours(3), hoy.minusDays(2).minusHours(2), 20.2F, deporte, true);
 
-	        
-	        // Act
-	        baseDatos.cargarPrueba();
-	        
-	        // Assert
-	        List<Evento> eventos = baseDatos.getListaEventosUsuario("PRUEBA2");
+	        GestorBaseDatos.cargarPrueba();
+
+	        GestorBaseDatos.getListaEventosUsuario("PRUEBA2");
 
 	        
 	    }
