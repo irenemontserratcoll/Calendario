@@ -3,9 +3,11 @@ package ventanas;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -47,6 +49,7 @@ public class VentanaEvento extends JFrame {
 	Categoria categoria;
 	VentanaEvento VentanaEvento;
 	VentanaPrincipal ventanaPrincipal;
+	 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss z");
 
 	/**Constructor de la ventana para Crear nuevos eventos
 	 * @param gestor
@@ -156,6 +159,7 @@ public class VentanaEvento extends JFrame {
 						ZonedDateTime z1 = ZonedDateTime.ofInstant(f1, ZoneId.systemDefault());
 						z1 = z1.plusHours(hora);
 						z1 =z1.plusMinutes(minuto);
+						//System.out.println(z1.format(formatter));
 						
 						//Fecha fin
 						Instant f2 = fecha2.toInstant();
@@ -166,6 +170,8 @@ public class VentanaEvento extends JFrame {
 						ZonedDateTime z2 = ZonedDateTime.ofInstant(f2, ZoneId.systemDefault());	
 						z2 = z2.plusHours(hora2);
 						z2 =z2.plusMinutes(minuto2);
+						//System.out.println(z2.format(formatter));
+						
 						VentanaEvento.this.categoria = VentanaCategoria.categoria;
 
 						Boolean urgente = si.isCursorSet();

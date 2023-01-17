@@ -1,6 +1,5 @@
 package ventanas;
 
-import java.time.Duration;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -87,8 +86,9 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	}
 		
 	public int ColumnaInicioEvento(Evento e, ZonedDateTime fecha) {
-		ZonedDateTime inicioEvento = e.getFechaInicio();
-		int diferencia = (int) Duration.between(fecha, inicioEvento).toDays();
+		int diaInicioEvento = e.getFechaInicio().getDayOfYear();
+		int diaReferencia = fecha.getDayOfYear();
+		int diferencia = diaInicioEvento-diaReferencia;
 		int columna = 4+diferencia;
 		if (columna <8 && columna >0) {
 			return columna;
@@ -98,8 +98,11 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 	}
 	
 	public int ColumnaFinEvento(Evento e, ZonedDateTime fecha) {
-		ZonedDateTime finEvento = e.getFechaFin();
-		int diferencia = (int) Duration.between(fecha, finEvento).toDays();
+		
+		int diaInicioEvento = e.getFechaFin().getDayOfYear();
+		int diaReferencia = fecha.getDayOfYear();
+		int diferencia = diaInicioEvento-diaReferencia;
+		
 		int columna = 4+diferencia;
 		if (columna <8 && columna >0) {
 			return columna;
