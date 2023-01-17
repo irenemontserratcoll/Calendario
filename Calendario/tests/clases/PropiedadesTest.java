@@ -2,8 +2,11 @@ package clases;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Properties;
 
 import org.junit.Test;
 
@@ -23,5 +26,15 @@ public class PropiedadesTest {
 
         // Verificamos que la propiedad se haya cargado correctamente
         assertEquals("datos/bd.dat", Propiedades.baseDatos);
+    }
+    @Test
+    public void testMain_invalidPropertiesFile() {
+        // Set up the test environment by creating a non-existent properties file
+        File propFile = new File("propiedades.properties");
+        propFile.delete();
+
+        // Run the main method
+        Propiedades.main(null);
+
     }
 }
