@@ -53,13 +53,12 @@ public class GeneradorContraseñas {
 								randomChar = getLetraAl();
 								break;
 				}
+			}
+
+		return randomChar + contraseña;
 			
-				if (contraseña != null) 
-					return randomChar + contraseña;
-			
-		}
+
 		
-		return null; 
 	}
 
 	public String generate() {
