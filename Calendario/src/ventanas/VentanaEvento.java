@@ -46,13 +46,14 @@ public class VentanaEvento extends JFrame {
 	VentanaCategoria v;
 	Categoria categoria;
 	VentanaEvento VentanaEvento;
+	VentanaPrincipal ventanaPrincipal;
 
 	/**Constructor de la ventana para Crear nuevos eventos
 	 * @param gestor
 	 * @param nombreUsuario
 	 */
-	public VentanaEvento(GestorEventos gestor, String nombreUsuario) {
-		
+	public VentanaEvento(GestorEventos gestor, String nombreUsuario, VentanaPrincipal ventanaPrincipal) {
+		this.ventanaPrincipal=ventanaPrincipal;
 		this.gestor=gestor;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Ventana Evento");
@@ -138,7 +139,6 @@ public class VentanaEvento extends JFrame {
 		bEv.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Boton nuevo evento pulsado");
 				if (nombreEvento.getText().length()== 0) {
 					JOptionPane.showMessageDialog(null, "Es necesario introducir título de evento", "error", JOptionPane.WARNING_MESSAGE);
 				}else if (picker.getModel().getValue() != null){
@@ -172,6 +172,7 @@ public class VentanaEvento extends JFrame {
 						float duracion = 0.0F;
 						Evento eventos = new Evento(nombreEvento.getText(),z1 , z2,duracion , VentanaEvento.this.categoria, urgente);
 						gestor.addEvento(eventos);
+						ventanaPrincipal.actualizarTabla();
 					}
 					
 				}

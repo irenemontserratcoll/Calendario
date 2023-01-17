@@ -157,7 +157,7 @@ public class VentanaPrincipal extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						SwingUtilities.invokeLater(new Runnable() {
 							public void run() {
-								new VentanaEvento(gestorEventos, nombreUsuario);
+								new VentanaEvento(gestorEventos, nombreUsuario, VentanaPrincipal.this);
 								
 							}
 						});
