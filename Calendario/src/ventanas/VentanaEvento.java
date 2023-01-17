@@ -55,8 +55,8 @@ public class VentanaEvento extends JFrame {
 	 * @param gestor
 	 * @param nombreUsuario
 	 */
-	public VentanaEvento(GestorEventos gestor, String nombreUsuario, VentanaPrincipal ventanaPrincipal) {
-		this.ventanaPrincipal=ventanaPrincipal;
+	public VentanaEvento(GestorEventos gestor, String nombreUsuario, VentanaPrincipal ventanaP) {
+		this.ventanaPrincipal=ventanaP;
 		this.gestor=gestor;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Ventana Evento");
