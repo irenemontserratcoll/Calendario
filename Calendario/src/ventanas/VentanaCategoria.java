@@ -39,7 +39,7 @@ public class VentanaCategoria extends JFrame {
 			
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Ventana Categoria");
-		setSize(300, 350);
+		setSize(450, 350);
 		JPanel principal = new JPanel(new GridLayout(10, 1));
 
 		// Titulo evento
