@@ -64,7 +64,7 @@ public class GestorEventos {
 	 * @param fecha
 	 * @return listaSemana
 	 */
-	public static List<Evento> getListaEventosSemanal(ZonedDateTime fecha){
+	public List<Evento> getListaEventosSemanal(ZonedDateTime fecha){
 		List<Evento> listaSemana = new ArrayList<Evento>();
 		for(Evento e: listaEventos) {
 			ZonedDateTime inicio = e.getFechaInicio();
@@ -100,7 +100,7 @@ public class GestorEventos {
 	}
 	
 	
-	public static void crearListaTareas(List<Evento> listaEventos) {
+	public void crearListaTareas(List<Evento> listaEventos) {
 		
 	}
 	
