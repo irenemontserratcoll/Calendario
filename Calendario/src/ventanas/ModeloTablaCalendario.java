@@ -2,8 +2,6 @@ package ventanas;
 
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -59,20 +57,6 @@ public class ModeloTablaCalendario extends DefaultTableModel{
 		return NUM_COLUMNAS;
 	}
 	
-	
-	
-	public String getEventosSemana(List<String> diasPantalla) {
-		System.out.println("GetEventosSemana");
-		System.out.println(baseDeDatos.GestorBaseDatos.getEventosSemana("prueba" ,diasPantalla));
-		
-		//TODO esto que es? Borrar?
-		if (getColumnName(4).equals("MONDAY 9")) {
-			System.out.println("Hoy es día 9");
-			Evento prueba = new Evento("deporte");
-		}
-		
-		return " ";
-	}
 	
 	public Object getValueAt(int row, int column) {
 		if (column==0) {
