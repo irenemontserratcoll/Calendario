@@ -122,7 +122,6 @@ public class VentanaCategoria extends JFrame {
 				String nomCat = nombreCategoria.getText();
 				categoria = new Categoria(nomCat,colorCat);
 				GestorBaseDatos.anyadirCategoria(nombreUsuario,nomCat,colorCat);
-				System.out.println(categoria);
 				actualizarComboBox();
 				setVisible(false);
 			}
