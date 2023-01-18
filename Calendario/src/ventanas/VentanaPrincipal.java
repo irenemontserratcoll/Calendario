@@ -58,7 +58,8 @@ public class VentanaPrincipal extends JFrame {
 		this.gestorEventos = gestorEventos;
 		this.listaCategorias = GestorBaseDatos.todasCategorias(nombreUsuario);
 		this.listaEventosVisibles = gestorEventos.getListaEventosSemanal(fecha);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Calendario");
 		setSize(1600,1000);
 		

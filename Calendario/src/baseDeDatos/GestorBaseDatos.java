@@ -470,18 +470,52 @@ public class GestorBaseDatos {
 		
 		
 		ZonedDateTime hoy = ZonedDateTime.now();
-		
 		Evento e1 = new Evento("Bailar", hoy.minusDays(2).minusHours(3), hoy.minusDays(2).minusHours(2), 20.2F, deporte, true);
 		Evento e2 = new Evento("Correr", hoy.plusDays(1).plusHours(1), hoy.plusDays(1).plusHours(2), 20.2F, deporte, true);
 		Evento e3 = new Evento("Matematicas", hoy.minusMinutes(120), hoy, 5,estudiar, true);
 		Evento e4 = new Evento ("Llamar mama", hoy.plusDays(3), hoy.plusDays(3).plusMinutes(30), 5, otros, true);
 		Evento e5 = new Evento("Programacion", estudiar, true);
+		List<Evento> listaEventosPrueba = getListaEventosUsuario("PRUEBA");
 		
-		anyadirEvento(e1, u1.getNombre());
-		anyadirEvento(e2, u1.getNombre());
-		anyadirEvento(e3, u1.getNombre());
-		anyadirEvento(e4, u1.getNombre());
-		anyadirEvento(e5, u1.getNombre());
+		Boolean isE1 =false;
+		Boolean isE2 =false;
+		Boolean isE3 =false;
+		Boolean isE4 =false;
+		Boolean isE5 =false;
+		for (Evento e: listaEventosPrueba) {
+			if (e.getNombre().equals(e1.getNombre())) {
+				isE1 = true;
+			}
+			if (e.getNombre().equals(e2.getNombre())) {
+				isE2 = true;
+			}
+			if (e.getNombre().equals(e3.getNombre())) {
+				isE3 = true;
+			}
+			if (e.getNombre().equals(e4.getNombre())) {
+				isE4 = true;
+			}
+			if (e.getNombre().equals(e5.getNombre())) {
+				isE5 = true;
+			}
+		}
+
+		if (isE1 == false) {
+			anyadirEvento(e1, u1.getNombre());
+		}
+		if (isE2 == false) {
+			anyadirEvento(e2, u1.getNombre());
+		}
+		if (isE3 == false) {
+			anyadirEvento(e3, u1.getNombre());
+		}
+		if (isE4 == false) {
+			anyadirEvento(e4, u1.getNombre());
+		}
+		if (isE5 == false) {
+			anyadirEvento(e5, u1.getNombre());
+		}
+
 	}
 	
 	/**Borrar datos de prueba
