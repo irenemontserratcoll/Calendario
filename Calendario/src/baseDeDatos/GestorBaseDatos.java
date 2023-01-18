@@ -34,7 +34,7 @@ public class GestorBaseDatos {
 			logger.severe("No se ha podido cargar el driver de la base de datos: "+ e.getMessage());
 		}
 		try {
-			conn = DriverManager.getConnection("jdbc:sqlite:res/CalendarioBD.db");
+			conn = DriverManager.getConnection("jdbc:sqlite:CalendarioBD.db");
 			logger.info("Conexion con base de datos Calendario.BD establecida");
 			return true;
 
