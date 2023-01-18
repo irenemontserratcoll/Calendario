@@ -34,6 +34,7 @@ public class VentanaCategoria extends JFrame {
 	Color colorCat;
 	static Categoria categoria;
 	private JComboBox<Categoria> categorias;
+	JComboBox<String> sCategorias;
 	private String nombreUsuario;
 	
 	public VentanaCategoria(String nombreUsuario) {
@@ -166,6 +167,10 @@ public class VentanaCategoria extends JFrame {
 		for (Categoria c : listaCategorias) {
 			categorias.addItem(c);
 		}
+	}
+	
+	public Categoria categoriaSeleccionada() {
+		return (Categoria) categorias.getSelectedItem();
 	}
 
 	private static class ColorListCellRenderer extends DefaultListCellRenderer {

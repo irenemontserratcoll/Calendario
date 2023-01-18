@@ -267,7 +267,6 @@ public class VentanaPrincipal extends JFrame {
 		addWindowListener( new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				//Cerrar la conexión
 			}
 		});
 		
@@ -311,7 +310,6 @@ public class VentanaPrincipal extends JFrame {
 	public List<Evento> listaVisible() {
 		List<Evento> lista= new ArrayList<Evento>();
 		List<Categoria> listaCategoriasSeleccionadas = new ArrayList<>();
-		listaCategorias = GestorBaseDatos.todasCategorias(sUsuario);
 		for (Categoria c: listaCategorias) {
 			if( c.isActiva()){
 				listaCategoriasSeleccionadas.add(c);
@@ -325,6 +323,7 @@ public class VentanaPrincipal extends JFrame {
 			}
 		}
 		logger.info("Lista eventos visible actualizada");
+
 		return lista;
 		
 	}

@@ -22,6 +22,10 @@ public class GestorEventos {
 	private GestorBaseDatos baseDatos; //Tiene que estar conectado con la base de datos
 
 	
+	public GestorBaseDatos getBaseDatos() {
+		return baseDatos;
+	}
+
 	/**Creo el gestor eventos a partir de la base de datos.
 	 * Obteniendo la lista de eventos de un usuario concreto.
 	 * @param usuario

@@ -437,13 +437,37 @@ public class GestorBaseDatos {
 	public static void cargarPrueba() {
 		Usuario u1 = new Usuario("PRUEBA", "PRUEBA");
 		
+		List<Categoria> listaCategorias = todasCategorias("PRUEBA");
 		Categoria deporte = new Categoria("Deporte", Color.GREEN);
 		Categoria estudiar = new Categoria("Estudiar", Color.BLUE);
 		Categoria otros = new Categoria("Otros", Color.GRAY);
+
+		Boolean isDeporte = false;
+		Boolean isEstudiar = false;
+		Boolean isOtros = false;
+		for (Categoria c : listaCategorias) {
+			if (c.equals(deporte)) {
+				isDeporte = true;
+			}
+
+			if (c.equals(estudiar)) {
+				isEstudiar = true;
+			}
+			if (c.equals(otros)) {
+				isOtros = true;
+			}
+		}
+
+		if (isDeporte == false) {
+			anyadirCategoria("PRUEBA","Deporte",  Color.decode("#FFB5E8"));
+		}
+		if (isEstudiar == false) {
+			anyadirCategoria("PRUEBA","Estudiar", Color.decode("#B28DFF"));
+		}
+		if (isOtros == false) {
+			anyadirCategoria("PRUEBA","Otros", Color.decode("#DCD3FF"));
+		}
 		
-		anyadirCategoria("PRUEBA","Deporte",  Color.decode("#FFB5E8"));
-		anyadirCategoria("PRUEBA","Estudiar", Color.decode("#B28DFF"));
-		anyadirCategoria("PRUEBA","Otros", Color.decode("#DCD3FF"));
 		
 		ZonedDateTime hoy = ZonedDateTime.now();
 		
