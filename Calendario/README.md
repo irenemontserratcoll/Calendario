@@ -19,3 +19,6 @@ Instrucciones de uso:
  - Crear nuevos eventos con el botón "Crear Evento".
  - En la sección de la parte superior a la derecha podemos seleccionar y desseleccionar categorías para que aparezcan o no en la vista.
  - En la sección de la parte inferior a la derecha podemos ver las tareas pendientes, que aún no tienen fecha.
+ 
+ 
+¡Cuidado!: Cuando creas una evento con una nueva categoría , no aparece instantáneamente, se debe cerrar la aplicación y volver a abrirla para que aparezca el evento en el calendario.
