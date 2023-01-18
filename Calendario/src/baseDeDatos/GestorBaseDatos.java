@@ -438,9 +438,9 @@ public class GestorBaseDatos {
 		Usuario u1 = new Usuario("PRUEBA", "PRUEBA");
 		
 		List<Categoria> listaCategorias = todasCategorias("PRUEBA");
-		Categoria deporte = new Categoria("Deporte", Color.GREEN);
-		Categoria estudiar = new Categoria("Estudiar", Color.BLUE);
-		Categoria otros = new Categoria("Otros", Color.GRAY);
+		Categoria deporte = new Categoria("Deporte", Color.decode("#FFB5E8"));
+		Categoria estudiar = new Categoria("Estudiar", Color.decode("#B28DFF"));
+		Categoria otros = new Categoria("Otros", Color.decode("#DCD3FF"));
 
 		Boolean isDeporte = false;
 		Boolean isEstudiar = false;
