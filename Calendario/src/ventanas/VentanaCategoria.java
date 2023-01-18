@@ -121,7 +121,8 @@ public class VentanaCategoria extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String nomCat = nombreCategoria.getText();
 				categoria = new Categoria(nomCat,colorCat);
-				anyadirCategoria(nombreUsuario,nomCat,colorCat);
+				GestorBaseDatos.anyadirCategoria(nombreUsuario,nomCat,colorCat);
+				System.out.println(categoria);
 				actualizarComboBox();
 				setVisible(false);
 			}
@@ -154,7 +155,7 @@ public class VentanaCategoria extends JFrame {
 		switch (GestorBaseDatos.buscarCategoria(nombreUsuario, nombreCategoria)) {
 		case 0:
 			JOptionPane.showMessageDialog(null, "Esta Categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
-		case 1:
+		default:
 			GestorBaseDatos.anyadirCategoria(nombreUsuario, nombreCategoria, color);
 			JOptionPane.showMessageDialog(null, "Categoria creada", "Categoria creada", JOptionPane.INFORMATION_MESSAGE);
 		}

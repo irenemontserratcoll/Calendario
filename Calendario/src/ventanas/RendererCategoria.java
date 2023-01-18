@@ -71,9 +71,11 @@ public class RendererCategoria extends JCheckBox implements ListCellRenderer<Cat
 		@SuppressWarnings("unchecked")
 		JList<Categoria> list = (JList<Categoria>) e.getSource();
 		int index = list.locationToIndex(e.getPoint());
-		Categoria c = list.getModel().getElementAt(index);
-		c.setActiva(!c.isActiva());
-		list.repaint();
+		if ( index != 0) {
+			Categoria c = list.getModel().getElementAt(index);
+			c.setActiva(!c.isActiva());
+			list.repaint();
+		}
 		ventanaPrincipal.actualizarTabla();
 	}
 }

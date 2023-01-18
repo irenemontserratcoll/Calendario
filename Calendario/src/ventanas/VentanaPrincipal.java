@@ -217,6 +217,7 @@ public class VentanaPrincipal extends JFrame {
 //Apartado lista de categorias
 		
 		DefaultListModel<Categoria> modeloCategorias = new DefaultListModel<>();
+		listaCategorias = GestorBaseDatos.todasCategorias(nombreUsuario);
 		modeloCategorias.addAll(listaCategorias);
 		JList<Categoria> jListCategorias = new JList<>();
 		jListCategorias.setModel(modeloCategorias);
